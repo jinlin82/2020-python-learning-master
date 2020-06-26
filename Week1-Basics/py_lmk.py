@@ -26,13 +26,15 @@ sin(0)
 import pkgutil
 import numpy
 
-for importer, modname, ispkg in pkgutil.iter_modules (numpy.__path__, prefix="numpy."):
+for importer, modname, ispkg in pkgutil.iter_modules(numpy.__path__, prefix="numpy."):
     print(modname)
 
+# class
 class Point:
     """Represents a point in 2-D space."""
 Point()
 
+# object
 >>> Point
 <class '__main__.Point'>
 
@@ -40,12 +42,14 @@ Point()
 >>> blank
 <__main__.Point object at 0xb7e9d3ac>
 
+# attributes
+>>> blank.x = 3.0
+>>> blank.y = 4.0
 >>> blank.y
-4.0
 >>> x = blank.x
 >>> x
-3.0
 
+# methods
 a=[1,2,3]
 import numpy as np
 a=np.array(a)
