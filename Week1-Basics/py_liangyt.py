@@ -1,6 +1,7 @@
 ## 网盘视频 代码
 
 3+2
+
 import matplotlib.pyplot
 import math 
 
@@ -46,7 +47,7 @@ else:
 
 # for Statements
 words = ["cat",'window','defenestrate']
-for w in words:
+for w in words:       #表示w依次表示words里的各元素
     print(w,len(w))
 
 # Defining Functions Examples ???
@@ -56,9 +57,9 @@ def fib(n):
           print a,
           a, b = b, a+b
 
-# set examples
+# set examples 
 basket = ['apple','orange','apple','pear','orange','banana']
-fruit = set(basket)
+fruit = set(basket) #整理出样品数
 fruit
 set(['orange','pear','apple','banana'])
 'orange' in fruit
@@ -77,7 +78,7 @@ a ^ b  # letters in a or b but not both
 tel = {'jack': 4098, 'sape': 4139}
 tel['guido'] = 4127
 tel
- tel['jack']
+tel['jack']
 
 del tel['sape']  #删除：del
 tel['irv'] = 4127
@@ -91,6 +92,7 @@ x[2]
 x[1:5]  #左关右开
 x[-1]   #负整数索引是从尾部开始取 
 x[2:-2]
+x[0]
 
 # 下标值超出数组长度范围，不会造成越界错误
 x[0:11]
@@ -124,11 +126,16 @@ for importer, modname, ispkg in pkgutil.iter_modules(numpy.__ path__, prefix="nu
 class Point:
      """Represents a point in 2-D space.""" 
 Point()
+Point
 
-# ???
+blank = Point()
+blank
+
+# Attributes
 blank.x = 3.0
 blank.y = 4.0
 blank.y
+
 x = blank.x
 x 
 
