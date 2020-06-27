@@ -55,10 +55,11 @@ range(10)
 range(1,10)
 
 def fib(n):
-  a,b=0,1
-  while a<n:
-    print (a),
-    a,b = b,a+b
+    a,b=0,1
+    while a<n:
+        print(a)
+        a,b = b,a+b
+
 
 
 basket=['apple','orange','apple','pear','orange','banbana']
@@ -122,7 +123,7 @@ import pkgutil
 import numpy
 
 for importer, modname, ispkg in pkgutil.iter_modules(numpy._path_,  prefix="numpy."):
-  print(modname)
+    print(modname)
 
 
 class Point:
