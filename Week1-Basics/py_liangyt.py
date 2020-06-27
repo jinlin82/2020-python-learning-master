@@ -52,10 +52,11 @@ for w in words:       #表示w依次表示words里的各元素
 
 # Defining Functions Examples ???
 def fib(n): 
-    a, b = 0, 1
+    a, b = 0, 1  #四个空
     while a < n:
-          print a,
-          a, b = b, a+b
+        print(a)   #八个空
+        a, b = b, a+b  
+fib(10)
 
 # set examples 
 basket = ['apple','orange','apple','pear','orange','banana']
@@ -117,14 +118,14 @@ import math
 math.sin(3)
 
 # 查看某一 package 中所有子包和子模块 ???
-import pkgutil
+import pkgutil #包已不存在
 import numpy
 for importer, modname, ispkg in pkgutil.iter_modules(numpy.__ path__, prefix="numpy."):
     print(modname) 
 
 # ???
 class Point:
-     """Represents a point in 2-D space.""" 
+    """Represents a point in 2-D space.""" 
 Point()
 Point
 
