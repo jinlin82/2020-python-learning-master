@@ -112,7 +112,7 @@ library(reticulate)
 1.  **`arange`**:
 2.  **`linspace`**:
 
-### attributes of an ndarray object
+### ndarray对象的属性
 
 1.  ndarray.ndim
 2.  ndarray.shape
@@ -121,18 +121,14 @@ library(reticulate)
 5.  ndarray.itemsize
 6.  ndarray.data
 
-## Basic Operations
+## 基本操作
 
-### Basic Operations
+### 基本操作
 
-1.  Arithmetic operators on arrays apply elementwise. A new array is
-    created and filled with the result.
-2.  The matrix product can be performed using the dot function or
-    method:
-3.  Many unary operations, such as computing the sum of all the elements
-    in the array, are implemented as methods of the ndarray class.
-4.  by specifying the axis parameter you can apply an operation along
-    the specified axis of an array(类似于 R 中的 apply 函数)
+1.  数组上的算术运算符按元素方式应用。创建一个新的数组并填充结果。
+2.  矩阵乘积可使用点函数或方法执行:
+3.  许多一元运算，比如计算数组中所有元素的总和，都是作为ndarray类的方法实现的。
+4.  通过指定轴参数，可以应用一个沿着数组的指定轴进行的操作(类似于R中的apply函数)。
 
 ### 例子
 
@@ -153,13 +149,11 @@ A.sum(axis=1)
 """END"""
 ```
 
-### Universal Functions
+### 通用函数
 
-1.  NumPy provides familiar mathematical functions such as sin, cos, and
-    exp.
-2.  In NumPy, these are called \"universal functions\"(ufunc).
-3.  Within NumPy, these functions operate elementwise on an array,
-    producing an array as output.
+1.  NumPy提供了熟悉的数学函数，如sin、cos和exp。
+2.  在NumPy中，这些函数称为\“通用函数\”(ufunc)。
+3.  在NumPy中，这些函数按元素对数组进行操作，生成一个数组作为输出。
 
 ``` {python}
 A=np.arange(12).reshape(3,4)
@@ -169,12 +163,11 @@ np.sqrt(A)
 """END"""
 ```
 
-## Indexing, Slicing and Iterating
+## 索引、切片和迭代
 
-### Indexing, Slicing and Iterating
+### 索引、切片和迭代
 
-1.  One-dimensional arrays can be indexed, sliced and iterated over,
-    much like lists and other Python sequences.
+1.  一维数组可以被索引、切片和迭代，就像列表和其他Python序列一样。
 
 ``` {python}
 x=np.arange(12)**2
@@ -187,12 +180,10 @@ x[9:2:-3]
 """END"""
 ```
 
-### Indexing, Slicing and Iterating
+### 索引、切片和迭代
 
-1.  Multidimensional arrays can have one index per axis. These
-    indices are given in a tuple separated by commas.
-2.  When fewer indices are provided than the number of axes, the missing
-    indices are considered complete slices.
+1.  多维数组每个轴可以有一个索引。这些索引以元组的形式给出，中间用逗号分隔。
+2.  当提供的索引少于轴的数量时，缺失的索引被认为是完整的片。
 
 ``` {python}
 A=np.arange(24).reshape(4,6)
@@ -205,11 +196,10 @@ A[..., 3]
 """END"""
 ```
 
-### Indexing, Slicing and Iterating
+### 索引、切片和迭代
 
-1.  The dots (...) represent as many colons as needed to produce a
-    complete indexing tuple.
-2.  For example, if x is an array with 5 axes, then
+1.  点(…)表示生成完整索引元组所需的冒号。
+2.  例如，如果x是一个有5个轴的数组，那么
 
 -   `x[1, 2, ...]` is equivalent to `x[1, 2, :, :, :]`,
 -   `x[..., 3]` to `x[:, : ,: ,:, 3]`
