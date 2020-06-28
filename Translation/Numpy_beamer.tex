@@ -1,0 +1,1461 @@
+\documentclass[ignorenonframetext,11pt,xcolor=dvipsnames,hyperref={colorlinks,allcolors=.,urlcolor=blue, citecolor=violet, bookmarksdepth=4},aspectratio=1610]{beamer}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+\newcommand\hmmax{0} %% 防止Too many math alphabets used in version normal.
+\newcommand\bmmax{0} %% 防止Too many math alphabets used in version normal.
+\usepackage{lmodern,bm}   % 必需出现在amsmath等包前面，否则会出错
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+
+%\newif\ifbibliography
+
+%%\usepackage{natbib}
+%\bibliographystyle{plainnat}
+%
+%
+\hypersetup{
+            pdftitle={Numpy 用法},
+            pdfauthor={Jin},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{caption}
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
+
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+
+\AtBeginPart{
+  \let\insertpartnumber\relax
+  \let\partname\relax
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \let\insertsectionnumber\relax
+    \let\sectionname\relax
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \let\insertsubsectionnumber\relax
+  \let\subsectionname\relax
+  \frame{\subsectionpage}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\usepackage[BoldFont,SlantFont]{xeCJK}
+
+\setCJKmainfont[BoldFont=Microsoft YaHei]{SimSun}
+\setCJKsansfont[BoldFont=Microsoft YaHei Bold]{Microsoft YaHei}
+\setCJKromanfont{SimSun}
+\setCJKmonofont{SimSun}
+
+\IfFileExists{C:/Windows/Fonts/AdobeSongStd-Light.otf}{
+  \setCJKfamilyfont{song}{AdobeSongStd-Light}}{
+  \setCJKfamilyfont{song}{SimSun.ttc}}
+
+\IfFileExists{C:/Windows/Fonts/AdobeHeitiStd-Regular.otf}{
+  \setCJKfamilyfont{hei}{AdobeHeitiStd-Regular}}{
+  \setCJKfamilyfont{hei}{SimHei.ttf}}
+
+\IfFileExists{C:/Windows/Fonts/AdobeKaitiStd-Regular.otf}{
+  \setCJKfamilyfont{kai}{AdobeKaitiStd-Regular}}{
+  \setCJKfamilyfont{kai}{SimKai.ttf}}
+
+\IfFileExists{C:/Windows/Fonts/AdobeFangsongStd-Regular.otf}{
+  \setCJKfamilyfont{fs}{AdobeFangsongStd-Regular}}{
+  \setCJKfamilyfont{fs}{SimFang.ttf}}
+
+\author[Jin]{\CJKfamily{kai}Jin \\ jinlin@zuel.edu.cn \\}
+\institute[中南财经政法大学统计与数学学院]{\normalsize\CJKfamily{kai}中南财经政法大学统计与数学学院}
+
+\date{\today}
+\date{2020年6月}
+
+
+
+
+
+\renewcommand{\contentsname}{\centerline{\textcolor{violet}{目 \ \ 录}}}    % 将Contents改为目录
+\renewcommand{\abstractname}{摘 \ \ 要}      % 将Abstract改为摘要
+\renewcommand{\refname}{参考文献}            % 将Reference改为参考文献
+\renewcommand\tablename{表}
+\renewcommand\figurename{图}
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\PassOptionsToPackage{colorlinks=true,citecolor=blue, urlcolor=blue, linkcolor=violet, bookmarksdepth=4,bookmarksopen=true,bookmarksopenlevel=2}{hyperref}
+
+\usepackage{lscape}
+\usepackage{indentfirst}
+\usepackage{textcomp}                      % provide many text symbols
+\usepackage{setspace}                      % 各种间距设置
+
+
+% ---------------------------------Table------------------------------
+\usepackage{booktabs}
+\usepackage{array}                         % 提供表格中每一列的宽度及位置支持
+\usepackage{multirow}
+\usepackage{rotating}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%\sloppy
+%\linespread{1.0}                           % 设置行距
+\setlength{\parindent}{22pt}
+%\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+
+%% 参考文献
+\usepackage{gbt7714}
+\usepackage{natbib}
+\setlength{\bibsep}{2pt}
+
+
+\usepackage[utf8]{inputenc}
+% Package fontenc omitted
+% Package fixltx2e omitted
+\usepackage{graphicx}
+% Package longtable omitted
+% Package float omitted
+% Package wrapfig omitted
+\usepackage{soul}
+% Package textcomp omitted
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+% Package hyperref omitted
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
+\usepackage{tikz}
+
+						   
+\setmonofont{Consolas} % listings 中支持 consolas 字体，必需配合上面usepackage{fontenc} 中不出现[T1]才可以
+
+\lstset{numbers=left, numberstyle=\ttfamily\tiny\color{Gray}, stepnumber=1, numbersep=8pt,
+  frame=leftline,
+  framexleftmargin=0mm,
+  rulecolor=\color{CadetBlue},
+  backgroundcolor=\color{Periwinkle!20},
+  stringstyle=\color{CadetBlue},
+  flexiblecolumns=false,
+  aboveskip=5pt,
+  belowskip=0pt,
+  language=R,
+  basicstyle=\ttfamily\footnotesize,
+  columns=flexible,
+  keepspaces=true,
+  breaklines=true,
+  extendedchars=true,
+  texcl=false,  % 必须设置为false设置为true的时候 R 代码中不能含有多个注释符号 #
+  upquote=true, % 设置 引号为竖引号，但必需配合 上面 fontenc T1 使用，fontenc T1 又不能使用 consolas，所以冲突
+  showstringspaces=false,
+  keywordstyle=\bfseries,
+  keywordstyle=\color{Purple},
+  xleftmargin=20pt,
+  xrightmargin=10pt,
+  morecomment=[s]{\#}{\#},
+  commentstyle=\color{OliveGreen!60}\scriptsize,
+  tabsize=4}
+
+\tolerance=1000
+\usetheme{default}
+\setcounter{secnumdepth}{4}
+
+\usetheme{default}
+\useinnertheme[shadow]{rounded}
+\useoutertheme{infolines}
+\usecolortheme{seahorse}
+\setbeamercolor{frametitle}{fg=Blue, bg=white}
+\setbeamercolor{titlelike}{parent=structure}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{section in toc shaded}[default][50]
+\setbeamertemplate{frametitle continuation}[from second][(续)] % 改变
+\setbeamertemplate{subsection in toc shaded}[default][20]
+\setbeamertemplate{subsection in toc}[square]
+\logo{\includegraphics[height=0.6cm,width=0.6cm]{znufelogo.jpg}}
+\setbeamercovered{transparent}
+\setCJKmainfont[BoldFont={* Bold}]{Microsoft YaHei}
+\usefonttheme[onlylarge]{structuresmallcapsserif}
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{frametitle}{\bfseries\insertframetitle\par\vskip-6pt}
+\setbeamerfont{block title}{shape=\normalfont, series=\bfseries}
+\setbeamercolor{block title}{fg=violet}
+\AtBeginSection[]
+{
+\setcounter{tocdepth}{2}
+\frame[shrink=5]{\tableofcontents[currentsection, hideothersubsections]}
+}
+\AtBeginSubsection[] % Do nothing for \subsection*
+{
+\begin{frame}<beamer>
+\frametitle{}
+\large \tableofcontents[currentsection, sectionstyle=shaded/hide, subsectionstyle=show/shaded/hide]
+\end{frame}
+}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\everydisplay{\color{blue}}
+
+
+\title{Numpy 用法}
+
+\makeatletter
+\@ifpackageloaded{subfig}{}{\usepackage{subfig}}
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\captionsetup[subfloat]{margin=0.5em}
+\AtBeginDocument{%
+\renewcommand*\figurename{Figure}
+\renewcommand*\tablename{Table}
+}
+\AtBeginDocument{%
+\renewcommand*\listfigurename{List of Figures}
+\renewcommand*\listtablename{List of Tables}
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{\textcolor{violet}{\normalfont\Large \CJKfamily{kai}大\ \ 纲 }} \textcolor{violet}{}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\begin{frame}{Facts}
+\protect\hypertarget{facts}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Initial release: As Numeric, 1995; as NumPy, 2006
+\item
+  Stable release: 1.11.2 / 3 October 2016;
+\item
+  Website: \url{http://www.numpy.org}
+\item
+  History: \url{https://en.wikipedia.org/wiki/NumPy}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{What is NumPy?}
+\protect\hypertarget{what-is-numpy}{}
+
+\begin{enumerate}
+\item
+  NumPy is the fundamental package for scientific computing in Python.
+\item
+  It is a Python library that provides a multidimensional array object,
+  various derived objects (such as masked arrays and matrices), and an
+  assortment of routines for fast operations on arrays, including
+\item
+  mathematical,
+\item
+  logical,
+\item
+  shape manipulation,
+\item
+  sorting, selecting, I/O,
+\item
+  discrete Fourier transforms, basic linear algebra,
+\item
+  basic statistical operations, random simulation and much more.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{NumPy}
+\protect\hypertarget{numpy}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  At the core of the NumPy package, is the \textbf{ndarray} object.
+\item
+  This encapsulates n-dimensional arrays of homogeneous data types, with
+  many operations being performed in compiled code for performance.
+\item
+  The points about sequence size and speed are particularly important in
+  scientific computing.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{ndarray object}
+\protect\hypertarget{ndarray-object}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Vectorization:Vectorization describes the absence of any explicit
+  looping, indexing, etc., in the code - these things are taking place,
+  of course, just ``behind the scenes'' in optimized, pre-compiled C
+  code.
+\item
+  Broadcasting:Broadcasting is the term used to describe the implicit
+  element-by-element behavior of operations.
+\item
+  NumPy fully supports an object-oriented approach with ndarray. ndarray
+  is a class, possessing numerous methods and attributes.
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{basics}{%
+\section{Basics}\label{basics}}
+
+\hypertarget{array-creation}{%
+\subsection{Array Creation}\label{array-creation}}
+
+\begin{frame}[fragile]{\passthrough{\lstinline!array!} function}
+\protect\hypertarget{array-function}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  create an array from a regular Python list or tuple using the
+  \textbf{\passthrough{\lstinline!array!}} function. The type of the
+  resulting array is deduced from the type of the elements in the
+  sequences.
+\item
+  array transforms sequences of sequences into two-dimensional arrays,
+  sequences of sequences of sequences into three-dimensional arrays, and
+  so on.
+\item
+  Often, the elements of an array are originally unknown, but its size
+  is known.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{arrays with initial placeholder content}
+\protect\hypertarget{arrays-with-initial-placeholder-content}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  The function \textbf{\passthrough{\lstinline!zeros!}} creates an array
+  full of zeros,
+\item
+  the function \textbf{\passthrough{\lstinline!ones!}} creates an array
+  full of ones,
+\item
+  the function \textbf{\passthrough{\lstinline!empty!}} creates an array
+  whose initial content is random and depends on the state of the
+  memory.
+\item
+  the function \passthrough{\lstinline!diag!} creates the diagonal
+  array,
+\item
+  the function \textbf{\passthrough{\lstinline!eye!}} or
+  \textbf{\passthrough{\lstinline!identity!}} creates an array with ones
+  on the diagonal and zeros elsewhere.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{\passthrough{\lstinline!arange!} and
+\passthrough{\lstinline!linspace!} function}
+\protect\hypertarget{arange-and-linspace-function}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  \textbf{\passthrough{\lstinline!arange!}}:
+\item
+  \textbf{\passthrough{\lstinline!linspace!}}:
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{attributes of an ndarray object}
+\protect\hypertarget{attributes-of-an-ndarray-object}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  ndarray.ndim
+\item
+  ndarray.shape
+\item
+  ndarray.size
+\item
+  ndarray.dtype
+\item
+  ndarray.itemsize
+\item
+  ndarray.data
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{basic-operations}{%
+\subsection{Basic Operations}\label{basic-operations}}
+
+\begin{frame}{Basic Operations}
+\protect\hypertarget{basic-operations-1}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Arithmetic operators on arrays apply elementwise. A new array is
+  created and filled with the result.
+\item
+  The matrix product can be performed using the dot function or method:
+\item
+  Many unary operations, such as computing the sum of all the elements
+  in the array, are implemented as methods of the ndarray class.
+\item
+  by specifying the axis parameter you can apply an operation along the
+  specified axis of an array(类似于 R 中的 apply 函数)
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{例子}
+\protect\hypertarget{section}{}
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+a=np.arange(4)
+b=np.array([2,5,8,9])
+a*b
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A=np.arange(12).reshape(3,4)
+B=np.arange(13,25).reshape(4,3)
+np.dot(A, B)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A.dot(B)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A.sum()
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A.sum(axis=0)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A.sum(axis=1)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Universal Functions}
+\protect\hypertarget{universal-functions}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  NumPy provides familiar mathematical functions such as sin, cos, and
+  exp.
+\item
+  In NumPy, these are called "universal functions"(ufunc).
+\item
+  Within NumPy, these functions operate elementwise on an array,
+  producing an array as output.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+A=np.arange(12).reshape(3,4)
+np.exp(A)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+np.sqrt(A)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\hypertarget{indexing-slicing-and-iterating}{%
+\subsection{Indexing, Slicing and
+Iterating}\label{indexing-slicing-and-iterating}}
+
+\begin{frame}[fragile]{Indexing, Slicing and Iterating}
+\protect\hypertarget{indexing-slicing-and-iterating-1}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  One-dimensional arrays can be indexed, sliced and iterated over, much
+  like lists and other Python sequences.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+x=np.arange(12)**2
+x[3]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x[2:6]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x[7:]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x[::-1]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x[9:2:-3]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Indexing, Slicing and Iterating}
+\protect\hypertarget{indexing-slicing-and-iterating-2}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Multidimensional arrays can have one index per axis. These indices are
+  given in a tuple separated by commas.
+\item
+  When fewer indices are provided than the number of axes, the missing
+  indices are considered complete slices.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+A=np.arange(24).reshape(4,6)
+A[2,3]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A[1:3, 2:4]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A[1]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A[:, 2:4]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+A[..., 3]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Indexing, Slicing and Iterating}
+\protect\hypertarget{indexing-slicing-and-iterating-3}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  The dots (\ldots) represent as many colons as needed to produce a
+  complete indexing tuple.
+\item
+  For example, if x is an array with 5 axes, then
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \passthrough{\lstinline!x[1, 2, ...]!} is equivalent to
+  \passthrough{\lstinline!x[1, 2, :, :, :]!},
+\item
+  \passthrough{\lstinline!x[..., 3]!} to
+  \passthrough{\lstinline!x[:, : ,: ,:, 3]!}
+\item
+  \passthrough{\lstinline!x[4, ..., 5, :]!} to
+  \passthrough{\lstinline!x[4, :, :, 5, :]!}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Indexing, Slicing and Iterating}
+\protect\hypertarget{indexing-slicing-and-iterating-4}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Iterating over multidimensional arrays is done with respect to the
+  first axis
+\item
+  if one wants to perform an operation on each element in the array, one
+  can use the flat attribute which is an iterator over all the elements
+  of the array
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+A=np.arange(24).reshape(4,6)
+for i in A:
+    """打印A的各行"""
+    print(i) 
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+for i in A.flat:
+    """打印A中的每个元素"""
+    print(i)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\hypertarget{shape-manipulation}{%
+\section{Shape Manipulation}\label{shape-manipulation}}
+
+\begin{frame}[fragile]{Changing the shape of an array}
+\protect\hypertarget{changing-the-shape-of-an-array}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  An array has a shape given by the number of elements along each axis
+\item
+  The shape of an array can be changed with various commands.
+\item
+  Note that the following three commands all return a modified array,
+  but do not change the original array:
+\end{enumerate}
+
+\begin{enumerate}
+\tightlist
+\item
+  \passthrough{\lstinline!ndarray.ravel(), ndarray.T, ndarry.reshape!}
+
+  \begin{enumerate}
+  \tightlist
+  \item
+    the \passthrough{\lstinline!ndarray.resize!} method modifies the
+    array itself
+  \end{enumerate}
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+import numpy as np
+a = np.floor(10 * np.random.random((3,4)))
+a.shape
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a.ravel()
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a.T
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a.reshape(2,6)
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a.resize(2,6)
+
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Stacking together different arrays}
+\protect\hypertarget{stacking-together-different-arrays}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  \passthrough{\lstinline!hstack, vstack!}
+\item
+  \passthrough{\lstinline!column\_stack, row\_stack!}
+\item
+  \passthrough{\lstinline!concatenate!}
+\item
+  \passthrough{\lstinline!c\_, r\_!}
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]{Splitting one array into several smaller ones}
+\protect\hypertarget{splitting-one-array-into-several-smaller-ones}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  \passthrough{\lstinline!hsplit!}
+\item
+  \passthrough{\lstinline!vsplit!}
+\item
+  \passthrough{\lstinline!array\_split!}
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{fancy-indexing-and-index-tricks}{%
+\section{Fancy indexing and index
+tricks}\label{fancy-indexing-and-index-tricks}}
+
+\begin{frame}[fragile]{Indexing with Arrays of Indices-1D}
+\protect\hypertarget{indexing-with-arrays-of-indices-1d}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  使用 \passthrough{\lstinline!np.array!}
+  对象作为索引下标可以取非连续元素
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+a = np.arange(12) ** 2 # the first 12 square numbers
+i = np.array( [ 1,1,3,8,5 ] ) # an array of indices
+a[i] # the elements of a at the positions i
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+np.array([ 1, 1, 9, 64, 25])
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+j = np.array( [ [ 3, 4], [ 9, 7 ] ] )
+a[j]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Indexing with Arrays of Indices-2D}
+\protect\hypertarget{indexing-with-arrays-of-indices-2d}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  We can also give indexes for more than one dimension. The arrays of
+  indices for each dimension must have the same shape.
+\item
+  Naturally, we can put i and j in a sequence (say a list) and then do
+  the indexing with the list.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+a = np.arange(12).reshape(3,4)
+i = np.array([[0,1], [1,2]])
+j = np.array([[2,1], [3,3]])
+
+a[i]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[i,j]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[i, 2]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[:,j]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+L = [i,j]
+a[L]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Indexing with Boolean Arrays}
+\protect\hypertarget{indexing-with-boolean-arrays}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  use boolean arrays that have the same shape as the original array
+\item
+  for each dimension of the array we give a 1D boolean array selecting
+  the slices we want
+\item
+  Note that the length of the 1D boolean array must coincide with the
+  length of the dimension (or axis) you want to slice.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+a = np.arange(12).reshape(3,4)
+b=a>4
+a[b]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[b]=0
+
+a = np.arange(12).reshape(3,4)
+b1 = np.array([False,True,True])
+b2 = np.array([True,False,True,False])
+a[b1,:]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[b1]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[:,b2]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+a[b1,b2]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Indexing with strings}
+\protect\hypertarget{indexing-with-strings}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Structured arrays are ndarrays whose datatype is a composition of
+  simpler datatypes organized as a sequence of named fields.
+\item
+  You can access and modify individual fields of a structured array by
+  indexing with the field name.
+\item
+  One can index and assign to a structured array with a multi-field
+  index, where the index is a list of field names.
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
+             dtype=[('name', 'U10'), ('age', 'i4'), ('weight', 'f4')])
+x['name']
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+x[['name', 'age']]
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{The ix\textsubscript{()} function}
+\protect\hypertarget{the-ix-function}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  The ix\_ function can be used to combine different vectors so as to
+  obtain the result for each n-uplet.(类似于R中的
+  \passthrough{\lstinline!expand.grid!} 函数)
+\item
+  For example, if you want to compute all the a+b*c for all the triplets
+  taken from each of the vectors a, b and c:
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+a = np.array([2,3,4,5])
+b = np.array([8,5,4])
+c = np.array([5,4,6,8,3])
+ax,bx,cx = np.ix_(a,b,c)
+
+result = ax+bx * cx
+result
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+
+\end{frame}
+
+\hypertarget{universal-functions-ufunc}{%
+\section{通用函数UNIVERSAL FUNCTIONS
+(UFUNC)}\label{universal-functions-ufunc}}
+
+\begin{frame}{简介}
+\protect\hypertarget{section-1}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  A universal function (or ufunc for short) is a function that operates
+  on ndarrays in an element-by-element fashion.
+\item
+  That is, a ufunc is a ``vectorized'' wrapper for a function that takes
+  a fixed number of specific inputs and produces a fixed number of
+  specific outputs.
+\item
+  In NumPy, universal functions are instances of the numpy.ufunc class.
+\item
+  Many of the built-in functions are implemented in compiled C code.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{常见通用函数}
+\protect\hypertarget{section-2}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  Math operations
+\item
+  Trigonometric functions
+\item
+  Floating functions
+\item
+  。。。
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{section-3}{%
+\section{统计功能}\label{section-3}}
+
+\begin{frame}{Order statistics}
+\protect\hypertarget{order-statistics}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+amin(a\(, axis, out, keepdims\)) & Return the minimum of an array or
+minimum along an axis.\tabularnewline
+amax(a\(, axis, out, keepdims\)) & Return the maximum of an array or
+maximum along an axis\tabularnewline
+nanmin(a\(, axis, out, keepdims\)) & Return minimum of an array or
+minimum along an axis, ignoring any NaNs.\tabularnewline
+nanmax(a\(, axis, out, keepdims\)) & Return the maximum of an array or
+maximum along an axis, ignoring any NaNs.\tabularnewline
+ptp(a\(, axis, out\)) & Range of values (maximum - minimum) along an
+axis.\tabularnewline
+percentile(a, q\(, axis, out, ...\)) & Compute the qth percentile of the
+data along the specified axis\tabularnewline
+nanpercentile(a, q\(, axis, out, ...\)) & Compute the qth percentile of
+the data along the specified axis, while ignoring nan
+values.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Averages and variances}
+\protect\hypertarget{averages-and-variances}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+median(a\(, axis, out, overwrite~input~, keepdims\)) & Compute the
+median along the specified axis.\tabularnewline
+average(a\(, axis, weights, returned\)) & Compute the weighted average
+along the specified axis.\tabularnewline
+mean(a\(, axis, dtype, out, keepdims\)) & Compute the arithmetic mean
+along the specified axis.\tabularnewline
+std(a\(, axis, dtype, out, ddof, keepdims\)) & Compute the standard
+deviation along the specified axis.\tabularnewline
+var(a\(, axis, dtype, out, ddof, keepdims\)) & Compute the variance
+along the specified axis.\tabularnewline
+nanmedian(a\(, axis, out, overwrite~input~, ...\)) & Compute the median
+along the specified axis, while ignoring NaNs.\tabularnewline
+nanmean(a\(, axis, dtype, out, keepdims\)) & Compute the arithmetic mean
+along the specified axis, ignoring NaNs.\tabularnewline
+nanstd(a\(, axis, dtype, out, ddof, keepdims\)) & Compute the standard
+deviation along the specified axis,while ignoring NaNs.\tabularnewline
+nanvar(a\(, axis, dtype, out, ddof, keepdims\)) & Compute the variance
+along the specified axis, while ignoring NaNs.\tabularnewline
+\bottomrule
+\end{longtable}
+
+注：几何平均数，调和平均数函数在scipy中
+
+\end{frame}
+
+\begin{frame}{Correlating}
+\protect\hypertarget{correlating}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+corrcoef(x\(, y, rowvar, bias, ddof\)) & Return Pearson product-moment
+correlation coefficients.\tabularnewline
+correlate(a, v\(, mode\)) & Cross-correlation of two 1-dimensional
+sequences.\tabularnewline
+cov(m\(, y, rowvar, bias, ddof, fweights, ...\)) & Estimate a covariance
+matrix, given data and weights.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Histograms}
+\protect\hypertarget{histograms}{}
+
+\end{frame}
+
+\hypertarget{linear-algebra-numpy.linalg}{%
+\section{Linear algebra
+(numpy.linalg)}\label{linear-algebra-numpy.linalg}}
+
+\begin{frame}{常见矩阵运算- Matrix and vector products}
+\protect\hypertarget{matrix-and-vector-products}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+dot(a, b) & Dot product of two arrays.\tabularnewline
+vdot(a, b) & Return the dot product of two vectors.\tabularnewline
+inner(a, b) & Inner product of two arrays.\tabularnewline
+outer(a, b) & Compute the outer product of two vectors.\tabularnewline
+linalg.matrix\textsubscript{power}(M, n) & Raise a square matrix to the
+(integer) power n.\tabularnewline
+kron(a, b) & Kronecker product of two arrays.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{常见矩阵运算- Decompositions}
+\protect\hypertarget{decompositions}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+linalg.cholesky(a) & Cholesky decomposition.\tabularnewline
+linalg.qr(a) & Compute the qr factorization of a matrix.\tabularnewline
+linalg.svd(a) & Singular Value Decomposition.\tabularnewline
+linalg.eig(a) & Compute the eigenvalues and right eigenvectors of a
+square array.\tabularnewline
+scipy.linalg.lu(a) & Compute pivoted LU decompostion of a
+matrix.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{常见矩阵运算- Norms and other numbers}
+\protect\hypertarget{norms-and-other-numbers}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+linalg.norm(x) & Matrix or vector norm.\tabularnewline
+linalg.cond(x) & Compute the condition number of a
+matrix.\tabularnewline
+linalg.det(a) & Compute the determinant of an array.\tabularnewline
+linalg.matrix\textsubscript{rank}(M) & Return matrix rank of array using
+SVD method\tabularnewline
+trace(a) & Return the sum along diagonals of the array.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{常见矩阵运算- Solving equations and inverting matrices}
+\protect\hypertarget{solving-equations-and-inverting-matrices}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+linalg.solve(a, b) & Solve a linear matrix equation, or system of linear
+scalar equations.\tabularnewline
+linalg.tensorsolve(a, b) & Solve the tensor equation a x = b for
+x.\tabularnewline
+linalg.lstsq(a, b) & Return the least-squares solution to a linear
+matrix equation.\tabularnewline
+linalg.inv(a) & Compute the (multiplicative) inverse of a
+matrix.\tabularnewline
+linalg.pinv(a) & Compute the (Moore-Penrose) pseudo-inverse of a
+matrix.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\hypertarget{random-sampling-numpy.random}{%
+\section{Random sampling
+(numpy.random)}\label{random-sampling-numpy.random}}
+
+\begin{frame}[fragile]{简介}
+\protect\hypertarget{section-4}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  下面这些函数主要用于随机抽样和生成随机数字，关于概率，分位点等计算见
+  \passthrough{\lstinline!scipy.stats!} 模块
+\item
+  下面函数都以 \passthrough{\lstinline!np.random.!} 开始
+\item
+  有很多功能相同名字不同的函数
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Simple random data}
+\protect\hypertarget{simple-random-data}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+rand(d0, d1, \ldots, dn) & Random values in a given
+shape.\tabularnewline
+randn(d0, d1, \ldots, dn) & Return a sample (or samples) from the
+``standard normal'' distribution.\tabularnewline
+randint(low\(, high, size, dtype\)) & Return random integers from low
+(inclusive) to high (exclusive).\tabularnewline
+random\textsubscript{integers}(low\(, high, size\)) & Random integers of
+type np.int between low and high, inclusive.\tabularnewline
+random\textsubscript{sample}(\(size\)) & Return random floats in the
+half-open interval {[}0.0, 1.0).\tabularnewline
+random(\(size\)) & Return random floats in the half-open interval
+{[}0.0, 1.0).\tabularnewline
+ranf(\(size\)) & Return random floats in the half-open interval {[}0.0,
+1.0).\tabularnewline
+sample(\(size\)) & Return random floats in the half-open interval
+{[}0.0, 1.0).\tabularnewline
+choice(a\(, size, replace, p\)) & Generates a random sample from a given
+1-D array\tabularnewline
+bytes(length) & Return random bytes.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Permutations}
+\protect\hypertarget{permutations}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+shuffle(x) & Modify a sequence in-place by shuffling its
+contents.\tabularnewline
+permutation(x) & Randomly permute a sequence, or return a permuted
+range.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Distribution}
+\protect\hypertarget{distribution}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+beta(a, b\(, size\)) & Draw samples from a Beta
+distribution.\tabularnewline
+binomial(n, p\(, size\)) & Draw samples from a binomial
+distribution.\tabularnewline
+chisquare(df\(, size\)) & Draw samples from a chi-square
+distribution.\tabularnewline
+dirichlet(alpha\(, size\)) & Draw samples from the Dirichlet
+distribution.\tabularnewline
+exponential(\(scale, size\)) & Draw samples from an exponential
+distribution.\tabularnewline
+f(dfnum, dfden\(, size\)) & Draw samples from an F
+distribution.\tabularnewline
+gamma(shape\(, scale, size\)) & Draw samples from a Gamma
+distribution.\tabularnewline
+geometric(p\(, size\)) & Draw samples from the geometric
+distribution.\tabularnewline
+gumbel(\(loc, scale, size\)) & Draw samples from a Gumbel
+distribution.\tabularnewline
+hypergeometric(ngood, nbad, nsample\(, size\)) & Draw samples from a
+Hypergeometric distribution.\tabularnewline
+laplace(\(loc, scale, size\)) & Draw samples from the Laplace or double
+exponential distribution with specified location (or mean) and scale
+(decay).\tabularnewline
+logistic(\(loc, scale, size\)) & Draw samples from a logistic
+distribution.\tabularnewline
+lognormal(\(mean, sigma, size\)) & Draw samples from a log-normal
+distribution.\tabularnewline
+logseries(p\(, size\)) & Draw samples from a logarithmic series
+distribution.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Distributions}
+\protect\hypertarget{distributions}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+multivariate\textsubscript{normal}(mean, cov\(, size, ...\)) & Draw
+random samples from a multivariate normal distribution.\tabularnewline
+negative\textsubscript{binomial}(n, p\(, size\)) & Draw samples from a
+negative binomial distribution.\tabularnewline
+noncentral\textsubscript{chisquare}(df, nonc\(, size\)) & Draw samples
+from a noncentral chi-square distribution.\tabularnewline
+noncentral\textsubscript{f}(dfnum, dfden, nonc\(, size\)) & Draw samples
+from the noncentral F distribution.\tabularnewline
+normal(\(loc, scale, size\)) & Draw random samples from a normal
+(Gaussian) distribution.\tabularnewline
+pareto(a\(, size\)) & Draw samples from a Pareto II or Lomax
+distribution with specified shape.\tabularnewline
+poisson(\(lam, size\)) & Draw samples from a Poisson
+distribution.\tabularnewline
+power(a\(, size\)) & Draws samples in \(0, 1\) from a power distribution
+with positive exponent a - 1.\tabularnewline
+rayleigh(\(scale, size\)) & Draw samples from a Rayleigh
+distribution.\tabularnewline
+standard\textsubscript{cauchy}(\(size\)) & Draw samples from a standard
+Cauchy distribution with mode = 0.\tabularnewline
+standard\textsubscript{exponential}(\(size\)) & Draw samples from the
+standard exponential distribution.\tabularnewline
+standard\textsubscript{gamma}(shape\(, size\)) & Draw samples from a
+standard Gamma distribution.\tabularnewline
+standard\textsubscript{normal}(\(size\)) & Draw samples from a standard
+Normal distribution (mean=0, stdev=1).\tabularnewline
+standard\textsubscript{t}(df\(, size\)) & Draw samples from a standard
+Student's t distribution with df degrees of freedom.\tabularnewline
+triangular(left, mode, right\(, size\)) & Draw samples from the
+triangular distribution over the interval
+\(left, right\).\tabularnewline
+uniform(\(low, high, size\)) & Draw samples from a uniform
+distribution.\tabularnewline
+vonmises(mu, kappa\(, size\)) & Draw samples from a von Mises
+distribution.\tabularnewline
+wald(mean, scale\(, size\)) & Draw samples from a Wald, or inverse
+Gaussian, distribution.\tabularnewline
+weibull(a\(, size\)) & Draw samples from a Weibull
+distribution.\tabularnewline
+zipf(a\(, size\)) & Draw samples from a Zipf
+distribution.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\begin{frame}{Random generator}
+\protect\hypertarget{random-generator}{}
+
+\scriptsize
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+函数 & 功能\tabularnewline
+\midrule
+\endhead
+RandomState(\(seed\)) & Container for the Mersenne Twister pseudo-random
+number generator.\tabularnewline
+seed(\(seed\)) & Seed the generator.\tabularnewline
+get\textsubscript{state}() & Return a tuple representing the internal
+state of the generator.\tabularnewline
+set\textsubscript{state}(state) & Set the internal state of the
+generator from a tuple.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\end{frame}
+
+\hypertarget{functions-and-methods-overview}{%
+\section{Functions and Methods
+Overview}\label{functions-and-methods-overview}}
+
+\begin{frame}{Functions and Methods Overview}
+\protect\hypertarget{functions-and-methods-overview-1}{}
+
+\begin{enumerate}
+\item
+  \textbf{Array Creation}:
+
+  arange, array, copy, empty, empty\textsubscript{like}, eye, fromfile,
+  fromfunction,identity, linspace, logspace, mgrid, ogrid, ones,
+  ones\textsubscript{like}, r, zeros, zeros\textsubscript{like}
+\item
+  \textbf{Conversions}:
+
+  ndarray.astype, atleast\textsubscript{1d}, atleast\textsubscript{2d},
+  atleast\textsubscript{3d}, mat
+\item
+  \textbf{Manipulations}:
+
+  array\textsubscript{split}, column\textsubscript{stack}, concatenate,
+  diagonal, dsplit, dstack, hsplit,hstack, ndarray.item, newaxis, ravel,
+  repeat, reshape, resize, squeeze, swapaxes, take, transpose, vsplit,
+  vstack
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Functions and Methods Overview}
+\protect\hypertarget{functions-and-methods-overview-2}{}
+
+\begin{enumerate}
+\item
+  \textbf{Questions}:
+
+  all, any, nonzero, where
+\item
+  \textbf{Ordering}:
+
+  argmax, argmin, argsort, max, min, ptp, searchsorted, sort
+\item
+  \textbf{Operations}:
+
+  choose, compress, cumprod, cumsum, inner, ndarray.fill, imag, prod,
+  put, putmask,real, sum
+\item
+  \textbf{Basic Statistics}:
+
+  cov, mean, std, var
+\item
+  \textbf{Basic Linear Algebra}:
+
+  cross, dot, outer, linalg.svd, vdot
+\end{enumerate}
+
+\end{frame}
+
+\hypertarget{other-subpackages}{%
+\section{Other Subpackages}\label{other-subpackages}}
+
+\begin{frame}{Numpy中的其他常用模块}
+\protect\hypertarget{numpy-1}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  String operations
+\item
+  Datetime Support Functions
+\item
+  Discrete Fourier Transform (numpy.fft)
+\item
+  Financial functions
+\item
+  Functional programming
+\item
+  Logic functions
+\item
+  Mathematical functions
+\item
+  Matrix library (numpy.matlib)
+\item
+  numpy.polynomial package
+\item
+  具体用法和更多模块可以参考 Numpy reference\[numpy-ref.pdf\]中的
+  Routines 内容
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+\end{document}
+
+
