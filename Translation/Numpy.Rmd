@@ -559,10 +559,10 @@ result
 
   函数                    功能
   ----------------------- --------------------------------------------------------------------
-  RandomState(\[seed\])   Mersenne Twister伪随机数生成器的容器。
+  RandomState(\[seed\])   Mersenne Twister伪随机数生成器的容器
   seed(\[seed\])          种子生成器
-  get~state~()            返回表示生成器内部状态的元组。
-  set~state~(state)       从元组设置生成器的内部状态。
+  get~state~()            返回表示生成器内部状态的元组
+  set~state~(state)       从元组设置生成器的内部状态
 
 # 函数和方法概述
 
