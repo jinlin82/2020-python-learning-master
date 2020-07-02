@@ -227,19 +227,18 @@ for i in A.flat:
 """END"""
 ```
 
-# Shape Manipulation
+# 形状操作
 
-### Changing the shape of an array
+### 改变数组的形状
 
-1.  An array has a shape given by the number of elements along each axis
-2.  The shape of an array can be changed with various commands.
-3.  Note that the following three commands all return a modified array,
-    but do not change the original array:
+1.  数组的形状由每个轴上元素的数目决定
+2.  数组的形状可以通过多种命令进行改变
+3.  要注意的是以下三种命令都返回一个调整过的数组，但并不改变原始数组：
 
 <!-- -->
 
 1.  `ndarray.ravel(), ndarray.T, ndarry.reshape`
-    1.  the `ndarray.resize` method modifies the array itself
+    1.  `ndarray.resize` 方法调整的是数组本身
 
 ``` {python}
 import numpy as np
@@ -256,22 +255,22 @@ a.resize(2,6)
 """END"""
 ```
 
-### Stacking together different arrays
+### 将不同数组堆叠在一起
 
 1.  `hstack, vstack`
 2.  `column_stack, row_stack`
 3.  `concatenate`
 4.  `c_, r_`
 
-### Splitting one array into several smaller ones
+### 将一个数组拆分为几个较小的数组
 
 1.  `hsplit`
 2.  `vsplit`
 3.  `array_split`
 
-# Fancy indexing and index tricks
+# 奇妙的索引和索引技巧
 
-### Indexing with Arrays of Indices-1D
+### 用一维索引数组进行索引
 
 1.  使用 `np.array` 对象作为索引下标可以取非连续元素
 
@@ -289,12 +288,10 @@ a[j]
 """END"""
 ```
 
-### Indexing with Arrays of Indices-2D
+### 用二维索引数组进行索引
 
-1.  We can also give indexes for more than one dimension. The
-    arrays of indices for each dimension must have the same shape.
-2.  Naturally, we can put i and j in a sequence (say a list) and then do
-    the indexing with the list.
+1.  我们也可以给出多维索引。每个维度的索引数组必须具有相同的形状。
+2.  当然，我们也可以将i和j放入一个序列（比如一个列表）中，然后使用列表进行索引。
 
 ``` {python}
 a = np.arange(12).reshape(3,4)
@@ -312,13 +309,11 @@ a[L]
 """END"""
 ```
 
-### Indexing with Boolean Arrays
+### 用布尔数组进行索引
 
-1.  use boolean arrays that have the same shape as the original array
-2.  for each dimension of the array we give a 1D boolean array selecting
-    the slices we want
-3.  Note that the length of the 1D boolean array must coincide with the
-    length of the dimension (or axis) you want to slice.
+1.  使用与原始数组具有相同形状的布尔数组
+2.  对数组的每个维度，我们给出一个一维布尔数组，以选择我们想要的切片
+3.  要注意的是，一维布尔数组的长度须与你想要的切片的维度（或轴）的长度一致。
 
 ``` {python}
 a = np.arange(12).reshape(3,4)
@@ -337,14 +332,11 @@ a[b1,b2]
 """END"""
 ```
 
-### Indexing with strings
+### 用字符串进行索引
 
-1.  Structured arrays are ndarrays whose datatype is a composition of
-    simpler datatypes organized as a sequence of named fields.
-2.  You can access and modify individual fields of a structured array by
-    indexing with the field name.
-3.  One can index and assign to a structured array with a multi-field
-    index, where the index is a list of field names.
+1.  结构化数组是ndarray，其数据类型是由命名字段的序列组织成的简单数据类型的组合。
+2.  你可以通过字段名进行索引，来获取和修改结构化数组的单个字段。
+3.  可以使用多字段索引来对结构化数组进行索引和赋值，其中的索引是字段名的一个列表。
 
 ``` {python}
 x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)],
@@ -355,12 +347,10 @@ x[['name', 'age']]
 """END"""
 ```
 
-### The ix~()~ function
+### ix~()~ 函数
 
-1.  The ix\_ function can be used to combine different vectors so as to
-    obtain the result for each n-uplet.(类似于R中的 `expand.grid` 函数)
-2.  For example, if you want to compute all the a+b\*c for all the
-    triplets taken from each of the vectors a, b and c:
+1.  ix\_ 函数可用于组合不同的向量，以获得每个n耦合的结果。(类似于R中的 `expand.grid` 函数)
+2.  例如，如果你想要计算从向量a, b和c中提取的所有三元组的a+b\*c：
 
 ``` {python}
 a = np.array([2,3,4,5])
