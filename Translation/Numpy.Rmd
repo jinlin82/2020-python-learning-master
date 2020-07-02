@@ -368,112 +368,108 @@ result
 
 ### 简介
 
-1.  A universal function (or ufunc for short) is a function that
-    operates on ndarrays in an element-by-element fashion.
-2.  That is, a ufunc is a "vectorized" wrapper for a function that takes
-    a fixed number of specific inputs and produces a fixed number of
-    specific outputs.
-3.  In NumPy, universal functions are instances of the numpy.ufunc
-    class.
-4.  Many of the built-in functions are implemented in compiled C code.
+1.  通用函数（简称为ufunc）是一种ndarrays 以逐元素方式操作的函数；
+2.  也就是说，ufunc是一个函数的“矢量化”包装器，它接受固定数量的特定输入并产生固定数量的特定输出；
+3.  在Numpy中，通用函数是numpy.ufunc类的实例；
+4.  许多内置函数都是在编译的C代码中实现的。
 
 ### 常见通用函数
 
-1.  Math operations
-2.  Trigonometric functions
-3.  Floating functions
+1.  数学运算
+2.  三角函数
+3.  浮动函数
 4.  。。。
 
 # 统计功能
 
-### Order statistics
+### 顺序统计量
 
   函数                                      功能
   ----------------------------------------- ---------------------------------------------------------------------------------------------
-  amin(a\[, axis, out, keepdims\])          Return the minimum of an array or minimum along an axis.
-  amax(a\[, axis, out, keepdims\])          Return the maximum of an array or maximum along an axis
-  nanmin(a\[, axis, out, keepdims\])        Return minimum of an array or minimum along an axis, ignoring any NaNs.
-  nanmax(a\[, axis, out, keepdims\])        Return the maximum of an array or maximum along an axis, ignoring any NaNs.
-  ptp(a\[, axis, out\])                     Range of values (maximum - minimum) along an axis.
-  percentile(a, q\[, axis, out, ...\])      Compute the qth percentile of the data along the specified axis
-  nanpercentile(a, q\[, axis, out, ...\])   Compute the qth percentile of the data along the specified axis, while ignoring nan values.
+  amin(a\[, axis, out, keepdims\])          返回数组或沿着某轴方向上元素的最小值
+  amax(a\[, axis, out, keepdims\])          返回数组或沿着某轴方向上元素的最大值
+  nanmin(a\[, axis, out, keepdims\])        返回数组或沿着某轴方向上元素的最小值，忽略NAN
+  nanmax(a\[, axis, out, keepdims\])        返回数组或沿着某轴方向上元素的最小值，忽略NAN
+  ptp(a\[, axis, out\])                     沿着某轴方向上元素的取值范围（最大值-最小值）
+  percentile(a, q\[, axis, out, ...\])      计算沿指定轴的数据的第q个百分位数
+  nanpercentile(a, q\[, axis, out, ...\])   计算沿指定轴的数据的第q个百分位数，同时忽略NAN值
 
-### Averages and variances
+### 平均数和方差
 
   函数                                                   功能
   ------------------------------------------------------ ------------------------------------------------------------------------------
-  median(a\[, axis, out, overwrite~input~, keepdims\])   Compute the median along the specified axis.
-  average(a\[, axis, weights, returned\])                Compute the weighted average along the specified axis.
-  mean(a\[, axis, dtype, out, keepdims\])                Compute the arithmetic mean along the specified axis.
-  std(a\[, axis, dtype, out, ddof, keepdims\])           Compute the standard deviation along the specified axis.
-  var(a\[, axis, dtype, out, ddof, keepdims\])           Compute the variance along the specified axis.
-  nanmedian(a\[, axis, out, overwrite~input~, ...\])     Compute the median along the specified axis, while ignoring NaNs.
-  nanmean(a\[, axis, dtype, out, keepdims\])             Compute the arithmetic mean along the specified axis, ignoring NaNs.
-  nanstd(a\[, axis, dtype, out, ddof, keepdims\])        Compute the standard deviation along the specified axis,while ignoring NaNs.
-  nanvar(a\[, axis, dtype, out, ddof, keepdims\])        Compute the variance along the specified axis, while ignoring NaNs.
+  median(a\[, axis, out, overwrite~input~, keepdims\])   计算沿指定轴的中位数
+  average(a\[, axis, weights, returned\])                计算沿指定轴的加权平均数
+  mean(a\[, axis, dtype, out, keepdims\])                计算沿指定轴的算术平均数
+  std(a\[, axis, dtype, out, ddof, keepdims\])           计算沿指定轴的标准差
+  var(a\[, axis, dtype, out, ddof, keepdims\])           计算沿指定轴的方差
+  nanmedian(a\[, axis, out, overwrite~input~, ...\])     计算沿指定轴的中位数，同时忽略NaN
+  nanmean(a\[, axis, dtype, out, keepdims\])             计算沿指定轴的算术平均数，同时忽略NaN
+  nanstd(a\[, axis, dtype, out, ddof, keepdims\])        计算沿指定轴的标准差，同时忽略NaN
+  nanvar(a\[, axis, dtype, out, ddof, keepdims\])        计算沿指定轴的方差，同时忽略NaN
 
 注：几何平均数，调和平均数函数在scipy中
 
-### Correlating
+### 相关性
 
   函数                                               功能
   -------------------------------------------------- ---------------------------------------------------------
-  corrcoef(x\[, y, rowvar, bias, ddof\])             Return Pearson product-moment correlation coefficients.
-  correlate(a, v\[, mode\])                          Cross-correlation of two 1-dimensional sequences.
-  cov(m\[, y, rowvar, bias, ddof, fweights, ...\])   Estimate a covariance matrix, given data and weights.
+  corrcoef(x\[, y, rowvar, bias, ddof\])             返回皮尔逊乘积矩相关系数
+  correlate(a, v\[, mode\])                          两个一维序列的相关关系
+  cov(m\[, y, rowvar, bias, ddof, fweights, ...\])   根据已知数据和权重，求协方差矩阵
 
-### Histograms
+### 直方图
 
-# Linear algebra (numpy.linalg)
+# 线性代数 (numpy.linalg)
 
-### 常见矩阵运算- Matrix and vector products
+### 常见矩阵运算- 矩阵与向量积
 
 \scriptsize
 
   函数                         功能
   ---------------------------- -------------------------------------------------
-  dot(a, b)                    Dot product of two arrays.
-  vdot(a, b)                   Return the dot product of two vectors.
-  inner(a, b)                  Inner product of two arrays.
-  outer(a, b)                  Compute the outer product of two vectors.
-  linalg.matrix~power~(M, n)   Raise a square matrix to the (integer) power n.
-  kron(a, b)                   Kronecker product of two arrays.
+  dot(a, b)                    两个数组的点积
+  vdot(a, b)                   两个向量的点积
+  inner(a, b)                  两个数组的内积
+  outer(a, b)                  两个向量的外积
+  linalg.matrix~power~(M, n)   将一个方阵转化到（整数）次方（矩阵乘幂）
+  kron(a, b)                   两个矩阵的Kronecker积
 
-### 常见矩阵运算- Decompositions
+### 常见矩阵运算- 矩阵分解
 
 \scriptsize
 
   函数                 功能
   -------------------- -------------------------------------------------------------------
-  linalg.cholesky(a)   Cholesky decomposition.
-  linalg.qr(a)         Compute the qr factorization of a matrix.
-  linalg.svd(a)        Singular Value Decomposition.
-  linalg.eig(a)        Compute the eigenvalues and right eigenvectors of a square array.
-  scipy.linalg.lu(a)   Compute pivoted LU decompostion of a matrix.
+  linalg.cholesky(a)   求Cholesky分解
+  linalg.qr(a)         计算矩阵的qr分解
+  linalg.svd(a)        奇异值分解
+  linalg.eig(a)        计算方阵的特征值和特征向量
+  scipy.linalg.lu(a)   计算矩阵的LU分解
 
-### 常见矩阵运算- Norms and other numbers
+### 常见矩阵运算- 范数等
 
 \scriptsize
 
   函数                     功能
   ------------------------ ----------------------------------------------
-  linalg.norm(x)           Matrix or vector norm.
-  linalg.cond(x)           Compute the condition number of a matrix.
-  linalg.det(a)            Compute the determinant of an array.
-  linalg.matrix~rank~(M)   Return matrix rank of array using SVD method
-  trace(a)                 Return the sum along diagonals of the array.
+  linalg.norm(x)           求矩阵或向量的范数
+  linalg.cond(x)           计算矩阵的条件数
+  linalg.det(a)            计算一个数组的行列式的值
+  linalg.matrix~rank~(M)   使用SVD法（奇异值分解）求矩阵的秩
+  trace(a)                 求矩阵的迹（对角线元素之和）
 
-### 常见矩阵运算- Solving equations and inverting matrices
+### 常见矩阵运算- 解线性方程组与逆矩阵
 
 \scriptsize
 
   函数                       功能
   -------------------------- -----------------------------------------------------------------------
-  linalg.solve(a, b)         Solve a linear matrix equation, or system of linear scalar equations.
-  linalg.tensorsolve(a, b)   Solve the tensor equation a x = b for x.
-  linalg.lstsq(a, b)         Return the least-squares solution to a linear matrix equation.
-  linalg.inv(a)              Compute the (multiplicative) inverse of a matrix.
-  linalg.pinv(a)             Compute the (Moore-Penrose) pseudo-inverse of a matrix.
+  linalg.solve(a, b)         求解线性矩阵方程或线性标量方程组
+  linalg.tensorsolve(a, b)   求解张量方程Ax=b中的x
+  linalg.lstsq(a, b)         求解线性矩阵方程的最小二乘解
+  linalg.inv(a)              计算矩阵的（乘法）逆矩阵
+  linalg.pinv(a)             计算矩阵的（Moore-Penrose）伪逆
 
 # Random sampling (numpy.random)
 
