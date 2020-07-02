@@ -1,13 +1,56 @@
 ## 作业内容 ##
-##  1. 分别创建一个列表,元组，字典，并提取其子集
+
+## 1. 分别创建一个列表,元组，字典，并提取其子集 
+
+list=[1,2,3,4]   #列表
+list[1:3]
+
+tuple=(1,2,3,4)    #元组
+tuple[1:3]
+
+dict={'A':11,'B':22,'C':33}   #字典
+dict['A']
+
 
 ##  2. 利用 numpy 生成一个一维数组和二维数组
 
+import numpy as np 
+x=np.array([1,2,3,4]);x              #一维数组
+y=np.array([[1,2],[3,4],[5,6]]);y    #二维数组
+
+
 ##  3. 0-100之间生成等步长的201个数；把列表 [1,4,9] 重复10遍
+
+import numpy as np 
+np.linspace(0,100,num=201)
+
+a=[1,4,9]
+A=a*10;A
+
 
 ##  4. 随机生成8乘以20的整数array，并得到其转置数组，对其转置数组提取前10行，第2,5,8列数据
 
+import numpy as np 
+r=np.random.randint(1,100,size=160)
+R=r.reshape((8,20),order='c');R
+
+RT=R.T;RT     #转置
+
+import pandas as pd
+rt1=RT[:10,1]  #第2列数据
+rt2=RT[:10,4]  #第5列数据
+rt3=RT[:10,7]  #第8列数据
+rt_1=pd.Series(rt1)
+rt_2=pd.Series(rt2)
+rt_3=pd.Series(rt3)
+rtc=pd.concat([rt_1,rt_2,rt_3],axis=1);rtc
+
+
 ##  5. 利用pandas把data文件夹中的 数据.xls 导入，要求使用相对路径
+
+
+
+
 
 ##  6. 显示 数据.xls 数据集的结构，前5条数据，后5条数据，所有变量名，及其维度
 
