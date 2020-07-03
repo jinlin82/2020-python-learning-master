@@ -125,7 +125,6 @@ df3.dropna()
 df3.sort_index() #自小到大
 df3.sort_values(by='S3')
 
-###???数据
 #读取 csv 文件的方法
 BSdata=pd.read_csv(”../data/BSdata.csv”,encoding='utf-8')
 BSdata[6:9]
@@ -161,7 +160,7 @@ BSdata.iloc[:,2:4]  #第3、4列
 #选取样本与变量
 BSdata.loc[3]
 BSdata.loc[3:5]
-BSdata.loc[:3,['身高','体重']]
+BSdata.loc[:3,['身高','体重']]  #这里的3表示取到行名为3处，能取到
 BSdata.iloc[:3,:5]
 
 #条件选取
