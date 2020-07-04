@@ -36,7 +36,7 @@ https://github.com/jinlin82/Wang_Python_Data_Analysis
 
 ### week1：
 
-1.看材料
+1. 看材料
 
 （1）PDF文件：
 
@@ -50,7 +50,7 @@ pybasis_cn（中文）
      
 （3）看老师视频的第一章、第二章（资源在百度网盘中）
 
-2.敲代码
+2. 敲代码
 
 （1）建立py文件，把py_basis_beamer里面的代码全部都敲一遍
 
@@ -62,20 +62,27 @@ pybasis_cn（中文）
 
 # week2
 
-## Part 1
 
- 03.PDF看到P51，代码敲一遍，并看相应视频。（此代码文件可命名为practice_名字.py，与作业文件区别开）
+-  03.PDF看到P51，代码敲一遍，并看相应视频。（此代码文件可命名为practice_名字.py，与作业文件区别开）
 
-## Part 2
 
-完成作业py_hw1.org
+- 完成作业py_hw1.org
 （作业每小题需要注释，每个人在week2中建立自己的文件夹，命名为名字简写，作业代码文件名：zuoye1_名字.py）
 
-## Part 3
 
-看完numpy. pdf，并分工翻译，分工如下：
+- 看完numpy. pdf，并分工翻译，分工如下：
 P1-12   陈瑶
 P13-21 梁依婷
 P22-31 廖明可
 P32-44 谢欣悦
 P45-56 王悦
+
+# week3
+
+- 做完ipynb的1-13
+
+- 做100_Numpy_exercise_with_hint. rmd
+
+- 看scipy. pdf（翻译分工：王悦P1-14；谢欣悦P15-31），对应视频为16，17。并做scipy_exercise. rmd。
+
+- 看视频作业讲解
