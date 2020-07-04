@@ -194,13 +194,11 @@ A[..., 3]
 -   `x[..., 3]` to `x[:, : ,: ,:, 3]`
 -   `x[4, ..., 5, :]` to `x[4, :, :, 5, :]`
 
-### Indexing, Slicing and Iterating
+### 索引、切片和迭代
 
-1.  Iterating over multidimensional arrays is done with respect to
-    the first axis
-2.  if one wants to perform an operation on each element in the array,
-    one can use the flat attribute which is an iterator over all the
-    elements of the array
+1.  迭代多维数组是在第一个轴上完成的
+2.  如果想对数组中的每个元素执行操作，可以使用flat属性，它是数组中所有元素的迭代
+    器
 
 ``` {python}
 import numpy as np
