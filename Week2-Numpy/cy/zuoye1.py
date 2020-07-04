@@ -23,6 +23,8 @@ np.linspace(0,100,201)
 list2 = [1,4,9]
 list2*10
 
+#np.repeat()
+
 #4. 随机生成8乘以20的整数array，并得到其转置数组，对其转置数组提取前10行，第2,5,8列数据
 
 import numpy as np 
@@ -41,8 +43,8 @@ S = pd.concat([S2,S5,S8],axis = 1);S
 #5. 利用pandas把data文件夹中的 数据.xls 导入，要求使用相对路径
 
 import pandas as pd 
-
-workdata = pd.read_excel('../data/数据.xls');
+workdata = pd.read_excel('../data/数据.xls',0)
+#data=pd.read_excel('../data/数据.xls','Sheet1')
 
 #6. 显示 数据.xls 数据集的结构，前5条数据，后5条数据，所有变量名，及其维度
 
@@ -92,6 +94,8 @@ for i in range(len(workdata1)):
 print(SS1)
 SS1
 
+SS1 = workdata1.loc[workdata1['Year']%5==0,['Year','GDP','KR','HRsq','CPI']]
+
 ##3. 提取逢2，逢8年份的Year, GDP, KR, HRsq，CPI 变量的数据
 
 SS2 = pd.DataFrame()
@@ -101,6 +105,13 @@ for i in range(len(workdata1)):
         SS2 = pd.concat([SS2, workdata1.iloc[[i],[0,1,8,9,10]]],axis=0)
 print(SS2)
 SS2
+
+SS2 = workdata1.loc[(workdata1['Year']%10==2)|(workdata1['Year']%10==8),['Year','GDP','KR','HRsq','CPI']]
+
+###
+pd.concat([SS2, workdata1.iloc[[i]][['Year','GDP','KR','HRsq','CPI']],axis=0)
+
+workdata1.iloc[[i]][['Year','GDP','KR','HRsq','CPI']]
 
 ##4. 对2和3得到的数据集按行进行合并，并按年份进行排序  
 
