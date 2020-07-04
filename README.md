@@ -79,3 +79,13 @@ P13-21 梁依婷
 P22-31 廖明可
 P32-44 谢欣悦
 P45-56 王悦
+
+# week3
+
+- 做完ipynb的1-13
+
+- 做100_Numpy_exercise_with_hint. rmd
+
+- 看scipy. pdf（翻译分工：王悦P1-14；谢欣悦P15-31），对应视频为16，17。并做scipy_exercise. rmd。
+
+- 看视频作业讲解
