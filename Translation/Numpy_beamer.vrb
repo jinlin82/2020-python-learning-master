@@ -1,0 +1,26 @@
+\frametitle{ix\textsubscript {()} 函数}
+\protect\hypertarget{ix-}{}
+
+\begin{enumerate}
+\tightlist
+\item
+  ix\_ 函数可用于组合不同的向量，以获得每个n耦合的结果。(类似于R中的
+  \passthrough{\lstinline!expand.grid!} 函数)
+\item
+  例如，如果你想要计算从向量a, b和c中提取的所有三元组的a+b*c：
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+a = np.array([2,3,4,5])
+b = np.array([8,5,4])
+c = np.array([5,4,6,8,3])
+ax,bx,cx = np.ix_(a,b,c)
+
+result = ax+bx * cx
+result
+\end{lstlisting}
+
+\begin{lstlisting}[language=Python]
+"""END"""
+\end{lstlisting}
+

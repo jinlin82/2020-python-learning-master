@@ -36,8 +36,8 @@ s*2 ##"*" do it again
 float('nan')
 
 ##change type
-x = 8.14
-int(x[,base]) # turn x in integer
+int('123') # turn x in integer 不写base默认10进制
+int('123',8)
 float(x) # turn x into floating point
 str(x) #...into character string
 y = 8
@@ -114,7 +114,6 @@ pd.concat([S2,S3],axis = 1)
 #切片
 S1[2]
 S3[1:4]
-
 #DataFrame
 #生成数据框
 pd.DataFrame()
@@ -189,3 +188,103 @@ BSdata.iloc[:3,:5].T
 ##
 pd.concat([BSdata.身高,BSdata.体重],axis = 0) #按行合并
 pd.concat([BSdata.身高,BSdata.体重],axis = 1) #按列合并
+
+
+#numpy
+import numpy as np
+a = np.arange(4)
+b = np.array([2,5,8,9])
+a*b
+
+A = np.arange(12).reshape(3,4)
+B = np.arange(13,25).reshape(4,3)
+np.dot(A,B) #矩阵相乘，下同
+A.dot(B)
+A.sum()
+A.sum(axis = 0) #列和
+A.sum(axis = 1) #行和
+
+#function
+A = np.arange(12).reshape(3,4)
+np.exp(A)
+np.sqrt(A) #开根号
+
+x = np.arange(12)**2
+x[3]
+x[2:6]
+x[7:]
+x[::-1]
+x[9:2:-3]
+
+A = np.arange(24).reshape(4,6)
+A[2,3]
+A[1:3,2:4]
+A[1]
+A[:,2:4]
+A[...,3]
+A[:,3]
+
+import numpy as np
+A = np.arange(24).reshape(4,6)
+for i in A:
+    print(i) #输出为一个矩阵
+for i in A.flat:
+    print(i) #输出为一列
+
+#changing the shape of an array
+
+import numpy as np
+a = np.floor(10*np.random.random((3,4)))
+a.shape
+
+a.ravel() #把它变成一维
+a.T
+a.reshape(2,6)
+a.resize(2,6)
+
+#index
+
+a = np.arange(12)**2 #the first 12 square numbers
+i = np.array([1,1,3,8,5]) # an array of indices
+a[i] # the elements of a at the positions i 
+
+j = np.array([[3,4],[9,7]])
+a[j]
+
+a = np.arange(12).reshape(3,4)
+i = np.array([[0,1],[1,2]])
+j = np.array([[2,1],[3,3]])
+
+a[i] #第0、1行；第1、2行
+a[i,j] #(0,2)(1,1)(1,3)(2,3)
+a[i,2] #(0,2)(1,2)(1,2)(2,2)
+a[:,j] #每一行来选择列
+
+L = [i,j]
+a[L]
+
+a = np.arange(12).reshape(3,4)
+b = a>4
+a[b]
+a[b] = 0
+
+a = np.arange(12).reshape(3,4)
+b1 = np.array([False,True,True])
+b2 = np.array([True,False,True,False])
+a[b1,:]
+a[b1]
+a[:,b2]
+a[b1,b2] #？？？
+
+x = np.array([('Rex',9,81.0),('Fido',3,27.0)],dtype = [('name','U10'),('age','i4'),('weight','f4')])
+x['name']
+x[['name','age']]
+
+#function ???
+a = np.array([2,3,4,5])
+b = np.array([8,5,4])
+c = np.array([5,4,6,8,3])
+ax,bx,cx = np.ix_(a,b,c)
+
+result = ax+bx*cx
+result
