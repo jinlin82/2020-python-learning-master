@@ -1,3 +1,5 @@
+## 03beamer
+
 # 对象操作
 who
 x=10.12
@@ -211,3 +213,166 @@ df3.sort_index(axis=1)
 df3.sort_values(by='S3')
 score.sort_values(by=['stat','math'])
 score.sort_values(by='stat',ascending=False)
+
+import pandas as pd
+# 读取csv格式数据
+BSdata=pd.read_csv("../data/BSdata.csv", encoding='utf-8');BSdata
+BSdata[6:9]
+
+# 读取Excel格式数据
+BSdata=pd.read_excel('../data/DaPy_data.xlsx', 'BSdata');BSdata[-5:]
+
+# 从剪切板上读取
+BSdata=pd.read_clipboard()
+BSdata[:5]
+
+# pandas数据集的保存
+BSdata.to_csv('BSdata1.csv')
+
+# 显示基本信息
+BSdata.info() # 显示数据结构
+BSdata.head() # 显示数据框前5行
+BSdata.tail() # 显示数据框后5行
+BSdata.columns # 数据框列名（变量名）
+BSdata.index # 数据框行名（样品名）
+BSdata.shape # 数据框维度
+BSdata.shape[0] # 行数
+BSdata.shape[1] # 列数
+BSdata.values # 数据框值（数组）
+
+# 选取变量
+BSdata.身高 # 取一列数据，BSdata['身高']
+BSdata['身高']
+BSdata[['身高','体重']]
+BSdata.iloc[:,2]
+BSdata.iloc[:,2:4]
+
+# 选取样本与变量
+BSdata.loc[3]
+BSdata.loc[3:5]
+BSdata.loc[:3,['身高', '体重']]
+BSdata.iloc[:3,:5]
+
+# 条件选取
+BSdata[BSdata['身高']>180]
+BSdata[(BSdata['身高']>180)&(BSdata['体重']<80)]
+
+# 数据框的运算
+BSdata['体重指数']=BSdata['体重']/(BSdata['身高']/100)**2
+round(BSdata[:5],2) # 生成新的数据框
+BSdata.iloc[:3,:5].T # 数据框转置
+pd.concat([BSdata.身高, BSdata.体重], axis=0) # 按行合并
+pd.concat([BSdata.身高, BSdata.体重], axis=1) # 按列合并
+
+import numpy as np
+A=np.random.randint(0,10,size=(10,5))
+B=np.random.randint(0,10,size=(10,5))
+A=pd.DataFrame(A)
+B=pd.DataFrame(B)
+pd.concat([A,B],axis=0)
+pd.concat([A,B],axis=1)
+
+## NumPy
+
+# 基本操作
+import numpy as np
+a=np.arange(4)
+b=np.array([2,5,8,9])
+a*b
+
+A=np.arange(12).reshape(3,4);A
+B=np.arange(13,25).reshape(4,3)
+np.dot(A,B)
+A.dot(B)
+A.sum()
+A.sum(axis=0)
+A.sum(axis=1)
+
+# 通用函数
+A=np.arange(12).reshape(3,4)
+np.exp(A)
+np.sqrt(A)
+
+# 索引、切片和迭代
+x=np.arange(12)**2;x
+x[3]
+x[2:6]
+x[7:]
+x[::-1]
+x[9:2:-3]
+
+A=np.arange(24).reshape(4,6);A
+A[2,3]
+A[1:3,2:4]
+A[1]
+A[:,2:4]
+A[...,3]
+
+A=np.arange(24).reshape(4,6);A
+for i in A:
+    """打印A的各行"""
+    print(i)
+
+for i in A.flat:
+    """打印A中的每个元素"""
+    print(i)
+
+# 改变数组的形状
+import numpy as np
+a=np.floor(10*np.random.random((3,4)));a  ?
+a.shape
+
+a.ravel()
+a.T
+a.reshape(2,6)
+a.resize(2,6)
+a
+
+# 用一维索引数组进行索引
+a=np.arange(12)**2
+i=np.array([1,1,3,8,5]) # an array of indices
+a[i]
+
+j=np.array([[3,4],[9,7]])
+a[j]
+
+# 用二维索引数组进行索引
+a=np.arange(12).reshape(3,4);a
+i=np.array([[0,1],[1,2]])
+j=np.array([[2,1],[3,3]])
+
+a[i]
+a[i,j]
+a[i,2]
+a[:,j]
+
+L=[i,j]
+a[L]
+
+# 用布尔数组进行索引
+a=np.arange(12).reshape(3,4);a
+b=a>4
+a[b]
+a[b]=0                         ?
+
+a=np.arange(12).reshape(3,4);a
+b1=np.array([False,True,True])
+b2=np.array([True,False,True,False])
+a[b1,:]
+a[b1]
+a[:,b2]
+a[b1,b2]      ?
+
+# 用字符串进行索引
+x=np.array([('Rex',9,81.0),('Fido',3,27.0)],dtype=[('name','U10'),('age','i4'),('weight','f4')])
+x['name']
+x[['name','age']]
+
+# ix_()函数
+a=np.array([2,3,4,5])
+b=np.array([8,5,4])
+c=np.array([5,4,6,8,3])
+ax,bx,cx = np.ix_(a,b,c)
+
+result=ax+bx * cx
+result

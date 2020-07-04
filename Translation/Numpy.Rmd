@@ -38,10 +38,9 @@ library(reticulate)
 
 # 介绍
 
-
 ### 实际情况
 
-1.初始发行版：《数字》，1995年； 作为NumPy，2006年
+1.初始发行版： Numeric，1995年； 作为NumPy，2006年
 2.稳定版本：1.11.2 / 2016年10月3日；
 3.网站：<http://www.numpy.org>
 4.历史记录：<https://en.wikipedia.org/wiki/NumPy>
@@ -49,10 +48,9 @@ library(reticulate)
 ### 什么是NumPy?
 
 1. NumPy是Python中科学计算的基本软件包。
-2.这是一个提供多维数组的Python库对象，各种派生对象（例如蒙版数组和矩阵），以
-及用于快速操作的各种例程数组，包括
-
-
+2. 这是一个提供多维数组的Python库对象，各种派生对象（例如蒙版数组和矩阵），以及
+   用于快速操作的各种例程数组，包括
+   
 1.数值型
 2.逻辑型
 3.形状操纵，
@@ -218,21 +216,16 @@ for i in A.flat:
 
 ### 改变数组的形状
 
-1.  数组的形状由每个轴上元素的数目决定
-2.  数组的形状可以通过多种命令进行改变
-3.  要注意的是以下三种命令都返回一个调整过的数组，但并不改变原始数组：
-
-<!-- -->
-
-1.  `ndarray.ravel(), ndarray.T, ndarry.reshape`
-    1.  `ndarray.resize` 方法调整的是数组本身
+1. 数组的形状由每个轴上元素的数目决定
+2. 数组的形状可以通过多种命令进行改变
+3. 要注意的是以下三种命令都返回一个调整过的数组，但并不改变原始数组：
+   1. `ndarray.ravel(), ndarray.T, ndarry.reshape`
+4. `ndarray.resize` 方法调整的是数组本身
 
 ``` {python}
 import numpy as np
 a = np.floor(10 * np.random.random((3,4)))
 a.shape
-
-
 
 a.ravel()
 a.T
@@ -411,8 +404,6 @@ result
 
 ### 常见矩阵运算- 矩阵与向量积
 
-\scriptsize
-
   函数                         功能
   ---------------------------- -------------------------------------------------
   dot(a, b)                    两个数组的点积
@@ -424,8 +415,6 @@ result
 
 ### 常见矩阵运算- 矩阵分解
 
-\scriptsize
-
   函数                 功能
   -------------------- -------------------------------------------------------------------
   linalg.cholesky(a)   求Cholesky分解
@@ -436,8 +425,6 @@ result
 
 ### 常见矩阵运算- 范数等
 
-\scriptsize
-
   函数                     功能
   ------------------------ ----------------------------------------------
   linalg.norm(x)           求矩阵或向量的范数
@@ -447,8 +434,6 @@ result
   trace(a)                 求矩阵的迹（对角线元素之和）
 
 ### 常见矩阵运算- 解线性方程组与逆矩阵
-
-\scriptsize
 
   函数                       功能
   -------------------------- -----------------------------------------------------------------------
@@ -485,8 +470,6 @@ result
 
 ### 排列
 
-\scriptsize
-
   函数             功能
   ---------------- ----------------------------------------------------------
   shuffle(x)       通过变换序列的内容就地修改序列
@@ -498,13 +481,13 @@ result
 
   函数                                             功能
   ------------------------------------------------ -----------------------------------------------------------------------------------------------------------------------
-  beta(a, b\[, size\])                             从β分布中抽取样本
+  beta(a, b\[, size\])                             从Beta分布中抽取样本
   binomial(n, p\[, size\])                         从二项分布中抽取样本
   chisquare(df\[, size\])                          从卡方分布中抽取样本
   dirichlet(alpha\[, size\])                       从狄利克雷分布中抽取样本
   exponential(\[scale, size\])                     从指数分布中抽取样本
   f(dfnum, dfden\[, size\])                        从F分布中抽取样本
-  gamma(shape\[, scale, size\])                    从γ分布中抽取样本
+  gamma(shape\[, scale, size\])                    从Gamma分布中抽取样本
   geometric(p\[, size\])                           从几何分布中抽取样本
   gumbel(\[loc, scale, size\])                     从耿贝尔分布中抽取样本
   hypergeometric(ngood, nbad, nsample\[, size\])   从超几何分布中抽取样本
@@ -541,8 +524,6 @@ result
   zipf(a\[, size\])                                从Zipf分布中抽取样本
 
 ### 随机数发生器
-
-\scriptsize
 
   函数                    功能
   ----------------------- --------------------------------------------------------------------
@@ -607,9 +588,7 @@ result
 7.  Mathematical functions
 8.  Matrix library (numpy.matlib)
 9.  numpy.polynomial package
-10. 具体用法和更多模块可以参考 Numpy reference\[numpy-ref.pdf\]中的
-    Routines 内容
-
+10. 具体用法和更多模块可以参考 Numpy reference 中的 Routines 内容
 
 <!-- # 参考文献 -->
 [//]: # (\bibliography{Bibfile})
