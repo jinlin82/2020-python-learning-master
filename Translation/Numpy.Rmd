@@ -502,26 +502,26 @@ result
 
   函数                                             功能
   ------------------------------------------------ -----------------------------------------------------------------------------------
-  multivariate_normal(mean, cov\[, size, ...\])   从多元正态分布中抽取随机样本
-  negative_binomial(n, p\[, size\])               从负二项分布中抽取样本
-  noncentral_chisquare(df, nonc\[, size\])        从非中心卡方分布中抽取样本
-  noncentral_f(dfnum, dfden, nonc\[, size\])      从非中心F分布中抽取样本
-  normal(\[loc, scale, size\])                    从正态(高斯)分布中抽取随机样本
-  pareto(a\[, size\])                             从指定形状的Pareto II或Lomax分布中抽取样本
-  poisson(\[lam, size\])                          从泊松分布中抽取样本
-  power(a\[, size\])                              从指数为正a-1的幂分布中抽取[0,1]内的样本
-  rayleigh(\[scale, size\])                       从瑞利分布中抽取样本
-  standard_cauchy(\[size\])                       从模式为0的标准柯西分布中抽取样本
-  standard_exponential(\[size\])                  从标准指数分布中抽取样本
-  standard_gamma(shape\[, size\])                 从标准γ分布中抽取样本
-  standard_normal_(\[size\])                      从标准正态分布中抽取样本（均值为0，标准差为1）
-  standard_t(df\[, size\])                        从自由度为df的标准学生t分布中抽取样本
-  triangular(left, mode, right\[, size\])         从区间[左，右]的三角形分布中抽取样本
-  uniform(\[low, high, size\])                    从均匀分布中抽取样本
-  vonmises(mu, kappa\[, size\])                   从冯·米塞斯分布中抽取样本
-  wald(mean, scale\[, size\])                     从Wald或逆高斯分布中抽取样本
-  weibull(a\[, size\])                            从威布尔分布中抽取样本
-  zipf(a\[, size\])                               从Zipf分布中抽取样本
+  multivariate_normal(mean, cov\[, size, ...\])    从多元正态分布中抽取随机样本
+  negative_binomial(n, p\[, size\])                从负二项分布中抽取样本
+  noncentral_chisquare(df, nonc\[, size\])         从非中心卡方分布中抽取样本
+  noncentral_f(dfnum, dfden, nonc\[, size\])       从非中心F分布中抽取样本
+  normal(\[loc, scale, size\])                     从正态(高斯)分布中抽取随机样本
+  pareto(a\[, size\])                              从指定形状的Pareto II或Lomax分布中抽取样本
+  poisson(\[lam, size\])                           从泊松分布中抽取样本
+  power(a\[, size\])                               从指数为正a-1的幂分布中抽取[0,1]内的样本
+  rayleigh(\[scale, size\])                        从瑞利分布中抽取样本
+  standard_cauchy(\[size\])                        从模式为0的标准柯西分布中抽取样本
+  standard_exponential(\[size\])                   从标准指数分布中抽取样本
+  standard_gamma(shape\[, size\])                  从标准Gamma分布中抽取样本
+  standard_normal_(\[size\])                       从标准正态分布中抽取样本（均值为0，标准差为1）
+  standard_t(df\[, size\])                         从自由度为df的标准学生t分布中抽取样本
+  triangular(left, mode, right\[, size\])          从区间[左，右]的三角形分布中抽取样本
+  uniform(\[low, high, size\])                     从均匀分布中抽取样本
+  vonmises(mu, kappa\[, size\])                    从冯·米塞斯分布中抽取样本
+  wald(mean, scale\[, size\])                      从Wald或逆高斯分布中抽取样本
+  weibull(a\[, size\])                             从威布尔分布中抽取样本
+  zipf(a\[, size\])                                从Zipf分布中抽取样本
 
 ### 随机数发生器
 
