@@ -48,7 +48,9 @@ d1
   ## 2. 提取逢5，逢0年份的Year, GDP, KR, HRsq，CPI 变量的数据
   d3=d2[d2['Year']%5==0][['Year','GDP','KR','HRsq','CPI']];d3
   ## 3. 提取逢2，逢8年份的Year, GDP, KR, HRsq，CPI 变量的数据
-  d4=d2.iloc[[5,9,15,19,25,29,35,39,45,49,55]][['Year','GDP','KR','HRsq','CPI']];d4
+  data1=d2[d2['Year']%10==2][['Year','GDP','KR','HRsq','CPI']];data1
+  data2=d2[d2['Year']%10==8][['Year','GDP','KR','HRsq','CPI']];data2
+  d4=pd.concat([data1,data2],axis=0);d4
   ## 4. 对2和3得到的数据集按行进行合并，并按年份进行排序  1111 
   d5=pd.concat([d3,d4],axis=0);d5
   d6=d5.sort_values(by='Year');d6
