@@ -37,135 +37,117 @@ library(reticulate)
 
 
 
-# Introduction
+# 简介
 
-### Facts
+### 事实
 
-1.  Initial release: Around 2001
-2.  Stable release: 0.18.1 / 22 September 2016
-3.  Website: <http://www.scipy.org>
-4.  History: <http://scipy.github.io/old-wiki/pages/History_of_SciPy>
+1.  初始版本：大约在2001年
+2.  稳定版本:0.18.1 / 2016年9月22日
+3.  网站: <http://www.scipy.org>
+4.  历史: <http://scipy.github.io/old-wiki/pages/History_of_SciPy>
 
-### What is SciPy?
+### 什么是SciPy？
 
-1.  SciPy is an open source Python library used for scientific computing
-    and technical computing.
-2.  SciPy builds on the NumPy array object
-3.  and is part of the NumPy stack which includes tools like Matplotlib,
-    pandas and SymPy.
-4.  There is an expanding set of scientific computing libraries that are
-    being added to the NumPy stack every day.
-5.  The NumPy stack is also sometimes referred to as the SciPy stack.
+1.  SciPy是一个用于科学计算和技术计算的开源Python库。
+2.  SciPy构建在NumPy数组对象上
+3.  并且是NumPy堆栈的一部分，其中包括Matplotlib、pandas和SymPy等工具。
+4.  每天都有一组不断扩大的科学计算库被添加到NumPy堆栈中。
+5.  NumPy堆栈有时也称为SciPy堆栈。
 
-### What can SciPy do?
+### What can SciPy do?SciPy能做什么？
 
-1.  It adds significant power to the interactive Python session by
-    providing the user with high-level commands and classes for
-    manipulating and visualizing data.
-2.  With SciPy an interactive Python session becomes a data-processing
-    and system-prototyping environment rivaling systems such as MATLAB,
-    IDL, Octave, R-Lab, and SciLab.
-3.  The additional benefit of basing SciPy on Python is that this also
-    makes a powerful programming language available for use in
-    developing sophisticated programs and specialized applications.
-4.  Scientific applications using SciPy benefit from the development of
-    additional modules in numerous niches of the software landscape by
-    developers across the world.
-5.  Everything from parallel programming to web and data-base
-    subroutines and classes have been made available to the Python
-    programmer.
+1.  它通过向用户提供高级命令和类来操作和可视化数据，为交互式Python会话增加了强大
+    的功能。
+2.  通过使用SciPy，交互式Python会话成为与MATLAB、IDL、Octave、R-Lab和SciLab等系
+    统相竞争的数据处理和系统原型开发环境。
+3.  将SciPy基于Python的另一个好处是，它还提供了一种强大的编程语言，可用于开发复
+    杂的程序和专门的应用程序。
+4.  使用SciPy的科学应用程序可以从世界各地的开发人员在软件领域的众多细分领域中开
+    发额外的模块中获益。
+5.  Python程序员可以使用从并行编程到web和数据库子例程和类的所有东西。
 
-# Sub-packages
+# 短语
 
-### Sub-packages
+### 短语
 
-1.  constants: physical constants and conversion factors
-2.  cluster: hierarchical clustering, vector quantization, K-means
-3.  fftpack: Discrete Fourier Transform algorithms
-4.  integrate: numerical integration routines
-5.  interpolate: interpolation tools
-6.  io: data input and output
-7.  lib: Python wrappers to external libraries
-8.  linalg: linear algebra routines
-9.  misc: miscellaneous utilities (e.g. image reading/writing)
+1.  constants常数:物理常数和转换因子
+2.  cluster聚类:层次聚类，向量量化，K-means
+3.  fftpack傅里叶变换：离散傅里叶变换算法
+4.  integrate积分:数值积分例程
+5.  interpolate插入:插值工具
+6.  io:数据的输入和输出
+7.  lib:将Python包装到外部库
+8.  linalg:线性代数例程
+9.  misc杂项:杂项实用工具(例如图像读取/写入)
 
-### Sub-packages
+### 短语
 
-1.  [@10] ndimage: various functions for multi-dimensional image
-    processing
-2.  optimize: optimization algorithms including linear programming
-3.  signal: signal processing tools
-4.  sparse: sparse matrix and related algorithms
-5.  spatial: KD-trees, nearest neighbors, distance functions
-6.  special: special functions
-7.  stats: statistical functions
-8.  weave: tool for writing C/C++ code as Python multiline strings
+1.   ndimage: 多种多维图像处理功能
+2.   optimize优化:优化算法包括线性规划
+3.   signal信号:信号处理工具
+4.   sparse稀疏:稀疏矩阵及其相关算法
+5.   spatial空间:KD-树，最近的邻居，距离函数
+6.   special特殊：特殊函数
+7.   stats统计:统计函数
+8.   weave:将C/C++代码写成Python多行字符串的工具
 
-### Sub-package
+### 短语
 
-1.  Scipy sub-packages need to be imported separately, for example:\
+1.  例如，需要单独导入Scipy子包:\
     **`from scipy import stats`**
 
-# scipy.stats
+# scipy.统计
 
-### Intro
+### 前言
 
-1.  This module contains a large number of probability distributions as
-    well as a growing library of statistical functions.
-2.  Each univariate distribution is an instance of a subclass of
-    rv~continuous~ (rv~discrete~ for discrete distributions):
-
-```{=html}
-<!-- -->
-```
-1.  rv~continuous~(\[momtype, a, b, xtol, ...\]) A generic continuous
-    random variable class meant for subclassing.
-2.  rv~discrete~(\[a, b, name, badvalue, ...\]) A generic discrete
-    random variable class meant for subclassing.
-    1.  Over 80 continuous random variables (RVs) and 10 discrete random
-        variables have been implemented using these classes.
-    2.  Besides this, new routines and distributions can easily added by
-        the end user.
+1.  这个模块包含大量的概率分布以及一个不断增长的统计函数库。
+2.  每个单变量分布都是rv_continuous(离散分布的rv_discrete)的一个子类的实例:
+    1. rv_continuous([momtype, a, b, xtol, ...]) 用于子类化的一般连续随机变量
+       类。
+    2. rv_discrete([a, b, name, badvalue, ...]) 用于子类化的一般离散随机变量
+       类。
+3.  使用这些类实现了80多个连续随机变量(RVs)和10个离散随机变量。
+4.  除此之外，最终用户可以轻松地添加新的例程和发行版。 
 
 ### 常见连续分布
 
   -------------- ---------------------------------------------------------
-  beta           A beta continuous random variable.
-  cauchy         A Cauchy continuous random variable.
-  chi2           A chi-squared continuous random variable.
-  expon          An exponential continuous random variable.
-  f              An F continuous random variable.
-  gamma          A gamma continuous random variable.
-  ncf            A non-central F distribution continuous random variable
-  nct            A non-central Student's T continuous random variable
-  norm           A normal continuous random variable.
-  norminvgauss   A Normal Inverse Gaussian continuous random variable
-  pareto         A Pareto continuous random variable.
-  t              A Student's T continuous random variable.
-  uniform        A uniform continuous random variable.
+  beta           一个beta连续随机变量
+  cauchy         一个柯西连续随机变量
+  chi2           一个卡方连续随机变量
+  expon          一个指数连续随机变量
+  f              一个F连续随机变量
+  gamma          一个gamma连续随机变量
+  ncf            一个非中心F分布连续随机变量
+  nct            一个非中心学生氏t分布连续随机变量
+  norm           一个正态连续随机变量
+  norminvgauss   一个正态逆高斯连续随机变量
+  pareto         一个帕累托连续随机变量
+  t              一个学生氏t分布连续随机变量
+  uniform        一个均匀连续随机变量
   -------------- ---------------------------------------------------------
 
 ### 常见离散分布
 
   ----------- -----------------------------------------------
-  bernoulli   A Bernoulli discrete random variable.
-  binom       A binomial discrete random variable.
-  geom        A geometric discrete random variable.
-  hypergeom   A hypergeometric discrete random variable.
-  nbinom      A negative binomial discrete random variable.
-  poisson     A Poisson discrete random variable.
-  randint     A uniform discrete random variable.
+  bernoulli   一个伯努利离散随机变量
+  binom       一个二项离散随机变量
+  geom        一个几何离散随机变量
+  hypergeom   一个超几何离散随机变量
+  nbinom      一个负二项离散随机变量
+  poisson     一个泊松离散随机变量
+  randint     一个均匀离散随机变量
   ----------- -----------------------------------------------
 
 ### 常见多元分布
 
   ---------------------- ----------------------------------------
-  multivariate~normal~   A multivariate normal random variable.
-  matrix~normal~         A matrix normal random variable.
-  dirichlet              A Dirichlet random variable.
-  wishart                A Wishart random variable.
-  invwishart             An inverse Wishart random variable.
-  multinomial            A multinomial random variable.
+  multivariate_normal    一个多元正态随机变量
+  matrix_normal          一个矩阵正态随机变量
+  dirichlet              一个狄利克雷随机变量
+  wishart                一个威沙特随机变量
+  invwishart             一个逆威沙特随机变量
+  multinomial            一个多项式随机变量
   ---------------------- ----------------------------------------
 
 ### 例子：正态分布
