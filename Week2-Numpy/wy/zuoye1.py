@@ -18,7 +18,8 @@ b=np.array([[1,2],[3,4],[5,6]]) #二维数组
 # 3. 0-100之间生成等步长的201个数；把列表 [1,4,9] 重复10遍
 import numpy as np
 np.linspace(0,100,201)
-np.linspace([1,4,9,],[1,4,9],10)
+c=[1,4,9]
+c*10
 
 # 4. 随机生成8乘以20的整数array，并得到其转置数组，对其转置数组提取前10行，第2,5,8列数据
 import numpy as np
@@ -43,25 +44,33 @@ d1['HRsq']=d1['HR']**2
 d1
 
 # 8. 对 数据.xls 数据集 进行子集的提取：
+
   ## 1. 删除有缺失值的年份
   d2=d1.dropna()
+
   ## 2. 提取逢5，逢0年份的Year, GDP, KR, HRsq，CPI 变量的数据
   d3=d2[d2['Year']%5==0][['Year','GDP','KR','HRsq','CPI']];d3
+
   ## 3. 提取逢2，逢8年份的Year, GDP, KR, HRsq，CPI 变量的数据
   data1=d2[d2['Year']%10==2][['Year','GDP','KR','HRsq','CPI']];data1
   data2=d2[d2['Year']%10==8][['Year','GDP','KR','HRsq','CPI']];data2
   d4=pd.concat([data1,data2],axis=0);d4
+
   ## 4. 对2和3得到的数据集按行进行合并，并按年份进行排序  1111 
   d5=pd.concat([d3,d4],axis=0);d5
   d6=d5.sort_values(by='Year');d6
+
   ## 5. 提取1978年之后的数据
   d7=d5[d5['Year']>1978];d7
+
   ## 6. 提取1978年之后且 KR 变量在 1~1.2之间的数据
   d8=d5[(d5['Year']>1978)&(d5['KR']>1)&(d5['KR']<1.2)];d8
+
 # 9. 保存数据为csv和excel
   ## 1. 写出第8题中第4问得到的子集到data文件夹
   d6.to_csv('../data/data6.csv')
   d6.to_excel('../data/data6.xlsx')
+  
   ## 2. 写出第8题中第6问得到的子集到data文件夹
   d8.to_csv('../data/data8.csv')
   d8.to_excel('../data/data8.xlsx')
