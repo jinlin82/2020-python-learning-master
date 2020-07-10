@@ -32,6 +32,7 @@ c*10
 
 ##4. 随机生成8乘以20的整数array，并得到其转置数组，对其转置数组提取前10行，第2,5,8列数据
 import numpy as np
+np.random.seed(123)
 A=np.random.randint(1,10,[8,20])
 A.T
 A.T[0:10,[1,4,7]]
@@ -75,6 +76,10 @@ d3=data1.loc[data1['Year']%10==2,['Year','GDP','KR','HRsq','CPI']];d3
 da=data1.loc[data1['Year']%10==8,['Year','GDP','KR','HRsq','CPI']];da
 db=pd.concat([d3,da],axis=0);db
 dc=db.sort_values(by='Year');dc
+
+data1[(data1['Year']%10==2)|(data1['Year']%10==8)][['Year','GDP','KR','HRsq','CPI']]
+
+data1.loc[(data1['Year']%10==2)|(data1['Year']%10==8),['Year','GDP','KR','HRsq','CPI']]
 
 ###4. 对2和3得到的数据集按行进行合并，并按年份进行排序  1111 
 d4=pd.concat([d2,d3],axis=0);d4

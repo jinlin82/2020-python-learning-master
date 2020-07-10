@@ -241,30 +241,30 @@ ax2 = fig2.add_subplot(111)
 ax2.contourf(x, y, rv.pdf(pos))
 ```
 
-### Common Methods
+### 常用方法
 
 `\scriptsize`{=latex}
 
   --------------------------------------- ----------------------------------------------------------------------------------
-  rvs(loc=0, scale=1, size=1)             Random variates.
-  pdf(x, loc=0, scale=1)                  Probability density function.
-  logpdf(x, loc=0, scale=1)               Log of the probability density function.
-  cdf(x, loc=0, scale=1)                  Cumulative distribution function.
-  logcdf(x, loc=0, scale=1)               Log of the cumulative distributionfunction.
-  sf(x, loc=0, scale=1)                   Survival function (also defined as 1 - cdf, but sf is sometimes more accurate).
-  logsf(x, loc=0, scale=1)                Log of the survival function.
-  ppf(q, loc=0, scale=1)                  Percent point function (inverse of cdf ---percentiles).
-  isf(q, loc=0, scale=1)                  Inverse survival function (inverse of sf).
-  moment(n, loc=0, scale=1)               Non-central moment of order n
-  stats(loc=0, scale=1, moments=\'mv\')   Mean('m'), variance('v'), skew('s'), and/or kurtosis('k').
-  entropy(loc=0, scale=1)                 (Differential) entropy of the RV.
-  fit(data, loc=0, scale=1)               Parameter estimates for generic data.
-  expect(func, args=(), \*\*kwds)         Expected value of a function (of one argument) with respect to the distribution.
-  median(loc=0, scale=1)                  Median of the distribution.
-  mean(loc=0, scale=1)                    Mean of the distribution.
-  var(loc=0, scale=1)                     Variance of the distribution.
-  std(loc=0, scale=1)                     Standard deviation of the distribution.
-  interval(alpha, loc=0, scale=1)         Endpoints of the range that contains alpha percent of the distribution
+  rvs(loc=0, scale=1, size=1)             随机变量
+  pdf(x, loc=0, scale=1)                  概率密度函数
+  logpdf(x, loc=0, scale=1)               概率密度函数的对数
+  cdf(x, loc=0, scale=1)                  累积分布函数
+  logcdf(x, loc=0, scale=1)               累积分布函数的对数
+  sf(x, loc=0, scale=1)                   生存函数（也被定义为1-cdf，但生存函数有时更准确）
+  logsf(x, loc=0, scale=1)                生存函数的对数
+  ppf(q, loc=0, scale=1)                  百分点函数（累积分布函数—百分位数的倒数）
+  isf(q, loc=0, scale=1)                  逆生存函数（生存函数的倒数）
+  moment(n, loc=0, scale=1)               n阶非中心矩
+  stats(loc=0, scale=1, moments=\'mv\')   平均值（'m'）、方差（'v'）、偏度（'s'）/峰度（'k'）
+  entropy(loc=0, scale=1)                 RV的（微分）熵
+  fit(data, loc=0, scale=1)               通用数据的参数估计
+  expect(func, args=(), \*\*kwds)         函数（一个参数的）相对于分布的期望值
+  median(loc=0, scale=1)                  分布的中位数
+  mean(loc=0, scale=1)                    分布的均值
+  var(loc=0, scale=1)                     分布的方差
+  std(loc=0, scale=1)                     分布的标准差
+  interval(alpha, loc=0, scale=1)         包含分布的α百分比的范围的端点
   --------------------------------------- ----------------------------------------------------------------------------------
 
 `\normalsize`{=latex}
@@ -274,59 +274,55 @@ ax2.contourf(x, y, rv.pdf(pos))
 `\scriptsize`{=latex}
 
   -------------------------------------- -----------------------------------------------------------------------------------------------
-  describe(a\[, axis, ddof, bias\])      Compute several descriptive statistics of the passed array.
-  gmean(a\[, axis, dtype\])              Compute the geometric mean along the specified axis.
-  hmean(a\[, axis, dtype\])              Calculate the harmonic mean along the specified axis.
-  kurtosis(a\[, axis, fisher, bias\])    Compute the kurtosis (Fisher or Pearson) of a dataset.
-  kurtosistest(a\[, axis\])              Test whether a dataset has normal kurtosis.
-  mode(a\[, axis, nan~policy~\])         Return an array of the modal (most common) value in the passed array.
-  moment(a\[, moment, axis\])            Calculate the nth moment about the mean for a sample.
-  normaltest(a\[, axis, nan~policy~\])   Test whether a sample differs from a normal distribution.
-  skew(a\[, axis, bias, nan~policy~\])   Compute the skewness of a data set.
-  skewtest(a\[, axis, nan~policy~\])     Test whether the skew is different from the normal distribution.
-  kstat(data\[, n\])                     Return the nth k-statistic (1\<=n\<=4 so far).
-  kstatvar(data\[, n\])                  Returns an unbiased estimator of the variance of the k-statistic.
-  variation(a\[, axis, nan~policy~\])    Compute the coefficient of variation, the ratio of the biased standard deviation to the mean.
-  find~repeats~(arr)                     Find repeats and repeat counts.
+  describe(a\[, axis, ddof, bias\])      计算传递数组的几个描述性统计信息
+  gmean(a\[, axis, dtype\])              计算沿指定轴的几何平均数
+  hmean(a\[, axis, dtype\])              计算沿指定轴的调和平均数
+  kurtosis(a\[, axis, fisher, bias\])    计算数据集的峰度（Fisher/Pearson）
+  kurtosistest(a\[, axis\])              测试数据集是否具有正常峰度
+  mode(a\[, axis, nan~policy~\])         返回传递数组中模态（最常见）值的数组
+  moment(a\[, moment, axis\])            计算样本平均值的第n阶矩
+  normaltest(a\[, axis, nan~policy~\])   测试样本是否与正态分布不同
+  skew(a\[, axis, bias, nan~policy~\])   计算数据集的偏度
+  skewtest(a\[, axis, nan~policy~\])     测试偏度是否与正态分布不同
+  kstat(data\[, n\])                     返回第n个k统计量（1<=n<=4）
+  kstatvar(data\[, n\])                  返回k统计量方差的无偏估计值
+  variation(a\[, axis, nan~policy~\])    计算变异系数，偏差标准差与平均值的比率
+  find~repeats~(arr)                     找出重复和重复次数
   -------------------------------------- -----------------------------------------------------------------------------------------------
 
 `\normalsize`{=latex}
 
-### Fitting Distributions
+### 拟合分布
 
-### Building Specific Distributions
+### 建立特定分布
 
-### Analysing One Sample
+### 分析一个样本
 
-### Comparing two samples
+### 比较两个样本
 
-### Kernel Density Estimation
+### 核密度估计
 
 `scipy.stats.gaussian_kde`
 
-1.  Kernel density estimation is a way to estimate the probability
-    density function (PDF) of a random variable in a non-parametric way.
-2.  gaussian~kde~ works for both uni-variate and multi-variate data.
-3.  It includes automatic bandwidth determination.
-4.  The estimation works best for a unimodal distribution; bimodal or
-    multi-modal distributions tend to be oversmoothed.
+1.  核密度估计是一种非参数估计随机变量概率密度函数（PDF）的方法;
+2.  gaussian_kde适用于单变量和多变量数据;
+3.  它包括自动带宽确定;
+4.  这种估计对单峰分布最有效,双峰或多峰分布往往是过度光滑的。
 
 # scipy.linalg
 
-### Linear algebra functions
+### 线性代数函数
 
-1.  numpy.linalg for more linear algebra functions.
-2.  Note that although scipy.linalg imports most of them, identically
-    named functions from scipy.linalg may offer more or slightly
-    differing functionality.
+1.  numpy.linalg 有更多的线性代数函数；
+2.  注意，尽管scipy.linalg导入了其中大多数函数，但来自scipy.linalg的同名函数可能提供更多或稍有不同的功能。
 
 # scipy.cluster
 
 # scipy.spatial
 
-# Distance computations (scipy.spatial.distance)
+# 距离计算 (scipy.spatial.distance)
 
-# Multi-dimensional image processing (scipy.ndimage)
+# 多维图像处理(scipy.ndimage)
 
 
 <!-- # 参考文献 -->
