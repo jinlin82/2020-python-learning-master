@@ -1,0 +1,100 @@
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+
+### 第 1 题： 正态分布
+
+设 $X \sim N(2, 3^{2})$ ， 求：
+
+1. $0<X<5$ 的概率
+rv=stats.norm(2,3)
+p = rv.cdf(5)-rv.cdf(0);p
+
+1. $X$ 0.025 右侧分位点
+rv.ppf(1-0.025)
+
+3. 画出其概率密度曲线和累计分布函数曲线
+x=np.linspace(-1,5,100)
+plt.plot(x,stats.norm.pdf(x,2,3),label='norm pdf')
+plt.plot(x,stats.norm.cdf(x,2,3))
+
+### 第 2 题： 卡方分布
+
+设 $X \sim \chi^{2}(5)$ ， 求：
+
+1. $1<X<5$ 的概率
+rv=stats.chi2(5)
+p=rv.cdf(5)-rv.cdf(1);p
+
+2. $X$ 0.025 右侧分位点
+rv.ppf(1-0.025)
+
+3. 画出其概率密度曲线和累计分布函数曲线
+x=np.linspace(0,10,100)
+plt.plot(x,stats.chi2.pdf(x,5))
+plt.plot(x,stats.chi2.cdf(x,5))
+
+### 第 3 题： 二项分布
+
+设 $X \sim B(10, 0.3)$ ， 求：
+
+1. $X=3$ 的概率
+rv=stats.binom(10,0.3)
+p=rv.cdf(3);p
+
+2. $X$ 0.025 右侧分位点
+rv.ppf(1-0.025)
+
+3. 画出其概率分布率图和累计分布函数曲线
+fig, ax=plt.subplots(1,1)
+x=np.arange(stats.binom.ppf(0.01,10,0.3),stats.binom.ppf(0.99,10,0.3))
+ax.plot(x,stats.binom.pmf(x,10,0.3),'bo',ms=8)
+ax.vlines(x,0,stats.binom.pmf(x,10,0.3),colors='b',lw=5,alpha=0.5)
+ax.vlines(x,0,rv.pmf(x),colors='k',linestyles='-',lw=1,label='frozen pmf')
+ax.legend(loc='best',frameon=False)
+plt.show()
+
+### 第 4 题： 核密度估计
+
+设 $X \sim N(2, 3^{2})$ ， 求：
+
+1. 生成1000个随机数字(np.random)
+np.random.seed(1245)
+x = np.random.normal(2,3,size=1000)
+
+2. 使用核方法估计随机数字的密度函数并画出其曲线
+xs=np.linspace(x.min()-1,x.max()+1)
+kde1=stats.gaussian_kde(x)
+kde2=stats.gaussian_kde(x,bw_method='silverman')
+
+fig=plt.figure(figsize=(8,6))
+
+ax1=fig.add_subplot(211)
+ax1.plot(x,np.zeros(x.shape),'b+',ms=12)
+ax1.plot(xs,kde1(xs),'k-',label="Scott's Rule")
+ax1.plot(xs,kde2(xs),'b-',label="Silverman's Rule")
+ax1.plot(xs,stats.norm.pdf(xs),'r--',label="True PDF")
+
+ax1.set_xlabel('x')
+ax1.set_ylabel('Density')
+ax1.set_title("Normal (top) and Student's T$_{df=5}$ (bottom) distributions")
+ax1.legend(loc=1)
+
+y=stats.t.rvs(5,size=1000)
+xs=np.linspace(y.min()-1,y.max()+1,1000)
+
+kd3=stats.gaussian_kde(y)
+kd4=stats.gaussian_kde(y,bw_method='silverman')
+
+ax2=fig.add_subplot(212)
+ax2.plot(y,np.zeros(y.shape),'b+',ms=12)
+ax2.plot(xs,kd3(xs),'k-',label="Scott's Rule")
+ax2.plot(xs,kd4(xs),'b-',label="Silverman's Rule")
+ax2.plot(xs,stats.t.pdf(xs,5),'r--',label="True PDF")
+ax2.set_xlabel('x')
+ax2.set_ylabel('Density')
+
+plt.show()
+
+
+3. 添加 $X \sim N(2, 3^{2})$ 的密度曲线

@@ -272,6 +272,7 @@ B=pd.DataFrame(B)
 pd.concat([A,B],axis=0)
 pd.concat([A,B],axis=1)
 
+
 ## NumPy
 
 # 基本操作
@@ -319,7 +320,7 @@ for i in A.flat:
 
 # 改变数组的形状
 import numpy as np
-a=np.floor(10*np.random.random((3,4)));a  ?
+a=np.floor(10*np.random.random((3,4)));a #？
 a.shape
 
 a.ravel()
@@ -353,7 +354,7 @@ a[L]
 a=np.arange(12).reshape(3,4);a
 b=a>4
 a[b]
-a[b]=0                         ?
+a[b]=0                         
 
 a=np.arange(12).reshape(3,4);a
 b1=np.array([False,True,True])
@@ -361,7 +362,7 @@ b2=np.array([True,False,True,False])
 a[b1,:]
 a[b1]
 a[:,b2]
-a[b1,b2]      ?
+a[b1,b2]      
 
 # 用字符串进行索引
 x=np.array([('Rex',9,81.0),('Fido',3,27.0)],dtype=[('name','U10'),('age','i4'),('weight','f4')])
@@ -376,3 +377,82 @@ ax,bx,cx = np.ix_(a,b,c)
 
 result=ax+bx * cx
 result
+
+
+## SciPy
+
+# 正态分布
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+
+mean, var, skew, kurt = stats.norm.stats(moments="mvsk")
+x=np.linspace(-3,3,100)
+plt.plot(x,stats.norm.pdf(x),label='norm pdf')
+plt.plot(x,stats.norm.pdf(x,3,2),label='norm pdf')
+
+### Freeze the distribution and display the frozen pdf
+rv=stats.norm(3,2)
+rv.ppf(0.5)
+rv.pdf(3)
+rv.cdf(10)
+
+### Generate random numbers
+r = stats.norm.rvs(size=1000)
+plt.hist(r,density=True,histtype='stepfilled',alpha=0.2)  ?
+
+# F分布
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+
+mean, var, skew, kurt = stats.f.stats(3,5,moments="mvsk")
+x=np.linspace(0.01,6,100)
+plt.plot(x,stats.f.pdf(x,3,5),label='norm pdf')
+plt.plot(x,stats.f.pdf(x,3,2),label='norm pdf')
+
+### Freeze the distribution and display the frozen pdf
+rv=stats.f(3,2)
+rv.ppf(0.5)
+rv.pdf(3)
+rv.cdf(10)
+
+### Generate random numbers
+r = stats.f.rvs(3,2,size=1000)
+plt.hist(r,density=True,histtype='stepfilled',alpha=0.2)  
+
+# 二项分布
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig,ax=plt.subplots(1, 1)
+
+mean, var, skew, kurt = stats.binom.stats(5,0.4,moments="mvsk")
+
+x=np.arange(stats.binom.ppf(0.01,5,0.4), stats.binom.ppf(0.99,5,0.4))
+ax.plot(x,stats.binom.pmf(x,5,0.4),'bo',ms=8,label='binom pdf')
+ax.vlines(x,0,stats.binom.pmf(x,5,0.4),colors='b',lw=5,alpha=0.5)
+
+rv=stats.binom(5,0.4)
+ax.vlines(x,0,rv.pmf(x),colors='k',linestyles='-',lw=1,label='frozen pmf')
+ax.legend(loc='best',frameon=False)
+
+# 多元正态分布
+from scipy import stats
+import matplotlib.pyplot as plt
+import numpy as np
+
+x=np.linspace(0,5,10,endpoint=False)
+y=stats.multivariate_normal.pdf(x,mean=2.5,cov=0.5);y
+
+fig1=plt.figure()
+ax=fig1.add_subplot(111)
+ax.plot(x,y)
+
+x,y=np.mgrid[-1:1:.01,-1:1:.01]
+pos=np.dstack((x,y))
+rv=stats.multivariate_normal([0.5,-0.2],[2.0,0.3],[0.3,0.5])
+fig2=plt.figure()
+ax2=fig2.add_subplot(111)
+ax2.contourf(x,y,rv.pdf(pos))
