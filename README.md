@@ -86,3 +86,13 @@ P45-56 王悦
 - 看scipy. pdf（翻译分工：王悦P1-14；谢欣悦P15-31），对应视频为16，17。并做scipy_exercise. rmd。
 
 - 看视频作业讲解
+
+# week4
+
+- 看第一次发的PPT
+
+- 看书 王斌会python数据分析基础 第三章第四章（pandas基础知识）以及对应的PPT和视频,并敲相应的练习代码，命名为practice
+
+- 完成第二次作业，命名为zuoye2
+
+- 代码文件上传至week4-Pandas中，学习问题写在notes. rmd中
