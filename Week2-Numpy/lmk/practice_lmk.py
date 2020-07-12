@@ -198,7 +198,7 @@ df3.sort_values(by='S3')
 
 import pandas as pd
 ### 读取csv
-BSdata=pd.read_csv("../data/BSdata.csv",encoding='utf-8') # ？报错
+BSdata=pd.read_csv("../data/BSdata.csv",encoding='GB2312') # ！注意csv文件编码
 BSdata[6:9]
 
 ### 读取excel
@@ -254,3 +254,138 @@ BSdata.iloc[:3,:5].T
 # 数据框的合并
 pd.concat([BSdata.身高, BSdata.体重],axis=0) # 按行合并
 pd.concat([BSdata.身高, BSdata.体重],axis=1) # 按列合并
+
+### Numpy基础
+# basic operations
+import numpy as np
+a=np.arange(4)
+b=np.array([2,5,8,9])
+a*b
+
+A=np.arange(12).reshape(3,4)
+B=np.arange(13,25).reshape(4,3)
+np.dot(A,B) # A*B
+A.dot(B)
+A.sum()
+A.sum(axis=0)
+A.sum(axis=1)
+
+np.exp(A)
+np.sqrt(A)
+
+# indexing, slicing and lterating
+x=np.arange(12)**2
+x[3]
+x[2:6]
+x[7:]
+x[::-1]
+x[9:2:-3]
+
+A=np.arange(24).reshape(4,6)
+A
+A[2,3] # 取单个元素
+A[1:3,2:4] # 取array[行，列]
+A[1] # 取一行
+A[:,2:4]
+A[...,3] # 取一列
+
+A=np.arange(24).reshape(4,6)
+for i in A: # 打印A的各行
+    print(i)
+
+for i in A.flat: # 打印A中的每个元素
+    print (i)
+
+# shape manipulation
+a=np.floor(10*np.random.random((3,4)))
+a.shape
+
+a.ravel()
+a.T
+a.reshape(2,6)
+a.resize(2,6)
+
+# indexing with arrays of indices-1D
+a=np.arange(12)**2 # the first square numbers
+i=np.array([1,1,3,8,5]) # an array of indices
+a[i] # the elements of a at the position i
+
+j=np.array([[3,4],[9,7]])
+a[j]
+
+# indexing with arrays of indices-2D
+a=np.arange(12).reshape(3,4)
+i=np.array([[0,1],[1,2]])
+j=np.array([[2,1],[3,3]])
+
+a[i] # [行，行]
+a[i,j] # [行，列]
+a[i,2] # [行，第二列]
+a[:,j] # 每行取列
+
+L=[i,j]
+a[L]
+
+# indexing with boolean arrays ???
+a=np.arange(12).reshape(3,4)
+b=a>4
+a[b]
+a[b]=0
+
+a=np.arange(12).reshape(3,4)
+b1=np.array([False,True,True])
+b2=np.array([True,False,True,False])
+a[b1,:]
+a[b1]
+a[:,b2]
+a[b1,b2]
+
+# indexing with strings
+x=np.array([('Rex',9,81.0),('Fido',3,27.0)],dtype=[('name','U10'),('age','i4'),('weight','f4')])
+x['name']
+x[['name','age']]
+
+# the ix_() function
+a=np.array([2,3,4,5])
+b=np.array([8,5,4])
+c=np.array([5,4,6,8,3])
+ax,bx,cx=np.ix_(a,b,c)
+
+result=ax+bx*cx
+result
+
+### 3_string operations
+import numpy as np
+x1 = np.array(['Hello', 'Say'], dtype=np.str)
+x2 = np.array([' world', ' something'], dtype=np.str)
+y1=x1.T
+np.concatenate((y1,x2))
+
+x = np.array(['hello world', 'say something'], dtype=np.str)
+centered = np.str.center(np.str(x),20,'_')
+left = np.str.ljust(np.str(x),20,'_')
+right = np.str.rjust(np.str(x),20,'_')
+
+print("centered =", centered)
+print("left =", left)
+print("right =", right)
+
+x = np.array(['hello world', 'say something'], dtype=np.str)
+np.str(x).expandtabs(' ')
+import re
+re.sub(r"(?<=\w)(?=(?:\w\w)+$)", " ", np.str(x))
+
+x = np.array(['   hello world   ', '\tsay something\n'], dtype=np.str)
+stripped = np.str(x).replace(' ', '')
+lstripped = 
+rstripped = 
+print("stripped =", stripped)
+print("lstripped =", lstripped)
+print("rstripped =", rstripped)
+
+x = np.array(['Hello\nmy name is John'], dtype=np.str)
+np.str(x).replace('\n', '\r')
+
+x = np.array(['34'], dtype=np.str)
+str='34'
+str.rjust(2,'0')

@@ -56,10 +56,12 @@ data1=data.dropna();data1
 ### 2. 提取逢5，逢0年份的Year, GDP, KR, HRsq, CPI变量的数据
 
 data2=data1.loc[[6,11,16,21,26,31,36,41,46,51,56,61],['Year','GDP','KR','HRsq','CPI']];data2
+data2=data1.loc[data1['Year']%5==0,['Year','GDP','KR','HRsq','CPI']];data2
 
 ### 3. 提取逢2，逢8年份的Year, GDP, KR, HRsq, CPI变量的数据
 
 data3=data1.loc[[9,13,19,23,29,33,39,43,49,53,59],['Year','GDP','KR','HRsq','CPI']];data3
+data3=data1.loc[(data1['Year']%10==2)|(data1['Year']%10==8),['Year','GDP','KR','HRsq','CPI']];data3
 
 ### 4. 对2和3得到的数据集按行进行合并，并按年份进行排序
 

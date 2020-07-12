@@ -1,0 +1,729 @@
+
+# 100 numpy exercises with hint
+
+This is a collection of exercises that have been collected in the numpy mailing
+list, on stack overflow and in the numpy documentation. I've also created some
+to reach the 100 limit. The goal of this collection is to offer a quick
+reference for both old and new users but also to provide a set of exercises for
+those who teach.
+
+#### 1. Import the numpy package under the name `np` (★☆☆) 
+
+(**hint**: import … as …)
+
+import numpy as np
+
+#### 2. Print the numpy version and the configuration (★☆☆) 
+
+(**hint**: np.\_\_version\_\_, np.show\_config)
+
+np.__version__
+
+#### 3. Create a null vector of size 10 (★☆☆) 
+
+(**hint**: np.zeros)
+
+np.zeros(10)
+
+#### 4.  How to find the memory size of any array (★☆☆) 
+
+(**hint**: size, itemsize)
+
+x=np.array([1,2,3,4])
+np.size(x)
+
+#### 5.  How to get the documentation of the numpy add function from the command line? (★☆☆) 
+
+(**hint**: np.info)
+
+np.info(x)
+
+#### 6.  Create a null vector of size 10 but the fifth value which is 1 (★☆☆) 
+
+(**hint**: array\[4\])
+
+a=np.zeros(10)
+a[4]=1;a
+
+#### 7.  Create a vector with values ranging from 10 to 49 (★☆☆) 
+
+(**hint**: np.arange)
+
+np.arange(10,50)
+
+#### 8.  Reverse a vector (first element becomes last) (★☆☆) 
+
+(**hint**: array\[::-1\])
+
+a=np.arange(4)
+A=a[::-1];A
+
+#### 9.  Create a 3x3 matrix with values ranging from 0 to 8 (★☆☆) 
+
+(**hint**: reshape)
+
+np.arange(9).reshape(3,3)
+
+#### 10. Find indices of non-zero elements from \[1,2,0,0,4,0\] (★☆☆) 
+
+(**hint**: np.nonzero)
+
+np.nonzero([1,2,0,0,4,0])
+
+#### 11. Create a 3x3 identity matrix (★☆☆) 
+
+(**hint**: np.eye)
+
+np.eye(3)
+
+#### 12. Create a 3x3x3 array with random values (★☆☆) 
+
+(**hint**: np.random.random)
+
+np.random.random((3,3,3))
+
+#### 13. Create a 10x10 array with random values and find the minimum and maximum values (★☆☆) 
+
+(**hint**: min, max)
+
+A=np.random.random((10,10))
+A.max()
+A.min()
+
+#### 14. Create a random vector of size 30 and find the mean value (★☆☆) 
+
+(**hint**: mean)
+
+v=np.random.random(30)
+v.mean()
+
+#### 15. Create a 2d array with 1 on the border and 0 inside (★☆☆) 
+
+(**hint**: array\[1:-1, 1:-1\])
+
+a=np.ones((4,4))
+a[1:-1,1:-1]=0;a
+
+#### 16. How to add a border (filled with 0's) around an existing array? (★☆☆) 
+
+(**hint**: np.pad)
+
+np.pad(a,pad_width=1,mode='constant')
+
+#### 17. What is the result of the following expression? (★☆☆) 
+
+(**hint**: NaN = not a number, inf = infinity)
+
+```python
+0 * np.nan # nan
+np.nan == np.nan # False
+np.inf > np.nan # False
+np.nan - np.nan # nan
+np.nan in set([np.nan]) # True
+0.3 == 3 * 0.1 # False
+```
+
+#### 18. Create a 5x5 matrix with values 1,2,3,4 just below the diagonal (★☆☆) 
+
+(**hint**: np.diag)
+
+np.diag(np.arange(4)+1,k=-1)
+
+#### 19. Create a 8x8 matrix and fill it with a checkerboard pattern (★☆☆) 
+
+(**hint**: array\[::2\])
+
+a=np.zeros((8,8),dtype=int)
+a[::2,1::2]=1
+a[1::2,::2]=1
+a
+
+#### 20. Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element? 
+
+(**hint**: np.unravel\_index)
+
+np.unravel_index(99,(6,7,8))
+
+#### 21. Create a checkerboard 8x8 matrix using the tile function (★☆☆) 
+
+(**hint**: np.tile)
+
+np.tile(np.array([[0,1],[1,0]]),(4,4))
+
+#### 22. Normalize a 5x5 random matrix (★☆☆) 
+
+(**hint**: (x - mean) / std)
+
+x=np.random.random((5,5))
+X=(x-x.mean())/x.std();X
+
+#### 23. Create a custom dtype that describes a color as four unsigned bytes (RGBA) (★☆☆) 
+
+(**hint**: np.dtype)
+
+np.dtype([('R',np.ubyte,1),('G',np.ubyte,1),('B',np.ubyte,1),('A',np.ubyte,1)])
+
+#### 24. Multiply a 5x3 matrix by a 3x2 matrix (real matrix product) (★☆☆) 
+
+(**hint**: np.dot | @)
+
+A=np.ones((5,3))
+B=np.ones((3,2))
+C=np.dot(A,B);C
+
+#### 25. Given a 1D array, negate all elements which are between 3 and 8, in place. (★☆☆) 
+
+(**hint**: >, <=)
+
+a=np.arange(10)
+a[(a>3)&(a<=8)]*=-1;a
+
+#### 26. What is the output of the following script? (★☆☆) 
+
+(**hint**: np.sum)
+
+```python
+# Author: Jake VanderPlas
+
+print(sum(range(5),-1)) # 9，求和后-1
+from numpy import *
+print(sum(range(5),-1)) # 10，维度-1
+```
+
+#### 27. Consider an integer vector Z, which of these expressions are legal? (★☆☆)
+
+```python
+Z**Z #
+2 << Z >> 2
+Z <- Z #
+1j*Z #
+Z/1/1 #
+Z<Z>Z
+```
+
+#### 28. What are the result of the following expressions?
+
+```python
+np.array(0) / np.array(0) # nan
+np.array(0) // np.array(0) # 0
+np.array([np.nan]).astype(int).astype(float) # ？？？
+```
+
+#### 29. How to round away from zero a float array ? (★☆☆) 
+
+(**hint**: np.uniform, np.copysign, np.ceil, np.abs)
+
+a=np.random.uniform(-5,5,10)
+np.copysign(np.ceil(np.abs(a)),a)
+
+#### 30. How to find common values between two arrays? (★☆☆) 
+
+(**hint**: np.intersect1d)
+
+a1=np.random.random(5)
+a2=np.random.random(5)
+np.intersect1d(a1,a2) # ？？？
+
+#### 31. How to ignore all numpy warnings (not recommended)? (★☆☆) 
+
+(**hint**: np.seterr, np.errstate)
+
+np.seterr(all='ignore') # ？？？
+
+#### 32. Is the following expressions true? (★☆☆) 
+
+(**hint**: imaginary number)
+
+```python
+np.sqrt(-1) == np.emath.sqrt(-1) # False
+```
+
+#### 33. How to get the dates of yesterday, today and tomorrow? (★☆☆) 
+
+(**hint**: np.datetime64, np.timedelta64)
+
+yesterday = np.datetime64('today','D') - np.timedelta64(1,'D');yesterday
+today = np.datetime64('today','D');today
+tomorrow = np.datetime64('today','D') + np.timedelta64(1,'D');tomorrow
+
+#### 34. How to get all the dates corresponding to the month of July 2016? (★★☆) 
+
+(**hint**: np.arange(dtype=datetime64\['D'\]))
+
+np.arange('2016-07','2016-08',dtype='datetime64[D]')
+
+#### 35. How to compute ((A+B)\*(-A/2)) in place (without copy)? (★★☆) 
+
+(**hint**: np.add(out=), np.negative(out=), np.multiply(out=), np.divide(out=))
+
+A=np.ones(3)
+B=np.ones(3)*2
+np.add(A,B,out=B)
+np.negative(A,out=A)
+np.divide(A,2,out=A)
+np.multiply(A,B,out=A)
+
+#### 36. Extract the integer part of a random array using 5 different methods (★★☆) 
+
+(**hint**: %, np.floor, np.ceil, astype, np.trunc)
+
+a=np.random.uniform(0,10,5);a
+a-a%1
+np.floor(a)
+np.ceil(a)-1
+a.astype(int)
+np.trunc(a)
+
+#### 37. Create a 5x5 matrix with row values ranging from 0 to 4 (★★☆) 
+
+(**hint**: np.arange)
+
+a=np.zeros((5,5))
+a+=np.arange(5);a
+
+#### 38. Consider a generator function that generates 10 integers and use it to build an array (★☆☆) 
+
+(**hint**: np.fromiter)
+
+def generate():
+    for x in range(10):
+        yield x
+np.fromiter(generate(),dtype=int,count=-1)
+
+#### 39. Create a vector of size 10 with values ranging from 0 to 1, both excluded (★★☆) 
+
+(**hint**: np.linspace)
+
+np.linspace(0,1,10)
+
+#### 40. Create a random vector of size 10 and sort it (★★☆) 
+
+(**hint**: sort)
+
+v=np.random.random(10)
+v.sort();v
+
+#### 41. How to sum a small array faster than np.sum? (★★☆) 
+
+(**hint**: np.add.reduce)
+
+a=np.arange(10)
+np.add.reduce(a)
+
+#### 42. Consider two random array A and B, check if they are equal (★★☆) 
+
+(**hint**: np.allclose, np.array\_equal)
+
+A=np.random.random(5)
+B=np.random.random(5)
+np.allclose(A,B)
+np.array_equal(A,B)
+
+#### 43. Make an array immutable (read-only) (★★☆) 
+
+(**hint**: flags.writeable)
+
+a=np.ones(5)
+a.flags.writeable=False
+a[0]=1 # read-only
+
+#### 44. Consider a random 10x2 matrix representing cartesian coordinates, convert them to polar coordinates (★★☆) 
+
+(**hint**: np.sqrt, np.arctan2)
+
+# 笛卡尔坐标转极坐标？？？
+m=np.random.andom((10,2))
+
+#### 45. Create random vector of size 10 and replace the maximum value by 0 (★★☆) 
+
+(**hint**: argmax)
+
+v=np.random.random(10)
+v[v.argmax()]=0;v
+
+#### 46. Create a structured array with `x` and `y` coordinates covering the \[0,1\]x\[0,1\] area (★★☆) 
+
+(**hint**: np.meshgrid)
+
+
+
+####  47. Given two arrays, X and Y, construct the Cauchy matrix C (Cij =1/(xi - yj)) 
+
+(**hint**: np.subtract.outer)
+
+X=np.random.random(5)
+Y=np.random.random(5)
+C=1/np.subtract.outer(X,Y);C
+
+#### 48. Print the minimum and maximum representable value for each numpy scalar type (★★☆) 
+
+(**hint**: np.iinfo, np.finfo, eps)
+
+for dtype in [np.int8,np.int32,np.int64]:
+    print(np.iinfo(dtype).min)
+    print(np.iinfo(dtype).max)
+for dtype in [np.float32,np.float64]:
+    print(np.finfo(dtype).min)
+    print(np.finfo(dtype).max)
+    print(np.finfo(dtype).eps)
+
+#### 49. How to print all the values of an array? (★★☆) 
+
+(**hint**: np.set\_printoptions)
+
+np.set_printoptions()
+np.arange(225).reshape(15,15)
+
+#### 50. How to find the closest value (to a given scalar) in a vector? (★★☆) 
+
+(**hint**: argmin)
+
+v1=np.random.random(10)
+v2=np.arange(10)
+(np.abs(v1-v2)).argmin()
+
+#### 51. Create a structured array representing a position (x,y) and a color (r,g,b) (★★☆) 
+
+(**hint**: dtype)
+
+
+
+#### 52. Consider a random vector with shape (100,2) representing coordinates, find point by point distances (★★☆) 
+
+(**hint**: np.atleast\_2d, T, np.sqrt)
+
+v=np.random.random((100,2))
+
+#### 53. How to convert a float (32 bits) array into an integer (32 bits) in place? 
+
+(**hint**: view and [:] = )
+
+a=np.arange(5,dtype=float32)
+a.view(dtype=int32) # ？？？
+
+#### 54. How to read the following file? (★★☆) 
+
+(**hint**: np.genfromtxt)
+
+```
+1, 2, 3, 4, 5
+6,  ,  , 7, 8
+ ,  , 9,10,11
+```
+
+np.genfromtxt(f,delimiter=',',dtype=np.int) # ？？？
+
+#### 55. What is the equivalent of enumerate for numpy arrays? (★★☆) 
+
+(**hint**: np.ndenumerate, np.ndindex)
+
+
+
+#### 56. Generate a generic 2D Gaussian-like array (★★☆) 
+
+(**hint**: np.meshgrid, np.exp)
+
+np.meshgrid()
+
+#### 57. How to randomly place p elements in a 2D array? (★★☆) 
+
+(**hint**: np.put, np.random.choice)
+
+
+
+#### 58. Subtract the mean of each row of a matrix (★★☆) 
+
+(**hint**: mean(axis=,keepdims=))
+
+X=np.random.random((2,3))
+Y=X-X.mean(axis=1,keepdims=True);Y
+
+#### 59. How to sort an array by the nth column? (★★☆) 
+
+(**hint**: argsort)
+
+a=np.random.randint(0,10,(3,3))
+a[a[:,-1].argsort()]
+
+#### 60. How to tell if a given 2D array has null columns? (★★☆) 
+
+(**hint**: any, ~)
+
+a=np.random.randint(0,6,(2,3))
+(~a.any(axis=0)).any()
+
+#### 61. Find the nearest value from a given value in an array (★★☆) 
+
+(**hint**: np.abs, argmin, flat)
+
+a=np.random.randint(0,1,10)
+x=0.5
+a.flat[np.abs(a-x).argmin()]
+
+#### 62. Considering two arrays with shape (1,3) and (3,1), how to compute their sum using an iterator? (★★☆) 
+
+(**hint**: np.nditer)
+
+A=np.arange(3).reshape(1,3)
+B=np.arange(3).reshape(3,1)
+np.nditer()
+
+#### 63. Create an array class that has a name attribute (★★☆) 
+
+(**hint**: class method)
+
+
+
+#### 64. Consider a given vector, how to add 1 to each element indexed by a second vector (be careful with repeated indices)? (★★★) 
+
+(**hint**: np.bincount | np.add.at)
+
+X=np.ones(10)
+Y=np.random.randint(0,len(X),20)
+X+=np.bincount(Y,minlength=len(X))
+np.add.at(X,Y,1)
+
+#### 65. How to accumulate elements of a vector (X) to an array (F) based on an index list (I)? (★★★) 
+
+(**hint**: np.bincount)
+
+X=[1,2,3,4]
+I=[3,2,7,6]
+F=np.bincount(I,X)
+
+#### 66. Considering a (w,h,3) image of (dtype=ubyte), compute the number of unique colors (★★★) 
+
+(**hint**: np.unique)
+
+
+
+#### 67. Considering a four dimensions array, how to get sum over the last two axis at once? (★★★) 
+
+(**hint**: sum(axis=(-2,-1)))
+
+a=np.random.randint(0,10,(1,2,3,4))
+a.sum(axis=(-2,-1))
+
+#### 68. Considering a one-dimensional vector D, how to compute means of subsets of D using a vector S of same size describing subset indices? (★★★) 
+
+(**hint**: np.bincount)
+
+
+
+#### 69. How to get the diagonal of a dot product? (★★★) 
+
+(**hint**: np.diag)
+
+X=np.random.randint(0,1,(3,3))
+Y=np.random.randint(0,1,(3,3))
+np.diag(np.dot(X,Y))
+
+#### 70. Consider the vector \[1, 2, 3, 4, 5\], how to build a new vector with 3 consecutive zeros interleaved between each value? (★★★) 
+
+(**hint**: array\[::4\])
+
+v=np.array([1,2,3,4,5])
+V=np.zeros(len(v)+(len(v)-1)*3)
+V[::4]=v;V
+
+#### 71. Consider an array of dimension (5,5,3), how to mulitply it by an array with dimensions (5,5)? (★★★) 
+
+(**hint**: array\[:, :, None\])
+
+A=np.ones((5,5,3))
+B=np.ones((5,5,))*2
+A*B[:,:,None]
+
+#### 72. How to swap two rows of an array? (★★★) 
+
+(**hint**: array\[\[\]\] = array\[\[\]\])
+
+A=np.arange(9).reshape(3,3)
+A[[0,1]]=A[[1,0]]
+A
+
+#### 73. Consider a set of 10 triplets describing 10 triangles (with shared vertices), find the set of unique line segments composing all the triangles (★★★) 
+
+(**hint**: repeat, np.roll, np.sort, view, np.unique)
+
+
+
+#### 74. Given an array C that is a bincount, how to produce an array A such that np.bincount(A) == C? (★★★) 
+
+(**hint**: np.repeat)
+
+C=np.bincount([1,2,2,3,4,4,5,5])
+A=np.repeat(np.arange(len(C)),C);A
+
+#### 75. How to compute averages using a sliding window over an array? (★★★) 
+
+(**hint**: np.cumsum)
+
+
+
+#### 76. Consider a one-dimensional array Z, build a two-dimensional array whose first row is (Z\[0\],Z\[1\],Z\[2\]) and each subsequent row is  shifted by 1 (last row should be (Z\[-3\],Z\[-2\],Z\[-1\]) (★★★) 
+
+(**hint**: from numpy.lib import stride\_tricks)
+
+
+
+#### 77. How to negate a boolean, or to change the sign of a float inplace? (★★★) 
+
+(**hint**: np.logical_not, np.negative)
+
+a=np.random.randint(0,2,10)
+np.logical_not(a,out=a)
+
+b=np.random.uniform(-1,1,10)
+np.negative(a,out=a)
+
+#### 78. Consider 2 sets of points P0,P1 describing lines (2d) and a point p, how to compute distance from p to each line i  (P0\[i\],P1\[i\])? (★★★)
+
+P0=np.random.uniform(-10,10,(10,2))
+P1=np.random.uniform(-10,10,(10,2))
+p=np.random.uniform(-10,10,(1,2))
+
+#### 79. Consider 2 sets of points P0,P1 describing lines (2d) and a set of points P, how to compute distance from each point j (P\[j\]) to each line i (P0\[i\],P1\[i\])? (★★★)
+
+P0=np.random.uniform(-10,10,(10,2))
+P1=np.random.uniform(-10,10,(10,2))
+p=np.random.uniform(-10,10,(10,2))
+
+#### 80. Consider an arbitrary array, write a function that extract a subpart with a fixed shape and centered on a given element (pad with a `fill` value when necessary) (★★★) 
+
+(**hint**: minimum, maximum)
+
+
+
+#### 81. Consider an array Z = \[1,2,3,4,5,6,7,8,9,10,11,12,13,14\], how to generate an array R = \[\[1,2,3,4\], \[2,3,4,5\], \[3,4,5,6\], ..., \[11,12,13,14\]\]? (★★★) 
+
+(**hint**: stride\_tricks.as\_strided)
+
+Z=np.arange(1,15,dtype=np.uint32)
+R=stride_tricks.as_strided(Z,(11,4),(4,4));R # ？？？
+
+#### 82. Compute a matrix rank (★★★) 
+
+(**hint**: np.linalg.svd)
+
+Z=np.random.uniform(0,1,(5,5))
+np.linalg.svd(Z)
+rank
+
+#### 83. How to find the most frequent value in an array? 
+
+(**hint**: np.bincount, argmax)
+
+a=np.random.randint(0,10,100)
+np.bincount(a).argmax()
+
+#### 84. Extract all the contiguous 3x3 blocks from a random 10x10 matrix (★★★) 
+
+(**hint**: stride\_tricks.as\_strided)
+
+
+
+#### 85. Create a 2D array subclass such that Z\[i,j\] == Z\[j,i\] (★★★) 
+
+(**hint**: class method)
+
+
+
+#### 86. Consider a set of p matrices wich shape (n,n) and a set of p vectors with shape (n,1). How to compute the sum of of the p matrix products at once? (result has shape (n,1)) (★★★) 
+
+(**hint**: np.tensordot)
+
+a=np.ones((10,20,20))
+b=np.ones((10,20,1))
+s=np.tensordot(a,b,axes=[[0,2],[0,1]]);s
+
+#### 87. Consider a 16x16 array, how to get the block-sum (block size is 4x4)? (★★★) 
+
+(**hint**: np.add.reduceat)
+
+a=np.ones((16,16))
+np.add.reduceat(a)
+
+#### 88. How to implement the Game of Life using numpy arrays? (★★★)
+
+
+
+#### 89. How to get the n largest values of an array (★★★) 
+
+(**hint**: np.argsort | np.argpartition)
+
+a=np.arange(100)
+a[np.argsort(a)[-5:]]
+
+#### 90. Given an arbitrary number of vectors, build the cartesian product (every combinations of every item) (★★★) 
+
+(**hint**: np.indices)
+
+
+
+#### 91. How to create a record array from a regular array? (★★★) 
+
+(**hint**: np.core.records.fromarrays)
+
+
+
+#### 92. Consider a large vector Z, compute Z to the power of 3 using 3 different methods (★★★) 
+
+(**hint**: np.power, \*, np.einsum)
+
+Z=np.random.randint(100)
+np.power(Z,3)
+Z*Z*Z
+np.einsum(Z,Z,Z) #  ？？？
+
+#### 93. Consider two arrays A and B of shape (8,3) and (2,2). How to find rows of A that contain elements of each row of B regardless of the order of the elements in B? (★★★) 
+
+(**hint**: np.where)
+
+A=np.random.randint(0,10,(8,3))
+B=np.random.randint(0,10,(2,2))
+np.where()
+
+#### 94. Considering a 10x3 matrix, extract rows with unequal values (e.g. \[2,2,3\]) (★★★)
+
+m=np.random.randint(0,10,(10,3))
+m[m.max(axis=1)!=m.min(axis=1),:] # ？？？
+
+#### 95. Convert a vector of ints into a matrix binary representation (★★★) 
+
+(**hint**: np.unpackbits)
+
+v=np.array([1,2,3,4,5],dtype=int)
+np.unpackbits(v,axis=1) # ？？？
+
+#### 96. Given a two dimensional array, how to extract unique rows? (★★★) 
+
+(**hint**: np.ascontiguousarray | np.unique)
+
+a=np.random.randint(0,10,(3,4))
+np.unique(a,axis=0)
+
+#### 97. Considering 2 vectors A & B, write the einsum equivalent of inner, outer, sum, and mul function (★★★) 
+
+(**hint**: np.einsum)
+
+A=np.array([1,3,5,7,9])
+B=np.array([0,2,4,6,8])
+np.einsum()
+
+#### 98. Considering a path described by two vectors (X,Y), how to sample it using equidistant samples (★★★)? 
+
+(**hint**: np.cumsum, np.interp)
+
+
+
+#### 99. Given an integer n and a 2D array X, select from X the rows which can be interpreted as draws from a multinomial distribution with n degrees, i.e., the rows which only contain integers and which sum to n. (★★★) 
+
+(**hint**: np.logical\_and.reduce, np.mod)
+
+
+
+#### 100. Compute bootstrapped 95% confidence intervals for the mean of a 1D array X (i.e., resample the elements of an array with replacement N times, compute the mean of each sample, and then compute percentiles over the means). (★★★) 
+
+(**hint**: np.percentile)
+
