@@ -353,39 +353,3 @@ ax,bx,cx=np.ix_(a,b,c)
 
 result=ax+bx*cx
 result
-
-### 3_string operations
-import numpy as np
-x1 = np.array(['Hello', 'Say'], dtype=np.str)
-x2 = np.array([' world', ' something'], dtype=np.str)
-y1=x1.T
-np.concatenate((y1,x2))
-
-x = np.array(['hello world', 'say something'], dtype=np.str)
-centered = np.str.center(np.str(x),20,'_')
-left = np.str.ljust(np.str(x),20,'_')
-right = np.str.rjust(np.str(x),20,'_')
-
-print("centered =", centered)
-print("left =", left)
-print("right =", right)
-
-x = np.array(['hello world', 'say something'], dtype=np.str)
-np.str(x).expandtabs(' ')
-import re
-re.sub(r"(?<=\w)(?=(?:\w\w)+$)", " ", np.str(x))
-
-x = np.array(['   hello world   ', '\tsay something\n'], dtype=np.str)
-stripped = np.str(x).replace(' ', '')
-lstripped = 
-rstripped = 
-print("stripped =", stripped)
-print("lstripped =", lstripped)
-print("rstripped =", rstripped)
-
-x = np.array(['Hello\nmy name is John'], dtype=np.str)
-np.str(x).replace('\n', '\r')
-
-x = np.array(['34'], dtype=np.str)
-str='34'
-str.rjust(2,'0')

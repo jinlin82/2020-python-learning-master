@@ -46,7 +46,7 @@ plt.plot(x,stats.chi2.cdf(x,5),label='chi2 cdf')
 
 1. $X=3$ 的概率
 
-rv=stats.binom(10, 0.3)
+rv=stats.binom(10,0.3)
 p=rv.cdf(3);p
 
 2. $X$ 0.025 右侧分位点
@@ -65,11 +65,13 @@ plt.plot(x, stats.binom.cdf(x,10,0.3),label='binom cdf')
 
 1. 生成1000个随机数字（np.random)
 
-np.random.random(1000)
+a=np.random.random(1000)
 
 2. 使用核方法估计随机数字的密度函数并画出其曲线
 
-
-
 3. 添加 $X \sim N(2, 3^{2})$ 的密度曲线
 
+import seaborn as sns
+sns.kdeplot(a)
+x=np.linspace(-6,10,100)
+plt.plot(x,stats.norm.pdf(x,2,3),label='norm pdf')
