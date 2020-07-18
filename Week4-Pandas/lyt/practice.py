@@ -310,7 +310,7 @@ BSdata.身高.quantile(0.75)-BSdata.身高.quantile(0.25)
 BSdata.身高.skew()
 BSdata.身高.kurt()
 
-##动车部分 未运行
+
 ### 自编计算基本统计量函数
 def stats(x):
     stat=[x.count(),x.min(),x.quantile(.25),x.mean(),x.median(),x.quantile(.75),x.max()-x.min(),x.var(),x.std(),x.skew(),x.kurt()]
