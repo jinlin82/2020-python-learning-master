@@ -53,7 +53,7 @@ def MAD(x):
     n=len(x)
     x_bar=np.mean(x)
     s=0
-    for i in np.arange(n):
+    for i in range(n):
         s=s+np.abs(x[i]-x_bar)
     return print(s/n)
 
@@ -82,7 +82,7 @@ shift([1,2,3,4,5],2)
 x=np.arange(200).reshape(20,10)
 x1=opposite(x)
 X=list()
-for i in np.arange(20):
+for i in range(20):
     x_i=shift(x1[i,:].tolist(),3)    #tolist()函数将array转化为list
     X.append(x_i)
 print(np.array(X))   #list重新转化为array
