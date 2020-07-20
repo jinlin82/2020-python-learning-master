@@ -38,112 +38,76 @@ library(reticulate)
 
 
 
-# Introduction
+# 简介
 
-### Facts
+### 基本情况
 
-1.  Original author(s): Wes McKinney
-2.  Initial release: 2008
-3.  Stable release: 0.19.1 / November 3, 2016;
-4.  Website: <http://pandas.pydata.org>
+1.  原作者: Wes McKinney
+2.  初始版本: 2008
+3.  稳定版本: 0.19.1 / November 3, 2016;
+4.  网址: <http://pandas.pydata.org>
 
-### What is Pandas?
+### 什么是Pandas?
 
-1.  pandas is a software library written for the Python programming
-    language for data manipulation and analysis.
-2.  In particular, it offers data structures and operations for
-    manipulating numerical tables and time series.
-3.  It aims to be the fundamental high-level building block for doing
-    practical, real world data analysis in Python.
-4.  Additionally, it has the broader goal of becoming the most powerful
-    and flexible open source data analysis / manipulation tool available
-    in any language.
+1.  pandas是一个为Python编程编写的软件库数据处理和分析语言。
+2.  特别是，它提供了用于操纵数值表和时间序列的数据结构和操作。
+3.  它的目标是成为在Python中进行实际的、真实的数据分析的基本高层构建块。
+4.  此外，它还有一个更广泛的目标：成为任何语言中可用的最强大和最灵活的开源数据分析/操作工具。
 
-### Library features
+### 库功能
 
-1.  The two primary data structures of pandas, Series (1-dimensional)
-    and DataFrame (2-dimensional), handle the vast majority of typical
-    use cases in finance, statistics, social science, and many areas of
-    engineering.
-2.  For R users, DataFrame provides everything that R's data.frame
-    provides and much more.
-3.  pandas is fast. Many of the low-level algorithmic bits have been
-    extensively tweaked in Cython code. However, as with anything else
-    generalization usually sacrifices performance.
-4.  pandas is a dependency of statsmodels, making it an important part
-    of the statistical computing ecosystem in Python.
-5.  pandas has been used extensively in production in financial
-    applications.
+1.  pandas的两个主要数据结构Series（一维）和DataFrame（二维），可处理金融、统计、社会科学和许多工程领域中的典型用例。
+2.  2.对于R用户，DataFrame提供R的data.frame提供的所有内容以及其他更多内容。
+3.  pandas运行快。 许多低级算法位已在Python代码中进行了广泛的调整。 但是，与其他方法一样，泛化通常会牺牲性能。
+4.  pandas是statsmodels的依赖项，使其成为Python统计计算生态系统的重要组成部分。
+5.  pandas已被广泛用于金融应用的生产中。
 
-### things that pandas does well
+### pandas擅长之处
 
-1.  Easy handling of missing data (represented as NaN) in floating point
-    as well as non-floating point data
-2.  Size mutability: columns can be inserted and deleted from DataFrame
-    and higher dimensional objects
-3.  Automatic and explicit data alignment: objects can be explicitly
-    aligned to a set of labels, or the user can simply ignore the labels
-    and let Series, DataFrame, etc. automatically align the data for you
-    in computations
-4.  Powerful, flexible group by functionality to perform
-    split-apply-combine operations on data sets, for both aggregating
-    and transforming data
-5.  Make it easy to convert ragged, differently-indexed data in other
-    Python and NumPy data structures into DataFrame objects
+1.  易于处理浮点数据和非浮点数据中的缺失数据（表示为NaN）
+2.  大小可变性：可以从DataFrame和更高维度的对象中插入和删除列
+3.  自动和显式的数据对齐：可以将对象显式地对齐到一组标签，或者用户可以简单地忽略标签，让Series，DataFrame等在计算中自动对齐数据
+4.  强大、灵活的分组依据功能，可对数据集执行“拆分-应用-合并”操作，用于聚合和转换数据
+5.  使之更容易地将Python和NumPy数据结构中不规则、不同索引的数据转换为DataFrame对象
 
-### things that pandas does well
+### pandas擅长之处
 
-1.  [@6]Intuitive merging and joining data sets
-2.  Intelligent label-based slicing, fancy indexing, and subsetting of
-    large data sets
-3.  Flexible reshaping and pivoting of data sets
-4.  Hierarchical labeling of axes (possible to have multiple labels per
-    tick)
-5.  Robust IO tools for loading data from flat files (CSV and
-    delimited), Excel files, databases, and saving / loading data from
-    the ultrafast HDF5 format
-6.  Time series-specific functionality: date range generation and
-    frequency conversion, moving window statistics, moving window linear
-    regressions, date shifting and lagging, etc.
+1.  [@6]直观地合并和连接数据集
+2.  基于智能标签的切片、花式索引和大型数据集的子集划分
+3.  数据集的灵活整形和旋转
+4.  轴的分层标记（每个刻度可能有多个标签）
+5.  强大的IO工具，用于从平面文件（CSV和分隔符）、Excel文件、数据库加载数据，以及从超高速HDF5格式保存/加载数据
+6.  时间序列特定功能：日期范围生成和频率转换，移动窗口统计，移动窗口线性回归，日期转移和滞后等
 
-### pandas consists of the following elements
+### pandas由以下元素组成
 
-1.  A set of labeled array data structures, the primary of which are
-    Series and DataFrame
-2.  Index objects enabling both simple axis indexing and multi-level /
-    hierarchical axis indexing
-3.  An integrated group by engine for aggregating and transforming data
-    sets
-4.  Date range generation (date~range~) and custom date offsets enabling
-    the implementation of customized frequen-
-5.  cies
-6.  Input/Output tools: loading tabular data from flat files (CSV,
-    delimited, Excel 2003), and saving and loading
-7.  pandas objects from the fast and efficient PyTables/HDF5 format.
-8.  Memory-efficient "sparse" versions of the standard data structures
-    for storing data that is mostly missing or
-9.  mostly constant (some fixed value)
-10. Moving window statistics (rolling mean, rolling standard deviation,
-    etc.)
+1.  一组带标签的数组数据结构，其主要是Series和DataFrame
+2.  索引对象，支持简单轴索引和多级/层次轴索引
+3.  集成的分组引擎，用于聚合和转换数据集
+4.  日期范围生成（Date~range~）和自定义日期偏移，可实现自定义频率
+5.  输入/输出工具：从平面文件（CSV、delimited、excel2003）加载表格数据，并保存和加载
+6.  快速高效的PyTables / HDF5格式的pandas对象
+7.  内存效率高的标准数据结构的“稀疏”版本，用于存储大部分缺失或基本不变的数据（某些固定值）
+8.  移动窗口统计（滚动平均值、滚动标准差等）
+   
 
-# Getting Data In/Out
+# 输入/输出数据
 
 ### CSV
 
-1.  Writing to a csv file: `df.to_csv('foo.csv')`
-2.  Reading from a csv file: `pd.read_csv('foo.csv')`
+1.  写入csv文件: `df.to_csv('foo.csv')`
+2.  从csv文件中读取: `pd.read_csv('foo.csv')`
 
 ### Excel
 
-1.  Writing to an excel file:
+1.  写入excel文件:
     `df.to_excel('foo.xlsx', sheet_name='Sheet1')`
-2.  Reading from an excel file:
+2.  从excel文件中读取:
     `pd.read_excel('foo.xlsx', 'Sheet1', index_col=None, na_values=['NA'])`
 
-### Object Creation
+### 对象创建
 
-1.  Creating a Series by passing a list of values, letting pandas create
-    a default integer index:
+1.  通过传递值列表创建序列，让pandas创建一个默认的整数索引：
 
 ``` {.python}
 import pandas as pd
@@ -151,16 +115,14 @@ import numpy as np
 pd.Series([1, 2, 5, np.nan, 8])
 ```
 
-1.  Creating a DataFrame by passing a numpy array, with a datetime index
-    and labeled columns:
+1.  通过传递带有日期时间索引和标记列的numpy数组创建Dataframe：
 
 ``` {.python}
 dates = pd.date_range('20130101', periods=6)
 df = pd.DataFrame(np.random.randn(6,4), index=dates, columns=list('ABCD'))
 ```
 
-1.  Creating a DataFrame by passing a dict of objects that can be
-    converted to series-like.
+1.  通过传递可以转换为类似序列的对象的dict来创建DataFrame：
 
 ``` {.python}
 df2 = pd.DataFrame({ 'A':1.,
@@ -174,24 +136,24 @@ df2.dtypes
 
 ```
 
-### Viewing Data
+### 查看数据
 
-1.  See the top & bottom rows of the frame
+1.  查看数据框的顶行和底行
     1.  df.head()
     2.  df.tail(3)
-2.  Display the index, columns, and the underlying numpy data
+2.  显示索引、列和底层numpy数据
     1.  df.index
     2.  df.columns
     3.  df.values
-3.  Describe shows a quick statistic summary of your data
+3.  描述显示数据的快速统计摘要
     1.  df.describe()
-4.  Transposing your data
+4.  转换数据
     1.  df.T
 
 ### 排序
 
-1.  Sorting by an axis `df.sort_index(axis=1, ascending=False)`
-2.  Sorting by values `df.sort_values(by='B')`
+1.  按轴排列 `df.sort_index(axis=1, ascending=False)`
+2.  按值排列 `df.sort_values(by='B')`
 
 # 选取
 
