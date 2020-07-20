@@ -193,11 +193,11 @@ df2.dtypes
 1.  Sorting by an axis `df.sort_index(axis=1, ascending=False)`
 2.  Sorting by values `df.sort_values(by='B')`
 
-# Selection
+# 选取
 
-### 使用中括号\[ \]选取
+### 使用中括号[ ]选取
 
-1.  Selecting a single column, which yields a Series, equivalent to df.A
+1.  选择单个列，这会产生一个序列，相当于df.A
 
 `df['A']`
 
@@ -223,15 +223,13 @@ df2.loc[:,['A','C']]
 
 ### 使用位置选取： `.iloc[ ]`
 
-The `.iloc` attribute is the primary access method. The following are
-valid inputs:
+ `.iloc` 属性是主要的访问方法，以下是有效的输入：
 
-1.  An integer e.g. 5
-2.  A list or array of integers \[4, 3, 0\]
-3.  A slice object with ints 1:7
-4.  A boolean array
-5.  When slicing, the start bounds is included, while the upper bound is
-    excluded.
+1.  一个整数：5
+2.  整数的列表或数组：[4, 3, 0]
+3.  一个由整数组成的切片对象：1:7
+4.  一个布尔值数组
+5.  当切片时，起始边界被包含，而上界被排除
 
 ``` {.python}
 df2 = pd.DataFrame(np.random.randn(5,4), columns=list('ABCD'),
@@ -246,16 +244,14 @@ df2.iloc[[0,2,4], :3]
 
 ### `DataFrame.at` 和 `DataFrame.iat`
 
-1.  `DataFrame.at` :Access a single value for a row/column label pair.
-    1.  `DataFrame.iat` :Access a single value for a row/column pair by
-        integer position.
+1.  `DataFrame.at` :访问行/列标签对的单个值
+2.  `DataFrame.iat` :按整型位置访问行/列对的单个值
 
-### Boolean indexing(逻辑值下标)
+### 逻辑值下标
 
-1.  The operators are: \| for or, & for and, and \~ for not.
-2.  These must be grouped by using parentheses.
-3.  Using a boolean vector to index a Series works exactly as in a numpy
-    ndarray
+1.  运算符为: | 表示或， & 表示且， ~ 表示否
+2.  必须使用括号对它们进行分组。
+3.  使用布尔向量索引序列的工作原理与numpy ndarray完全相同
 
 ``` {.python}
 ###Using a single column’s values to select data.
@@ -268,20 +264,20 @@ df2.iloc[list(df2['A'] > 0), 0:3]
 
 ```
 
-### Indexing with `isin`
+### 用`isin`索引
 
-1.  Consider the isin method of Series, which returns a boolean vector
-    that is true wherever the Series elements exist in the passed list.
+1.  考虑一下序列的
+    isin方法，它返回一个布尔向量，该向量在传递的列表中存在序列元素的任何地方都为
+    真。
 
 ``` {.python}
 s = pd.Series(np.arange(5), index=np.arange(5)[::-1], dtype='int64')
 s[s.isin([2,4,6])]
 ```
 
-1.  DataFrame also has an `isin` method. When calling isin, pass a set
-    of values as either an array or dict.
-2.  If values is an array, isin returns a DataFrame of booleans that is
-    the same shape as the original DataFrame.
+1.  DataFrame也有一个“isin”方法。当调用isin时，以数组
+    或dict的形式传递一组值。
+2.  如果值是一个数组，isin返回一个由布尔数组构成的DataFrame，其形状与原始的DataFrame相同。
 
 ``` {.python}
 df = pd.DataFrame({'vals': [1, 2, 3, 4], 'ids': ['a', 'b', 'f', 'n'],
@@ -290,20 +286,16 @@ values = ['a', 'b', 1, 3]
 df.isin(values)
 ```
 
-### Indexing with `isin`
+### 用`isin`索引
 
-1.  Oftentimes you'll want to match certain values with certain columns.
-    Just make values a dict where the key is the column, and the value
-    is a list of items you want to check for.
+1.  通常，希望将某些值与某些列匹配。只需将值设置为字典，其中键是列，而值是要检查的项的列表。
 
 ``` {.python}
 values = {'ids': ['a', 'b'], 'vals': [1, 3]}
 df.isin(values)
 ```
 
-1.  Combine DataFrame's isin with the `any()` and `all()` methods to
-    quickly select subsets of your data that meet a given criteria. To
-    select a row where each column meets its own criterion:
+1.  将DataFrame的isin与' any() '和' all() '方法结合起来，快速选择满足给定条件的数据子集。选择一个每列都满足自己条件的行:
 
 ``` {.python}
 values = {'ids': ['a', 'b'], 'ids2': ['a', 'c'], 'vals': [1, 3]}
@@ -311,17 +303,13 @@ row_mask = df.isin(values).all(1)
 df[row_mask]
 ```
 
-### The `where()` Method
+### `where()`方法
 
-1.  Selecting values from a Series with a boolean vector generally
-    returns a subset of the data.
-2.  To guarantee that selection output has the same shape as the
-    original data, you can use the where method in Series and DataFrame.
-3.  In addition, where takes an optional other argument for replacement
-    of values where the condition is False, in the returned copy.
-4.  Note: The signature for DataFrame.where() differs from
-    numpy.where(). Roughly df1.where(m, df2) is equivalent to
-    np.where(m, df1, df2).
+1.  从具有布尔向量的序列中选择值通常返回数据的一个子集。
+2.  为了保证选择输出与原始数据具有相同的形状，可以使用Series和DataFrame中的where方法。
+3.  此外，where接受一个可选的其他参数，用于替换返回副本中条件为假的值。
+4.  注意：DataFrame.where()方法的签名与numpy.where()不同。大概地，df1.where(m,
+    df2)和np.where(m, df1, df2)相同。
 
 ``` {.python}
 s[s > 0]
@@ -331,24 +319,17 @@ df.where(df < 0, -df)
 
 # 重复数据和缺失值
 
-### Duplicate Data
+### 重复数据
 
-1.  If you want to identify and remove duplicate rows in a DataFrame,
-    there are two methods that will help: `duplicated` and
+1.  如果你想要识别和删除一个DataFrame中的重复行，有两个方法可以帮助:`duplicated` 和
     `drop_duplicates`.
-2.  Each takes as an argument the columns to use to identify duplicated
-    rows.
-3.  duplicated returns a boolean vector whose length is the number of
-    rows, and which indicates whether a row is duplicated.
-4.  drop~duplicates~ removes duplicate rows.
-5.  By default, the first observed row of a duplicate set is considered
-    unique, but each method has a keep parameter to specify targets to
-    be kept.
-    -   keep=\'first\' (default): mark / drop duplicates except for the
-        first occurrence.
-    -   keep=\'last\': mark / drop duplicates except for the last
-        occurrence.
-    -   keep=False: mark / drop all duplicates.
+2.  每个都将用于标识重复行的列作为参数。
+3.  duplicated返回一个布尔向量，其长度为行数，并显示一行是否是重复的。
+4.  drop_duplicates 删除重复的行。
+5.  默认情况下，重复集的第一个观察行被认为是唯一的，但是每个方法都有一个keep参数来指定要保留的目标。
+    -   keep='first' (default): 标记/删除重复，除了第一次出现的。
+    -   keep='last': 标记/删除重复，除了最后一次出现的。
+    -   keep=False: 标记/删除所有重复。
 
 ### Duplicate Data
 
@@ -368,13 +349,12 @@ df2.duplicated(['a', 'b'])
 df2.drop_duplicates(['a', 'b'])
 ```
 
-### Missing Data
+### 缺失值
 
-1.  pandas primarily uses the value np.nan to represent missing data. It
-    is by default not included in computations.
-2.  To drop any rows that have missing data. `df1.dropna(how='any')`
-3.  Filling missing data: `df1.fillna(value=5)`
-4.  To get the boolean mask where values are nan: `pd.isna(df1)`
+1.  pandas主要使用np.nan表示丢失的数据。默认情况下，它不包括在计算中。
+2.  删除任何缺少数据的行。`df1.dropna(how='any')`
+3.  填充缺失的数据：`df1.fillna(value=5)`
+4.  获取值为nan的布尔值： `pd.isna(df1)`
 
 # Operations
 
