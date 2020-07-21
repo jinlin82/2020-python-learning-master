@@ -446,25 +446,22 @@ df.groupby(['A','B']).sum()
 
 ```
 
-## Aggregation
+## 聚合
 
-### Applying multiple functions at once
+### 同时应用多个功能
 
-1.  With grouped Series you can also pass a list or dict of functions to
-    do aggregation with, outputting a DataFrame.
-2.  On a grouped DataFrame, you can pass a list of functions to apply to
-    each column, which produces an aggregated result with a hierarchical
-    index.
+1.  对于分组的系列，你还可以传递一个列表或一组函数来进行聚合，并输出一个数据框。
+2.  在一个分组的数据框中，你可以传递一个要应用于每个列的函数列表，该列表将产生一
+    个带有分层索引的聚合结果。
 
 ``` {.python}
 df.groupby(['A','B']).agg([np.sum, np.mean, np.std])
 
 ```
 
-### Applying different functions to DataFrame columns
+### 对数据框的列应用不同的函数
 
-1.  By passing a dict to aggregate you can apply a different aggregation
-    to the columns of a DataFrame:
+1.  通过传递一个字典进行聚合，你可以对数据框的列应用不同的聚合方式:
 
 ``` {.python}
 grouped.agg({'C' : np.sum,
@@ -472,12 +469,11 @@ grouped.agg({'C' : np.sum,
 
 ```
 
-### Group Plotting
+### 组织策划
 
-1.  Groupby also works with some plotting methods.
-2.  For example, suppose we suspect that some features in a DataFrame
-    may differ by group, in this case, the values in column 1 where the
-    group is "B" are 3 higher on average.
+1.  Groupby还可以使用一些绘图方法。
+2.  例如，假设我们怀疑数据框中的某些特性可能因组而异，在本例中，第1列中组为“B”的
+    值要比总体平均值高3。
 
 ``` {.python}
 import matplotlib.pyplot as plt
@@ -488,7 +484,7 @@ df.loc[df['g'] == 'B', 1] += 3
 df.groupby('g').boxplot()
 ```
 
-# Reshaping
+# 重塑
 
 ### 使用 `pivot()` 方法
 
@@ -513,35 +509,25 @@ pivoted['value2']
 
 ```
 
-### Pivot tables
+### 数据透视表
 
-1.  While pivot provides general purpose pivoting of DataFrames with
-    various data types (strings, numerics, etc.),
-2.  the pivot~table~ function for pivoting with aggregation of numeric
-    data.
-3.  The function pandas.pivot~table~ can be used to create
-    spreadsheet-style pivot tables.
+1.  pivot为不同数据类型(字符串、数字等)的数据框提供了通用的旋转功能；
+2.  pivot_table函数用于对数值型数据的聚合结果进行旋转；
+3.  pandas.pivot_table函数可以用来创建电子表格样式的数据透视表。
 
-### Pivot tables
+### 数据透视表
 
-1.  pandas.pivot~table~ takes a number of arguments
-    -   data: A DataFrame object
-    -   values: a column or a list of columns to aggregate
-    -   index: a column, Grouper, array which has the same length as
-        data, or list of them. Keys to group by on the pivot table
-        index. If an array is passed, it is being used as the same
-        manner as column values.
-    -   columns: a column, Grouper, array which has the same length as
-        data, or list of them. Keys to group by on the pivot table
-        column. If an array is passed, it is being used as the same
-        manner as column values.
-    -   aggfunc: function to use for aggregation, defaulting to
-        numpy.mean
-2.  pass margins=True to pivot~table~, special All columns and rows will
-    be added with partial group aggregates across the categories on the
-    rows and columns
+1.  pandas.pivot_table中包括一些参数：
+    -   data: 一个数据框的对象；
+    -   values: 一个用来聚合的列或列表；
+    -   index: 一个具有相同的数据长度或列表长度的列，组，数组。在透视表索引上分
+        组的键。如果传递了一个数组，则它的使用方式也适用于列值的传递；
+    -   columns: 一个具有相同的数据长度或列表长度的列，组，数组。在透视表索引上
+        分组的键。如果传递了一个数组，则它的使用方式也适用于列值的传递；
+    -   aggfunc: 用于聚合的函数，默认为numpy.mean。
+2.  从margin =True转到pivot_table，所有特殊的行和列将跨类别与部分组别聚合。
 
-### Pivot tables
+### 数据透视表
 
 ``` {.python}
 df = pd.DataFrame({"A": ["foo", "foo", "foo", "foo", "foo",
@@ -566,30 +552,22 @@ table = pd.pivot_table(df, values=['D', 'E'], index=['A', 'C'],
                              'E': [min, max, np.mean]})
 ```
 
-### Cross tabulations
+### 交叉表格
 
-1.  Use the crosstab function to compute a cross-tabulation of two (or
-    more) factors.
-2.  By default crosstab computes a frequency table of the factors unless
-    an array of values and an aggregation function are passed.
-3.  arguments:
-    -   index: array-like, values to group by in the rows
-    -   columns: array-like, values to group by in the columns
-    -   values: array-like, optional, array of values to aggregate
-        according to the factors
-    -   aggfunc: function, optional, If no values array is passed,
-        computes a frequency table
-    -   rownames: sequence, default None, must match number of row
-        arrays passed
-    -   colnames: sequence, default None, if passed, must match number
-        of column arrays passed
-    -   margins: boolean, default False, Add row/column margins
-        (subtotals)
-    -   normalize: boolean, {'all', 'index', 'columns'}, or {0,1},
-        default False. Normalize by dividing all values by the sum of
-        values.
+1.  使用交叉表函数计算两个(或更多)因子的交叉表。
+2.  默认情况下，交叉表计算的是因子的频率表，除非传递了值数组和聚合函数。
+3.  参数：
+    -   index: 类似数组，值按行分组；
+    -   columns: 类似数组，值按列分组；
+    -   values: 类数组的可选值数组，根据因子进行聚合；
+    -   aggfunc: 函数，可选，如果数组没有传递值，则计算频率表；
+    -   rownames: 序列，默认为None，必须匹配传递的行数组数；
+    -   colnames: 序列，默认为None，如果传递，则必须匹配传递的列数组数；
+    -   margins: 布尔值，默认为False，添加行/列边距(小计)；
+    -   normalize: 布尔值，{'all'，'index'，'columns'}，或{0,1}，默认为False。通
+        过将所有值除以值的总和来标准化。
 
-### Cross tabulations
+### 交叉表格
 
 ``` {.python}
 foo, bar, dull, shiny, one, two = 'foo', 'bar', 'dull', 'shiny', 'one', 'two'
