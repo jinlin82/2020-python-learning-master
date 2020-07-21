@@ -318,46 +318,39 @@ df2.drop_duplicates(['a', 'b'])
 3.  填充缺失的数据：`df1.fillna(value=5)`
 4.  获取值为nan的布尔值： `pd.isna(df1)`
 
-# Operations
+# 操作
 
 ### 统计
 
-1.  Performing a descriptive statistic:
+1.  进行描述统计：
     -   `df.mean()`
     -   `df.mean(1)`
     -   `np.mean(np.array(df))`
 
 ### apply 函数
 
-1.  Applying functions to the data:
+1.  对数据应用函数：
     -   `df.apply(np.cumsum)`
 2.  `df.apply(lambda x: x.max() - x.min())`
 
 ### 字符处理
 
-1.  Series is equipped with a set of string processing methods in the
-    str attribute that make it easy to operate on each element of the
-    array.
+1.  序列配备了一套str属性中的字符串处理方法，使得对数组中每个元素的操作变得非常容易。
 
 ``` {.python}
 s = pd.Series(['A', 'B', 'C', 'Aaba', 'Baca', np.nan, 'CABA', 'dog', 'cat'])
 s.str.lower()
 ```
 
-# Merge
+# 合并
 
 ### `concat`
 
-1.  Concatenate pandas objects along a particular axis with optional set
-    logic along the other axes.
-2.  The concat() function (in the main pandas namespace) does all of the
-    heavy lifting of performing concatenation operations along an axis
-    while performing optional set logic (union or intersection) of the
-    indexes (if any) on the other axes.
-3.  Like its sibling function on ndarrays, numpy.concatenate,
-    pandas.concat takes a list or dict of homogeneously-typed objects
-    and concatenates them with some configurable handling of "what to do
-    with the other axes"
+1.  将pandas对象沿某一特定轴与其他轴上的可选集合逻辑连接起来。
+2.  concat()函数（在pandas主命名空间中）沿一个轴执行连接操作的所有繁重工作，
+    同时执行其他轴上索引（如果有）的可选集合逻辑（并集或交集）。
+3.  同ndarray上的兄弟函数一样，numpy.concatenate，pandas.concat从同类型对象中
+    获取一个列表或字典，并通过“如何处理其他轴”的一些可配置的操作将它们连接起来。
 
 ``` {.python}
 df = pd.DataFrame(np.random.randn(10, 4))
@@ -367,14 +360,12 @@ pd.concat(pieces)
 
 ### `appdend`
 
-1.  A useful shortcut to concat() are the append() instance methods on
-    Series and DataFrame.
+1.  concat()的一些实用快捷方法是基于序列和数据框的append()实例方法。
 
 ```{=html}
 <!-- -->
 ```
-1.  These methods actually predated concat. They concatenate along
-    axis=0, namely the index.
+1.  这些方法实际上早于concat方法。它们按行（即按索引）连接。
 
 ``` {.python}
 df = pd.DataFrame(np.random.randn(8, 4), columns=['A','B','C','D'])
@@ -386,49 +377,38 @@ df.append(s, ignore_index=True)
 
 ### `join`
 
-1.  pandas has full-featured, high performance in-memory join operations
-    idiomatically very similar to relational databases like SQL.
-2.  These methods perform significantly better (in some cases well over
-    an order of magnitude better) than other open source implementations
-    (like `base::merge.data.frame` in R).
-3.  The reason for this is careful algorithmic design and the internal
-    layout of the data in DataFrame.
-4.  pandas provides a single function, `merge()`, as the entry point for
-    all standard database join operations between DataFrame or named
-    Series objects
-5.  the related `join()` method, uses merge internally for the
-    index-on-index (by default) and column(s)-on-index join.
+1.  pandas拥有功能齐全，表现出色的内存整合操作，与SQL等关系数据库非常相似。
+2.  这些方法比其他开源工具（例如R软件中的 `base::merge.data.frame` ）明显表现得
+    更好（在某些情况下远远要好）。
+3.  原因是其精密的算法设计和数据框中数据的内部布局。
+4.  pandas提供了一个函数， `merge()` ，作为数据框和命名为序列的对象之间所有标准
+    数据库连接操作的入口点。
+5.  有关 `join()` 的方法, 在内部对索引（默认情况下）和列使用merge作为索引连接。
 
 # Grouping
 
-### Group By: split-apply-combine
+### Group By: 分割-应用-整合
 
--   By "group by" we are referring to a process involving one or more of
-    the following steps:
-    1.  Splitting the data into groups based on some criteria.
-    2.  Applying a function to each group independently.
-    3.  Combining the results into a data structure.
--   Out of these, the split step is the most straightforward. In fact,
-    in many situations we may wish to split the data set into groups and
-    do something with those groups.
+-   使用 "group by" 我们指的是涉及以下一个或多个步骤的过程：
+    1.  依照某些标准将数据分割成多组。
+    2.  对各组独立地应用函数。
+    3.  将结果整合成一个数据结构。
+-   其中，分割步骤是最直接的。实际上，在很多时候我们也许都希望将数据集分割成组，
+    并对这些组采取不同的操作。
 
-### apply step
+### 使用步骤
 
--   Aggregation: compute a summary statistic (or statistics) for each
-    group. Some examples:
-    1.  Compute group sums or means.
-    2.  Compute group sizes / counts.
--   Transformation: perform some group-specific computations and return
-    a like-indexed object. Some examples:
-    1.  Standardize data (zscore) within a group.
-    2.  Filling NAs within groups with a value derived from each group.
--   Filtration: discard some groups, according to a group-wise
-    computation that evaluates True or False. Some examples:
-    1.  Discard data that belongs to groups with only a few members.
-    2.  Filter out data based on the group sum or mean.
--   Some combination of the above: GroupBy will examine the results of
-    the apply step and try to return a sensibly combined result if it
-    doesn't fit into either of the above two categories.
+-   聚合：计算各个组的概括性统计信息。一些例子：
+    1.  计算组总和或组均值。
+    2.  计算组大小或计数。
+-   转换：执行一些组特定的计算，并返回一个类似索引的对象。一些例子：
+    1.  组内的标准化数据（z分数）。
+    2.  用从各组中获取的数据填补组内的缺失值。
+-   过滤：依据结果是真或假的分组计算来丢弃一些组。一些例子：
+    1.  丢弃属于只有少数个体的组的数据。
+    2.  过滤出基于组总和或组均值的数据。
+-   以上的一些组合：GroupBy将检查使用步骤的结果，并且如果它不符合上述两个类别中
+    任何一个，就尝试返回一个合理的整合结果。
 
 ### 例子
 
