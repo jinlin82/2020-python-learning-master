@@ -54,10 +54,13 @@ opposite(a)
    ##3. 编写一个函数shift，把向量元素右移 k 个位置，对某一向量使用该函数
 a=np.arange(10);a
 def shift(x,k):
+   if k>len(x):
+      k=k%len(x)
    y=list(x[len(x)-k:])
    z=list(x[:len(x)-k])
    return y+z
 shift(a,3)
+shift(a,11)
 
    ##4. 生成一个20行10列的矩阵，把矩阵的每一列倒置，把矩阵的每一行元素向右3个位置
 a=np.arange(200).reshape((20,10));a
@@ -67,6 +70,9 @@ for i in b:
    i=shift(i,3)
    c.append(i)
 c
+##法二##
+np.apply_along_axis(lambda y:shift(y.tolist(),3),1,np.apply_along_axis(opposite,0,a))
+
 
    ##5. 编写一个函数 fibonacci ，给定一个正整数x, 生成小于x的所有斐波那契数列元素， 求x=10000000时具体数列.
 def fibo(x):
@@ -77,8 +83,16 @@ def fibo(x):
       x2=x3[-1]
       x3.append(x1+x2)
    return x3[:-1]
-
 fibo(10000000)
+
+## 法二
+def fib(n):
+   a,b=0,1
+   while a<n:
+      print(a)
+      a,b=b,a+b
+fib(10000000)
+
 
 # 3. 自定义一个正方形的类：
    ##1. 给出其位置和边长属性
