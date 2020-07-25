@@ -8,7 +8,7 @@ for fruit in fruits:
     print('当前水果：',fruit)
 
 import pandas as pd
-BSdata=pd.read_csv("../lmk/BSdata.csv",encoding='utf-8')
+BSdata=pd.read_csv("./BSdata.csv",encoding='utf-8')
 for var in BSdata.columns:
     print(var)
 
@@ -108,8 +108,10 @@ BSdata.身高.skew() # 偏度
 BSdata.身高.kurt() # 峰度
 
 def stats(x):
-    stat=[x.count(),x.min(),x.quantile(0.25),x.mean(),x.median(),x.quantile(0.75),x.max(),x.max()-x.min(),x.var(),x.std(),x.skew(),x.kurt()]
-    stat=pd.Series(stat,index=['Count','Min','Q1(25%)','Mean','Median','Q3(75%)','Max','Range','Var','Std','Skew','Kurt'])
+    stat=[x.count(),x.min(),x.quantile(0.25),x.mean(),x.median(),x.quantile(0.75),
+          x.max(),x.max()-x.min(),x.var(),x.std(),x.skew(),x.kurt()]
+    stat=pd.Series(stat,index=['Count','Min','Q1(25%)','Mean','Median','Q3(75%)',
+                   'Max','Range','Var','Std','Skew','Kurt'])
     x.plot(kind='kde') # 拟合核密度曲线
     return(stat)
 stats(BSdata.身高)
@@ -117,7 +119,7 @@ stats(BSdata.支出)
 
 # 基本绘图命令
 import matplotlib.pyplot as plt # 基本绘图包
-plt.rcParams['font.sans-serif']=['KaiTi'] # SimHei黑体
+plt.rcParams['font.sans-serif']=['KaiTi'] # KaiTi楷体/SimHei黑体/SimSun宋体
 plt.rcParams['axes.unicode_minus']=False # 正常显示图中符号
 plt.figure(figsize=(5,4)) # 图形大小
 
@@ -193,17 +195,17 @@ BSdata[['身高','体重','支出']].plot(subplots=True,layout=(1,3),kind='densi
 BSdata[['身高','体重','支出']].plot(subplots=True,layout=(3,1),kind='density')
 
 ## 计数数据
-T1=BSdata['开设'].value_counts;T1
-pd.DataFrame({'频数':T1,'频率':T1/T1.sum()*100}) #？T1是method
+T1=BSdata['开设'].value_counts();T1
+pd.DataFrame({'频数':T1,'频率':T1/T1.sum()*100})
 
 T1.plot(kind='bar')
 T1.sort_values().plot(kind='bar')
-T1.plot(kind='pie') #？同上
+T1.plot(kind='pie')
 
 # 一维频数分析
 ## 计数频数分析
 BSdata['开设'].value_counts()
-Bsdata.pivot_table(values='学号',index='开设',aggfunc=len) #？invalid
+BSdata.pivot_table(values='学号',index='开设',aggfunc=len)
 
 def tab(x,plot=False): # 计数频数表
     f=x.value_counts();f
@@ -253,7 +255,7 @@ pd.crosstab(BSdata.开设,BSdata.课程,margins=True,normalize='all').round(3) #
 T2=pd.crosstab(BSdata.开设,BSdata.课程);T2
 T2.plot(kind='bar') # 分段式条图
 T2.plot(kind='bar',stacked=True) # 并列式条图
-# ？？？中文图例无法显示
+# 中文图例的显示需要设置字体
 
 ## 计量数据
 BSdata.groupby(['性别']) # 按列分组
@@ -282,3 +284,207 @@ BSdata.pivot_table(index='性别',values=['身高','体重']) # 默认计算均�
 ## 复合数据
 BSdata.pivot_table('学号',['性别','开设'],'课程',aggfunc=len,margins=True,margins_name='合计')
 BSdata.pivot_table(['身高','体重'],['性别','开设'],aggfunc=[len,np.mean,np.std])
+
+# pandas
+## objects creation
+import pandas as pd
+import numpy as np
+pd.Series([1,2,5,np.nan,8])
+
+dates=pd.date_range('20130101',periods=6)
+df=pd.DataFrame(np.random.randn(6,4),index=dates,columns=list('ABCD'))
+
+df2=pd.DataFrame({'A':1.,
+                  'B':pd.Timestamp('20130102'),
+                  'C' : pd.Series(1,index=list(range(4)),dtype='float32'),
+                  'D' : np.array([3]*4,dtype='int32'),
+                  'E' : pd.Categorical(["test","train","test","train"]),
+                  'F' : 'foo' })
+
+## viewing data
+df.head()
+df.tail(3)
+
+df.index
+df.columns
+df.values
+
+df.describe()
+
+df.T
+
+## sorting
+df.sort_index(axis=1,ascending=False) # 降序
+df.sort_values(by='B')
+
+## selection
+df['A']
+df[2:4]
+
+df2=pd.DataFrame(np.random.randn(5,4),columns=list('ABCD'),index=pd.date_range('20130101',periods=5))
+df2.loc[2:3] # 错误
+df2.loc['20130102':'20130104']
+df2.loc[:,['A','C']]
+
+df2.iloc[2]
+df2.iloc[2,3]
+df2.iloc[[0,2,4]]
+df2.iloc[[0,2,4],:3]
+
+### boolean indexing
+df[df.A>0]
+df[df>0]
+df2.loc[df2['A']>0,'A':'C']
+df2.iloc[list(df2['A']>0),0:3]
+
+### indexing with isin
+s=pd.Series(np.arange(5),index=np.arange(5)[::-1],dtype='int64')
+s[s.isin([2,4,6])]
+
+df=pd.DataFrame({'vals':[1,2,3,4],'ids':['a','b','f','n'],'ids2':['a','n','c','n']})
+values=['a','b',1,3]
+df.isin(values)
+
+values={'ids':['a','b'],'vals':[1,3]}
+df.isin(values)
+
+values={'ids':['a','b'],'ids2':['a','c'],'vals':[1,3]}
+row_mask=df.isin(values).all(1)
+df[row_mask]
+
+### the where() method
+s[s>0]
+s.where(s>0)
+df.where(df<0,-df) # 报错，()里不要给str
+
+## duplicate data
+df2=pd.DataFrame({'a':['one','one','two','two','two','three','four'],
+                  'b':['x','y','x','y','x','x','x'],
+                  'c':np.random.randn(7)})
+df2.duplicated('a')
+df2.duplicated('a',keep='last')
+df2.duplicated('a',keep=False)
+df2.drop_duplicates('a')
+df2.drop_duplicates('a',keep='last')
+df2.drop_duplicates('a',keep=False)
+# keep='first'(default): mark/drop duplicates except for the first occurrence.
+# keep='last': mark/drop duplicates except for the last occurrence.
+# keep=False: mark/drop all duplicates.
+df2.duplicated(['a','b'])
+df2.drop_duplicates(['a','b'])
+
+## apply函数
+df.apply(np.cumsum)
+df.apply(lambda x:x.max()-x.min()) ###
+
+## 字符处理
+s=pd.Series(['A','B','C','Aaba','Baca',np.nan,'CABA','dog','cat'])
+s.str.lower()
+
+## merge
+### concat
+df=pd.DataFrame(np.random.randn(10,4))
+pieces=[df[:3],df[3:7],df[7:]]
+pd.concat(pieces)
+
+### append
+df=pd.DataFrame(np.random.randn(8,4),columns=['A','B','C','D'])
+s=df.iloc[3]
+df.append(s)
+df.append(s,ignore_index=True)
+
+## grouping
+df=pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar','foo', 'bar', 'foo', 'foo'],
+                 'B': ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
+                 'C': np.random.randn(8),
+                 'D': np.random.randn(8)});df
+df.groupby('A').sum()
+df.groupby(['A','B']).sum()
+
+## aggregation
+df.groupby(['A','B']).agg([np.sum,np.mean,np.std])
+
+grouped.agg({'C':np.sum,
+             'D':lambda x: np.std(x,ddof=1)}) ###
+
+import matplotlib.pyplot as plt
+np.random.seed(1234)
+df=pd.DataFrame(np.random.randn(50,2))
+df['g']=np.random.choice(['A','B'],size=50)
+df.loc[df['g']=='B',1]+=3
+df.groupby('g').boxplot() ###
+
+## reshaping
+### pivot() function
+import pandas.util.testing as tm;tm.N=3
+def unpivot(frame):
+    N,K=frame.shape
+    data={'value':frame.values.ravel('F'),
+          'variable':np.asarray(frame.columns).repeat(N),
+          'date':np.tile(np.asarray(frame.index),K)}
+    return pd.DataFrame(data,columns=['date','variable','value'])
+df=unpivot(tm.makeTimeDataFrame())
+
+df[df['variable']=='A']
+df.pivot(index='date',columns='variable',values='value')
+df['value2']=df['value']*2
+df.pivot('date','variable')
+
+pivoted=df.pivot('date','variable')
+pivoted['value2']
+
+### pivot tables
+df=pd.DataFrame({'A':['foo','foo','foo','foo','foo','bar','bar','bar','bar'],
+                 'B':['one','one','one','two','two','one','one','two','two'],
+                 'C':['small','large','large','small','small','large','small','small','large'],
+                 'D':[1, 2, 2, 3, 3, 4, 5, 6, 7],
+                 'E':[2, 4, 5, 5, 6, 6, 8, 9, 9]})
+
+table=pd.pivot_table(df,values='D',index=['A','B'],columns=['C'],aggfunc=np.sum)
+table=pd.pivot_table(df,values=['D','E'],index=['A','C'],aggfunc={'D':np.mean,'E':np.mean})
+table=pd.pivot_table(df,values=['D','E'],index=['A','C'],aggfunc={'D':np.mean,'E':[min,max,np.mean]})
+
+### cross tabulations
+foo,bar,dull,shiny,one,two='foo','bar','dull','shiny','one','two'
+a=np.array([foo,foo,bar,bar,foo,foo],dtype=object)
+b=np.array([one,one,two,one,two,one],dtype=object)
+c=np.array([dull,dull,shiny,dull,dull,shiny],dtype=object)
+pd.crosstab(a,[b,c],rownames=['a'],colnames=['b','c'])
+
+df=pd.DataFrame({'A':[1,2,2,2,2],'B':[3,3,4,4,4],'C':[1,1,np.nan,1,1]})
+pd.crosstab(df.A,df.B)
+pd.crosstab(df['A'],df['B'],normalize=True)
+pd.crosstab(df['A'],df['B'],normalize='columns')
+pd.crosstab(df.A,df.B,values=df.C,aggfunc=np.sum,normalize=True,margins=True)
+
+### cut function
+ages=np.array([10,15,13,12,23,25,28,59,60])
+pd.cut(ages,bins=3)
+pd.cut(ages,bins=[0,18,35,70])
+
+### get_dummies()
+df=pd.DataFrame({'key':list('bbacab'),'data1':range(6)})
+pd.get_dummies(df['key'])
+dummies=pd.get_dummies(df['key'],prefix='key')
+
+df=pd.DataFrame({'A':['a','b','a'],'B':['c','c','b'],'C':[1,2,3]})
+pd.get_dummies(df,columns=['A'])
+
+## categoricals
+s=pd.Series(['a','b','c','a'],dtype='category')
+df=pd.DataFrame({'id':[1,2,3,4,5,6],'raw_grade':['a','b','b','a','a','e']})
+df['grade']=df['raw_grade'].astype('category')
+df['grade'].cat.categories=['very good','good','very bad']
+df['grade']=df['grade'].cat.set_categories(['very bad','bad','medium','good','very good'])
+
+df.sort_values(by='grade')
+df.groupby('grade').size()
+
+### plot()
+ts=pd.Series(np.random.randn(1000),index=pd.date_range('1/1/2000',periods=1000))
+ts=ts.cumsum()
+ts.plot()
+
+df3=pd.DataFrame(np.random.randn(1000,2),columns=['B','C']).cumsum()
+df3['A']=pd.Series(list(range(len(df))))
+df3.plot(x='A',y='B')

@@ -33,6 +33,7 @@ df2=df1.iloc[:,:-2];df2
 
 df3=df2.rename(columns={'year':'time'})
 df4=df3.rename(columns={'district':'dis'});df4
+# data.columns.values[:2]=['time','dis']
 
 ### 6. 把最后得到的数据框写出为csv文件
 
@@ -56,7 +57,7 @@ MAD(list)
 ### 2. 编写一个函数opposite，把向量倒置，对某一向量使用该函数
 
 def opposite(a):
-    v=np.flipud(a)
+    v=np.flipud(a) # v=a[::-1]
     return v
 
 a=np.arange(6)
@@ -82,7 +83,8 @@ a=[]
 for i in x1:
     i=shift(i,3)
     a.append(i)
-x2=np.array(a);x2   # 有没有更好的方法？
+x2=np.array(a);x2
+# np.apply_along_axis(lambda y:shift(y.tolist(),3),1,np.apply_along_axis(opposite,0,x)) ## tolist()函数将array转化为list
 
 ### 5. 编写一个函数fibonacci，给定一个正整数x, 生成小于x的所有斐波那契数列元素，求x=10000000时具体数列.
 
