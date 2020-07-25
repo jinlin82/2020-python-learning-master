@@ -104,3 +104,13 @@ P45-56 王悦
 - Pandas. pdf看完。翻译分工：1-14谢欣悦,15-27王悦,28-39廖明可,40-50梁依婷,51-63陈瑶（周三之前完成以上内容）
 
 - 完成练习（01-06），在Week-4 Pandas文件夹中，分别在各自文件夹中新建pandas_exercises_with_data上传作业，注意不要上传data文件。（周六晚前完成）
+
+# week6
+
+- 整理pandas作业，并完成剩下的内容。
+
+- 完成第三次作业，命名为zuoye3，放入week4pandas中。
+
+- 看04.pdf第二节 05.pdf及对应课本和视频 并敲代码命名为practice放入week5matplotlib中。
+
+- 注册 kaggle，力扣https://leetcode-cn.com/
