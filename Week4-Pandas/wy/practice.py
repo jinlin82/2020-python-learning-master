@@ -430,7 +430,7 @@ BSdata.describe()
 BSdata[['性别','开设','课程','软件']].describe() #数值型和分类型数据要分开，不然只计算数值型
 
 ### 计数数据汇总分析
-T1=BSdata.性别.value_counts();T1
+T1=BSdata.性别.value_counts();T1 
 T1/sum(T1)*100
 
 ### 计量数据汇总分析
@@ -440,6 +440,8 @@ BSdata.身高.max()-BSdata.身高.min()
 BSdata.身高.var()
 BSdata.身高.std()
 BSdata.身高.quantile(0.75)-BSdata.身高.quantile(0.25)
+BSdata.支出.quantile([0.25,0.5,0.75])
+BSdata.支出.quantile(np.arange(0.01,1,0.01)) #百分位数
 BSdata.身高.skew()
 BSdata.身高.kurt()
 
@@ -644,7 +646,7 @@ df[row_mask]
 ## the where() method
 s[s>0]
 s.where(s>0)
-df.where(df<0,-df)   ?
+df.where(df<0,-df)
 
 ## duplicate data
 df2=pd.DataFrame({'a':['one','one','two','two','two','three','four'],'b':['x','y','x','y','x','x','x'],'c':np.random.randn(7)})

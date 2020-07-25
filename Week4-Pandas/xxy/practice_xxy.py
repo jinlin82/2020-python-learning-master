@@ -391,3 +391,203 @@ BSdata.pivot_table(index=['性别'],values=['身高','体重'])##默认计算均
 BSdata.pivot_table('学号',['性别','开设'],'课程',aggfunc=len,margins=True,margins_name='合计')
 BSdata.pivot_table(['身高','体重'],['性别','开设'],aggfunc=[len,np.mean,np.std])
 
+##shipin_pandas
+import numpy as np 
+import pandas as pd 
+import matplotlib.pyplot as plt 
+import scipy.stats as stats
+BSdata=pd.read_csv('./data/BSdata.csv')
+dir(BSdata)
+plt.rcParams['font.sans-serif']=['KaiTi']
+##SimSun 宋体
+##KaiTi 楷体
+
+
+BSdata.columns
+BSdata.index
+BSdata.describe()##只针对数值型数据常见统计量 分类数据不可用
+BSdata[['性别','开设','课程','软件']].describe()##所有都是分类数据
+BSdata[['性别','身高','课程','软件']].describe()##分类和数值型数据混在一起只显示数值型
+
+BSdata.课程.value_counts()
+BSdata.支出.var()
+BSdata.支出.quantile([0.25,0.5,0.75])
+np.arange(0.01,1,0.01) ##0.01为步长
+BSdata.支出.quantile(np.arange(0.01,1,0.01))
+
+BSdata.支出.skew()
+BSdata.支出.kurt()
+BSdata[['身高','体重']].mean()
+BSdata[['身高','体重']].cov()##协方差矩阵
+BSdata[['身高','体重']].corr()##相关系数矩阵
+
+res=BSdata.课程.value_counts()
+type(res)
+
+x=res.index;x
+y=res.values;y##或者list(res)
+plt.bar(x,y)
+plt.barh(x,y)##横向条形图
+
+type(BSdata.课程)
+a=pd.DataFrame(BSdata.课程)
+type(a)
+BSdata.课程.value_counts()
+
+
+res.plot(kind='bar')
+res.plot(kind='barh')##只需一行代码 不需要定义xy
+
+plt.pie(y,labels=x)
+res.plot(kind='pie')
+
+BSdata.columns 
+plt.plot(BSdata.身高)
+plt.hist(BSdata.身高)##频数（纵轴）
+plt.hist(BSdata.身高,density=True)##频率分布直方图
+
+plt.scatter(BSdata.身高,BSdata.体重)
+plt.ylim(40,100)##纵轴范围
+##将上面两行代码一起运行
+
+plt.xticks(np.arange(5),('a','b','c','d','e'))##设置xy坐标刻度
+plt.xticks(np.arange(0,1.1,0.2))##设置xy坐标刻度
+
+plt.plot(BSdata.身高,'go-',label='身高')##green/o/--
+plt.xlim(0,60)
+plt.ylim(150,190)##只能是函数，不能当作参数写进去
+
+plt.plot(BSdata.身高,'go-',label=u'身高')##u表示utf—8编码 附带legend()
+plt.axhline(170)
+plt.axvline(20)
+plt.axhspan(165,175)
+plt.text(35,185,'最大值')
+plt.legend()
+
+##多图
+plt.figure(figsize=(12,6))
+plt.subplot(1,2,1);res.plot(kind='bar')
+plt.subplot(1,2,2);res.plot(kind='pie')
+##简写（超过10行10列不能简写 无法分辨）
+plt.figure(figsize=(12,6))
+plt.subplot(121);res.plot(kind='bar')
+plt.subplot(122);res.plot(kind='pie')
+
+plt.figure(figsize=(12,6))
+plt.subplot(241);res.plot(kind='bar')
+plt.subplot(242);res.plot(kind='bar')
+plt.subplot(243);res.plot(kind='bar')
+plt.subplot(244);res.plot(kind='bar')
+plt.subplot(245);res.plot(kind='bar')
+plt.subplot(246);res.plot(kind='bar')
+plt.subplot(247);res.plot(kind='bar')
+plt.subplot(248);res.plot(kind='bar')
+
+plt.subplots(2,4,figsize=(12,6))
+
+a,b=[1,(2,3)]
+a
+b
+fig,ax=plt.subplots(2,4,figsize=(12,6))
+##fig是整个画布 ax是坐标系
+ax[0,0].bar(x,y)
+ax[0,1].plot(BSdata.身高)
+ax[0,2].bar(x,y)
+ax[0,3].plot(BSdata.身高)
+ax[1,0].bar(x,y)
+ax[1,1].plot(BSdata.身高)
+ax[1,2].bar(x,y)
+ax[1,3].plot(BSdata.身高)
+type(fig)
+type(ax)
+type(ax[0,0])
+fig.set_facecolor('red')##画布底色
+ax[0,0].set_title('第一个图')#给图加标题
+
+BSdata.plot(kind='scatter',x='身高',y='体重')
+plt.scatter(BSdata.身高,BSdata.体重)
+
+##数据分析
+pd.cut(BSdata.身高,bins=10)##自动分组等分
+x=pd.cut(BSdata.身高,bins=[0,155,160,165,170,175,180,250]).value_counts(sort=False)##人为定义分组
+x.plot(kind='pie')
+
+BSdata.columns
+pd.crosstab(BSdata.开设,BSdata.课程).plot(kind='bar')
+pd.crosstab(BSdata.开设,BSdata.课程,margins=True,margins_name='小计')
+pd.crosstab(BSdata.开设,BSdata.课程,margins=True,margins_name='小计',normalize='all')
+pd.crosstab(BSdata.开设,BSdata.课程,margins=True,margins_name='小计',normalize='index')##每行百分比
+pd.crosstab(BSdata.开设,BSdata.课程,margins=True,margins_name='小计',normalize='columns').round(3)##每列百分比
+
+pd.crosstab(BSdata.性别,BSdata.开设).plot(kind='bar')
+pd.crosstab(BSdata.开设,BSdata.性别).plot(kind='bar')
+
+##按分组统计
+BSdata.groupby(['性别'])['身高'].mean()
+BSdata.groupby(['性别','开设'])['身高'].mean()
+BSdata.groupby(['性别','开设'])['身高'].size()
+BSdata.groupby(['性别','开设'])['身高'].var()
+BSdata.groupby(['性别','开设'])['身高','体重'].var()
+BSdata.groupby(['性别'])[['身高','体重']].var(ddof=0)
+BSdata.groupby(['性别'])['身高','体重'].apply(np.var)
+BSdata.groupby(['性别'])['身高','体重'].agg(np.var)
+BSdata.groupby(['性别'])['身高','体重'].var()
+BSdata.groupby(['性别'])['身高','体重'].agg(len)
+
+BSdata.groupby(['性别'])[['身高','体重']].apply(sum)
+BSdata.groupby(['性别'])[['身高','体重']].agg([sum], axis=1)##0和1相同
+
+BSdata.groupby(['性别'])[['身高','体重']].apply(lambda x:print(x))
+BSdata.groupby(['性别'])[['身高','体重']].agg(lambda x:print(x))
+##按性别划分 列出各自身高体重
+
+BSdata.groupby(['性别'])[['身高','体重']].apply(lambda x:np.sum(x.values))##男/女各自身高体重之和
+BSdata.groupby(['性别'])[['身高','体重']].agg(lambda x:np.sum(x.values))##男/女各自身高/体重和
+
+BSdata[['身高','体重']].agg([np.sum,np.var], axis=1)
+
+np.var([1,2,3], ddof=1)##样本
+pd.DataFrame([1,2,3]).var()##样本
+pd.DataFrame([1,2,3]).apply(np.var)##总本
+pd.DataFrame([1,2,3]).agg(np.var)##样本
+x=[1,2,3]
+np.var(x)
+np.var(x,ddof=1)
+##默认为0，求总体方差；为1求样本方差
+
+
+pd.crosstab(BSdata.性别,BSdata.开设)
+BSdata.groupby(['性别','开设']).count()
+BSdata.groupby(['性别','开设']).size()
+BSdata.groupby(['性别'])['身高'].size()
+BSdata.groupby(['性别'])['身高'].var()
+
+BSdata.groupby(['性别'])['身高'].agg([np.mean,np.var,np.std])##agg同时求多个统计量
+BSdata.groupby(['性别'])['身高','体重'].apply(np.mean)##apply求多个对象的一个统计量 
+BSdata.groupby(['性别'])['身高','体重'].agg([np.mean,np.var,np.std])##agg同时求多个对象的多个统计量
+BSdata.groupby(['性别'])['身高','体重'].agg({'身高':np.var,'体重':np.std})##agg求不同对象的不同统计量
+BSdata.groupby(['性别'])[['身高','体重']].var(ddof=0)
+
+
+BSdata.pivot_table(index=['性别'],values=['开设'],aggfunc=len)##按性别分类
+BSdata.pivot_table(index=['开设'],values=['性别'],aggfunc=len)##按开设分类
+
+BSdata.pivot_table(index=['开设','性别'],values=['课程'],aggfunc=len)##按性别&开设分类
+BSdata.pivot_table(index=['开设','性别'],values=['身高'],aggfunc=len)##按性别&开设分类
+##定性变量无区别 定量有区别
+BSdata.pivot_table(index=['开设','性别'],values=['身高'],aggfunc=np.mean)##按性别&开设分类
+BSdata.pivot_table(index=['开设','性别'],values=['体重'],aggfunc=np.mean)##按性别&开设分类
+BSdata.pivot_table(index=['开设','性别'],values=['身高','体重'],aggfunc=[np.mean,np.var])##按性别&开设分类（list）
+BSdata.pivot_table(index=['开设','性别'],values=['身高','体重'],aggfunc={'身高':np.mean,'体重':np.var})##不同对象求不同统计量（dict）
+BSdata.pivot_table(index=['开设','性别'],values=['身高','体重'],margins=True,margins_name='合计',aggfunc={'身高':np.mean,'体重':np.var})##合计
+
+### Dataframe Apply 方法
+BSdata[['身高', '体重', '支出']].mean()
+BSdata[['身高', '体重', '支出']].apply(np.mean, axis=1)##对列，左右
+BSdata[['身高', '体重', '支出']].apply(np.var, axis=1)
+BSdata[['身高', '体重', '支出']].apply([np.mean,np.var], axis=1)
+BSdata[['身高', '体重', '支出']].apply({'身高':np.mean,'体重':np.var,'支出':np.std},axis=1)##字典不行？？
+
+BSdata.groupby('性别')[['身高', '体重']].mean()
+BSdata.groupby(['性别','开设'])[['身高','体重']].mean()
+

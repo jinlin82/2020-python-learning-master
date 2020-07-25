@@ -566,15 +566,12 @@ margins=True)
 
 ```
 
-### `cut` function
+### cut 函数
 
-1.  The cut function computes groupings for the values of the input
-    array and is often used to transform continuous variables to
-    discrete or categorical variables.
-2.  If the bins keyword is an integer, then equal-width bins are formed.
-    Alternatively we can specify custom bin-edges
+1.  cut函数为输入数组的值计算分组，通常用于将连续变量转换为离散变量或分类变量。
+2.  如果bins关键字是整数，则形成等宽的bin。或者，我们可以指定自定义bin-edges。
 
-### `cut` function
+### cut 函数
 
 ``` {.python}
 ages = np.array([10, 15, 13, 12, 23, 25, 28, 59, 60])
@@ -582,20 +579,16 @@ pd.cut(ages, bins=3)
 pd.cut(ages, bins=[0, 18, 35, 70])
 ```
 
-### dummy variables: get~dummies~()
+### 虚拟变量: get~dummies~()
 
-1.  get~dummies~() converts a categorical variable into a "dummy" or
-    "indicator" DataFrame,
-2.  for example a column in a DataFrame (a Series) which has k distinct
-    values, can derive a DataFrame containing k columns of 1s and 0s
-3.  get~dummies~() also accepts a DataFrame. By default all categorical
-    variables (categorical in the statistical sense, those with object
-    or categorical dtype) are encoded as dummy variables.
-4.  control the columns that are encoded with the columns keyword.
-5.  drop~first~ keyword only keep k-1 levels of a categorical variable
-    to avoid collinearity.
+1.  get_dummies() 将分类变量转化为“虚拟”或“指标”数据框。
+2.  例如，数据框（系列）中具有k个不同的列值，可以派生一个包含1和0的k列的数据框
+3.  get_dummies() 也支持数据框. 默认情况下，所有类别变量（从统计意义上讲是分类
+    的，有对象的变量或类别dtype）编码为虚拟变量。
+4.  控制使用columns关键字编码的列。
+5.  drop_first 关键字仅保留K-1级分类变量，从而避免多重共线性。
 
-### dummy variables: get~dummies~()
+### 虚拟变量: get_dummies()
 
 ``` {.python}
 df = pd.DataFrame({'key': list('bbacab'), 'data1': range(6)})
@@ -615,17 +608,16 @@ pd.get_dummies(df, columns=['A'])
 2.  melt
 3.  wide~tolong~
 
-# Categoricals
+# 分类
 
 ### 创建分类
 
-1.  By specifying dtype=\"category\" when constructing a Series
-2.  pandas can include categorical data in a DataFrame by convert
-3.  Rename the categories to more meaningful names (assigning to
-    Series.cat.categories
-4.  Reorder the categories and simultaneously add the missing categories
-5.  Sorting is per order in the categories, not lexical order.
-6.  Grouping by a categorical column shows also empty categories.
+1.  通过在构造系列时指定dtype = \“ category \”。
+2.  pandas熊猫可以通过转换将分类数据包含在数据框中。
+3.  将类别重命名为更有意义的名称（分配给Series.cat.categories)。
+4.  重新排序类别并同时添加缺少的类别。
+5.  排序是按类别中的顺序进行的，而不是词汇顺序。
+6.  按类别列分组还显示空类别。
 
 ### 例子
 
@@ -641,19 +633,18 @@ df.groupby("grade").size()
 
 ```
 
-# Plotting
+# 画图
 
-### `plot()`
+### plot()
 
-1.  The plot method on Series and DataFrame is just a simple wrapper
-    around plt.plot()
+1.  Series和DataFrame上的plot方法只是plt.plot()的简单包装。
 
 ```{=html}
 <!-- -->
 ```
-1.  On DataFrame, plot() is a convenience to plot all of the columns
-    with labels
-2.  plot one column versus another using the x and y keywords in plot()
+1.  在DataFrame上，plot（）可以方便地绘制带有标签的所有列使用plot（）中的x和y关
+    键字绘制一列与另一列。
+2.  使用plot（）中的x和y关键字绘制一列与另一列。
 
 ``` {.python}
 ts = pd.Series(np.random.randn(1000), index=pd.date_range('1/1/2000',periods=1000))
@@ -666,42 +657,36 @@ df3['A'] = pd.Series(list(range(len(df))))
 df3.plot(x='A', y='B')
 ```
 
-### Other Plots
+### 其他画图
 
-1.  Plotting methods allow for a handful of plot styles other than the
-    default Line plot. These methods can be provided as the kind keyword
-    argument to plot(). These include:
-    -   'bar' or 'barh' for bar plots
-    -   'hist' for histogram
-    -   'box' for boxplot
-    -   'kde' or \'density\' for density plots
-    -   'area' for area plots
-    -   'scatter' for scatter plots
-    -   'hexbin' for hexagonal bin plots
-    -   'pie' for pie plots
-
-### 其他画图函数
-
-1.  These functions can be imported from pandas.plotting and take a
-    Series or DataFrame as an argument.
-2.  Scatter Matrix Plot： pandas.plotting.scatter~matrix~
-3.  create density plots using the Series.plot.kde() and
-    DataFrame.plot.kde() methods.
-4.  Andrews curves allow one to plot multivariate data as a large number
-    of curves that are created using the attributes of samples as
-    coefficients for Fourier series: andrews~curves~
+1.  除了默认的“线图”外，绘图方法还允许使用多种绘图样式。 这些方法可以作为plot()
+    的kind关键字参数提供。 这些包括：
+    -   条形图的'bar'或'barh'。
+    -   直方图的'hist'。
+    -   箱线图的'box'。
+    -   密度图的'kde' 或 \'density\'。
+    -   面积图的'area'。
+    -   散点图的'scatter'。
+    -   六边形图的'hexbin'。
+    -   饼图的'pie'。
 
 ### 其他画图函数
 
-1.  [@5]Parallel coordinates is a plotting technique for plotting
-    multivariate data. It allows one to see clusters in data and to
-    estimate other statistics visually: parallel~coordinates~
-2.  Lag plots are used to check if a data set or time series is random:
-    lag~plot~
-3.  Autocorrelation Plot: autocorrelation~plot~
-4.  Bootstrap plots are used to visually assess the uncertainty of a
-    statistic, such as mean, median, midrange, etc: bootstrap~plot~
-5.  RadViz is a way of visualizing multi-variate data: radviz
+1.  这些函数可以从pandas.plotting导入，并以Series或DataFrame作为参数。
+2.  散点图： pandas.plotting.scatter_matrix
+3.  使用Series.plot.kde()和DataFrame.plot.kde()方法创建密度图。
+4.  Andrews曲线允许将多元数据绘制为大量曲线，这些曲线是使用样本的属性作为傅里叶
+    级数的系数创建的: andrews_curves
+
+### 其他画图函数
+
+1.  平行坐标是一种用于绘制多元数据的绘制技术。 它可以让人们看到数据中的聚
+    类，并直观地估计其他统计数据: parallel_coordinates
+2.  滞后图用于检查数据集或时间序列是否随机:lag_plot
+3.  自相关图: autocorrelation_plot
+4.  自举图用于直观地评估统计数据的不确定性，例如均值，中位数，中位数等:
+    bootstrap_plot
+5.  RadViz 是一种可视化多元数据的方法: radviz
 
 <!-- # 参考文献 -->
 [//]: # (\bibliography{Bibfile})
