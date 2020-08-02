@@ -114,3 +114,16 @@ P45-56 王悦
 - 看04.pdf第二节 05.pdf及对应课本和视频 并敲代码命名为practice放入week5matplotlib中。
 
 - 注册 kaggle，力扣https://leetcode-cn.com/
+
+# week7
+
+- 看zuoye3视频讲解。
+
+- 看matplotlib. pdf并校验，分工如下：(P4-28廖明可;P29-52王悦;P53-76陈瑶;P77-100梁依婷;P101-125谢欣悦)
+
+- 完成作业4，以及看完视频，命名为zuoye4。
+
+- 完成matplotlib_exercise。
+
+- （3.4两项作业放入Week5-Matplotlib中）
+
