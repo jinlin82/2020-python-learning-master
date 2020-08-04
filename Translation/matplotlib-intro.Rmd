@@ -336,9 +336,9 @@ line.set_antialiased(False) # turn off antialiasing
 
 ### 控制线条属性
 
-1.  使用 `setp()` 命令。下面的示例使用的是matlab样式命令在行列表中
-    设置多个属性。setp的作品透明地使用对象列表或单个对象。你可以要么
-    使用python关键字参数，要么使用matlab样式的字符串/值。
+1.  使用 `setp()` 命令。下面的示例使用的是matlab样式命令在线条列表中设置多个属
+    性。setp对一个对象列表或一个对象透明地工作。可以使用python关键字参数，也可以
+    使用matlab样式的字符串/值对。
 
 ``` {python, eval=F}
 lines = plt.plot(x1, y1, x2, y2)
@@ -348,23 +348,22 @@ plt.setp(lines, color='r', linewidth=2.0)
 plt.setp(lines, 'color', 'r', 'linewidth', 2.0)
 ```
 
-1.  To get a list of settable line properties, call the `setp()`
-    function with a line or lines as argument.
+1.  要获得可设置的线条属性列表，使用一个线条或者几个线条作为参数调用`setp()`函数。
 
 ``` {python}
 lines = plt.plot([1, 2, 3])
 plt.setp(lines)
 ```
 
-## 多个图形和坐标系
+## 多个图形和轴
 
 ### 处理多个图形和轴
 
-1.  pyplot具有当前图形和当前轴的概念
-2.  所有绘图命令都应用于当前轴。函数`gca()`返回当前轴(a
-    matplotlib.axes.Axes 实例),
-3.   `gcf()` 返回当前图形 (matplotlib.figure.Figure 实例).
-4.  通常情况下，你不必担心这个，因为已经在后台被安排。
+1.  pyplot具有当前图形和当前轴的概念。
+2.  所有绘图命令都应用于当前轴。
+3.  函数`gca()`返回当前轴(amatplotlib.axes.Axes 实例),
+4.   `gcf()` 返回当前图形 (matplotlib.figure.Figure 实例)。
+5.  通常情况下，你不必担心这个，因为这些所有已经在后台被安排。
 
 ``` {python}
 def f(t):
@@ -382,15 +381,13 @@ plt.show()
 
 ### 处理多个图形和轴
 
-1.  在这里使用figure()命令是可选的，因为图(1)将在默认情况下创建，
-    如果不手动指定任何轴，则在默认情况下将创建subplot(111)一样，具有多个图形和轴。
+1.  在这里使用figure()命令是可选的，因为figure(1)将在默认情况下创建，就像如果不手动指定任何轴，则在默认情况下将创建subplot(111)一样。
 2.  subplot()命令指定numrows、numcols和plot_number
-    plot_number的范围从1到numrows\*numcols。
-3.  如果numrows\*numcols\<10如果numrows\*numcols\<10, subplot命令中的逗号是可选的。
-    所以(211)和(2,1,1)是一样的。
-4.  使用多个figure()调用来创建多个图形。
+    （plot_number的范围从1到numrows*numcols）。
+3.  如果numrows*numcols<10, subplot命令中的逗号是可选的。所以subplot(211)和subplot(2,1,1)是一样的。
+4.  通过使用递增数字号的多个figure()命令调用创建多个图形。
 5.  用clf()清除当前图，用cla()清除当前轴。
-6.  图形所需的内存直到完全释放才会释放该图是用close()显式关闭的。
+6.  直到明确地使用close()来关闭图形，这个图形所需要的内存才会完全释放。
 
 ### 例子
 
@@ -412,14 +409,13 @@ plt.title('Easy as 1, 2, 3') # subplot 211 title
 
 ```
 
-Working with text
------------------
+## 处理文本
 
-### 使用文本
+### 处理文本
 
-1.  text() 命令可以用来在任意位置增加文本
+1.  text() 命令可以用来在任意位置增加文本，
 2.  xlabel(), ylabel() 和 title() 用于在指定的位置添加文本。
-3.  所有的text()命令返回一个matplotlib.text 文本实例。
+3.  所有的text()命令返回一个matplotlib.text.Text实例。
 4.  与上面的代码行一样，您可以通过传递关键字参数到文本函数或使用setp():
 
 ``` {python}
@@ -448,25 +444,25 @@ plt.show()
 
 ### 在文本中使用数学表达式
 
-1.  matplotlib在任何文本表达式中接受TeX方程表达式。
+1.  matplotlib在任何文本表达式中都接受TeX方程表达式。
 
 ``` {python}
 plt.title(r'$\sigma_i=15$')
 ```
 
-1.  标题字符串前面的r很重要——它表示该字符串是一个原始字符串，不应将反斜杠视为
-    未使用python.
-2.  matplotlib有一个内置的TeX表达式解析器和布局引擎
-    并提供自己的数学字体。因此可以使用数学文本跨平台而不需要TeX安装
-3.  对于那些已经安装了LaTeX和dvipng的用户，也可以使用它LaTeX可以格式化文本并
-    直接将输出合并到其中您的显示数字或保存的postscript
+2.  标题字符串前面的r很重要——它表示该字符串是一个原始字符串，不应将反斜杠视为未
+    使用python。
+3.  matplotlib有一个内置的TeX表达式解析器和布局引擎
+    并提供自己的数学字体。因此可以使用数学文本跨平台而不需要TeX安装。
+4.  对于那些已经安装了LaTeX和dvipng的用户，也可以使用LaTeX格式化文本并直接将输出
+    结果合并到您的显示图形或保存的附录中。
 
 ### 注释文本
 
-1.  文本的一个常见用法是注释情节的一些特性annotate()方法提供了辅助功能
-    可以进行简单的注释
+1.  文本的一个常见用法是注释图形的一些特性，而annotate()方法提供了帮助功能，使注
+    释变得容易。
 2.  在注释中，有两点需要考虑:
-    1.  被标注的位置由参数xy表示
+    1.  由参数xy表示注释的位置
     2.  以及文本xytext的位置
     3.  这两个参数都是(x,y)元组
 
@@ -491,18 +487,17 @@ plt.show()
 
 ### 面向对象 API 对比 Pyplot
 
-1.  `Matplotlib` 具有两种不同的接口. 第一种是面向对象的接口 (OO interface)
-    . 若要使用这种接口,我们需要创建并使用Axes类对象的实例.
-	从而利用Axes对象返回可视化效果于一个`Figure`类对象的实例上.
-2.  第二种基于Matlab,并使用一套基于状态(stated-based)的接口. 所有这些功能都被封装于Pyplot模块中供用户使用.
-3.  大多数术语与对象的方法的名称都十分直接好懂,但仍然有一些需要注意:
-    1.  `Figure`是最终呈现可是化效果的对象,包含一个或多个`Axes`.
-    2.  每个`Axes`对象都代表一个独立的图 (别与 \"axis\"这个词混淆了, 这个指的是一个图的x/y座标轴).
-    3.  我们直接调用Axes对象的方法来进行绘图,
-        这使得我们自定义的绘图的过程更加灵活与强大.
-4.  总的来说,尽量使用面向对象接口而不是模块化的Pyplot来完成绘图.
+1.  Matplotlib具有两种不同的接口. 第一种是面向对象的接口 (OO interface)。在这种
+    情况下，我们使用了一个axes.Axes实例，为了在figure.Figure的实例上呈现可视化。
+2.  第二种基于Matlab,并使用一套基于状态(stated-based)的接口。所有这些功能都被封
+    装于Pyplot模块中供用户使用。
+3.  大多数术语都很简单，但最重要的是要记住以下几点:
+    1.  Figure是可以包含1个或者多个轴的最终图像。
+    2.  Axes代表一个独立的图 (不要与"axis"这个词混淆了, 这个指的是一个图的x/y坐标轴)。
+    3.  我们调用直接从Axes进行绘图的方法，这为我们作图提供了更多的灵活性和能力。
+4.  总的来说,尽量使用面向对象接口而不是Pyplot接口来完成绘图。
 
-### 样例数据
+### 数据
 
 ``` {python}
 import numpy as np
@@ -527,18 +522,17 @@ group_mean = np.mean(group_data)
 
 ```
 
-### Figure 与 axes
+### Figure和axes
 
-1.  为了使用面向对象塞方式与之交互, 我们首先需要生成一个Figure对象的实例.
-2.  `Figure` 对象如同一个画布, `Axes` 即是这个画布的一部分
-    一个特定的可视化效果的一部分.
-3.  `Figures` 可以由多个`Axes`堆叠组成.
+1.  为了使用面向对象的方法来实现这一点，我们将首先生成一个figure.Figure和axes.Axes实例。
+2.  Figure对象如同一个画布, Axes即是这个画布的一部分，我们将在其上做一个特殊的可视化。
+3.  Figures上可以有多个axes。
 
 ``` {python}
 fig, ax = plt.subplots()
 ```
 
-1.  现在有了`Axes`实例, 我们便可在其上开始绘制图像.
+1.  现在有了Axes实例, 我们便可在其上开始绘制图像。
 
 ``` {python}
 ax.barh(group_names, group_data)
@@ -546,24 +540,23 @@ ax.barh(group_names, group_data)
 
 ### 控制样式
 
-1.  Matplotlib中提供了多种样式,帮助你依照需求修改,完善你的可视化效果
-    我们可以使用以下的方法查看可用的样式:
+1.  Matplotlib中有许多可用的样式，可以根据需要定制可视化。我们可以使用以下的方法
+    查看可用的样式:
 
 ``` {python}
 print(plt.style.available)
 ```
 
-1.  用以下方法启用一个样式:
+1.  可以用以下方法启用一个样式:
 
 ``` {python}
 plt.style.use('ggplot')
 ```
 
-### 修改绘图
+### 自定义图
 
-1.  旋转X轴上的标签(label)使得可视化效果更清晰.
-2.  我们可以通过以下方法来控制标签(label)
-    `axes.Axes.get~xticklabels~()`:
+1.  旋转X轴上的标签(label)使它们显示得更清楚。
+2.  我们可以通过axes.Axes.get_xticklabels()方法获得标签:
 
 ``` {python}
 fig, ax = plt.subplots()
@@ -571,8 +564,8 @@ ax.barh(group_names, group_data)
 labels = ax.get_xticklabels()
 ```
 
-1.  如果我们一次想设置多个属性, 可以使用`pyplot.setp()`函数.
-2.  该函数接受一个或多个由Matplotlib对象的属性组成的列表, 并尝试为每个对象设置相应的样式元素.
+1.  如果我们一次想设置多个属性, 可以使用pyplot.setp()函数。
+2.  该函数将获取Matplotlib对象的一个列表（或多个列表），并尝试为每个对象设置一些样式元素。
 
 ``` {python}
 fig, ax = plt.subplots()
@@ -581,10 +574,10 @@ labels = ax.get_xticklabels()
 plt.setp(labels, rotation=45, horizontalalignment='right')
 ```
 
-### 修改绘图
+### 自定义图
 
-1.  让Matplotlib自动为我们在Figure对象上创建的元素留出空间.
-2.  为了做到这些我们需要设置rcParams对象的自动布局(autolayout)参数的数值.
+1.  让Matplotlib自动为我们创建的图形中的元素留出空间。
+2.  为了做到这些我们需要设置rcParams对象的自动布局(autolayout)参数的数值。
 
 ``` {python}
 plt.rcParams.update({'figure.autolayout': True})
@@ -595,13 +588,14 @@ labels = ax.get_xticklabels()
 plt.setp(labels, rotation=45, horizontalalignment='right')
 ```
 
-1.  若要用面向对象接口给图像添加标签(label), 
-	我们可以使用`axes.Axes.set()`这个方法 去设置这些 `Axes` 对象的属性.
-2.  用`pyplot.subplots()`函数更改图的大小.
-    我们可以通过设置`figsize`这个关键词参数(\*\*kwrag)来实现.
-3.  对于标签(label), 我们可以通过使用函数选择自定义的标识栏,使用`ticker.FuncFormatter`方法来完成你的修改.
+1.  向绘图添加标签。要通过OO接口实现这一点，我们可以使用axes.Axes.set()方法来设
+    置这个Axes对象的属性。
+2.  用pyplot.subplots()函数更改图的大小。
+    我们可以通过设置figsize这个关键词参数来实现。
+3.  对于标签(labels), 我们可以通过使用ticker.FuncFormatter类，以函数的形式选择自
+    定义格式的参考。
 
-### 修改绘图
+### 自定义图
 
 ``` {python}
 def currency(x, pos):
@@ -624,12 +618,12 @@ ax.set(xlim=[-10000, 140000], xlabel='Total Revenue', ylabel='Company',
 ax.xaxis.set_major_formatter(formatter)
 ```
 
-### 多个可视化效果组合
+### 结合多个可视化
 
-1.  我们可以将多个绘图元素绘制于同一`axes.Axes`类的实例中.
-2.  要做到这些,我们仅需要调用这个`axes`对象中的绘图方法即可.
+1.  我们可以将多个绘图元素绘制于同一axes.Axes类的实例中。
+2.  要做到这些,我们仅需要调用这个axes对象中的其他绘图方法。
 
-### 多个可视化效果组合
+### 结合多个可视化
 
 ``` {python, eval=F}
 fig, ax = plt.subplots(figsize=(8, 8))
@@ -655,23 +649,23 @@ plt.show()
 
 ### 保存绘图结果
 
-1.  在Matplotlib中,我们可以把绘图结果保存成多种文件格式. 若你想了解哪些格式可用,可以使用以下函数查看:
+1.  在Matplotlib中,我们可以把绘图结果保存成多种文件格式。若想了解哪些格式可用,可以使用以下函数查看:
 
 ``` {python}
 print(fig.canvas.get_supported_filetypes())
 ```
 
-1.  我们可以使用`figure.Figure.savefig()`这一方法将我们的图像存储于硬盘中.
-2.  这里有几个有用的参数:
-    1.  `transparent=True` 如果保存的格式允许,这个参数会将保存图片的背景变为透明.
-    2.  `dpi=80` 控制输出图像的分辨率 (每英尺块中像素点的数量) .
-    3.  `bbox~inche~s="tight"` 选择被保存图像的边界拟合方式
+1.  我们可以使用figure.Figure.savefig()这一方法将我们的图像存储于硬盘中。
+2.  注意这里有几个有用的参数:
+    1.  transparent=True 如果保存的格式允许,这个参数会将保存图片的背景变为透明。
+    2.  dpi=80 控制输出图像的分辨率 (每英尺块中像素点的数量)。
+    3.  bbox_inches="tight" 将图形的边界与我们的图匹配。
 
 ``` {python}
 fig.savefig('sales.png', transparent=False, dpi=80, bbox_inches="tight")
 ```
 
-# 通过样式表单和 rcParams 参数控制图形
+# 通过样式表单和 rcParams 参数自定义Matplotlib
 
 ## 样式表单
 
