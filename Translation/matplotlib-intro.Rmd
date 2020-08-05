@@ -688,15 +688,15 @@ data = np.random.randn(50)
 
 ### 定义自定义样式
 
-1.  你可以创建自定义样式,并通过调用style.use函数并加上样式文件的URL或文件路径来调用之.
-2.  并且,如果你将你的\<style-name\>.mplstyle 样式文件添加到了`mpl~configdir~/stylelib`文件夹下, 你便可以直接使用`style.use(\<style-name\>)`去重复调用你的样式文件.
+1.  你可以创建自定义样式,并通过调用style.use函数并加上样式文件的URL或文件路径来调用之。
+2.  并且,如果你将你的\<style-name\>.mplstyle 样式文件添加到了`mpl_configdir/stylelib`文件夹下, 你便可以直接使用`style.use(\<style-name\>)`去重复调用你的样式文件。
 
 ### 样式组合
 
-1.  样式文件本就是被设计用来组合在一起使用的.
-2.  所以你可以用一个样式文件设定颜色,并用另一个样式文件去设定展示文件的元素大小.
+1.  样式文件本就是被设计用来组合在一起使用的。
+2.  所以你可以用一个样式文件设定颜色,并用另一个样式文件去设定展示文件的元素大小。
 3.  这些样式很容易被组合,你仅需要传入一个由样式组成的列表即可:
-4.  注意,左侧定义的样式(如果与右侧中定义的样式有冲突)则会被右侧的样式覆盖(冲突的部分).
+4.  注意,左侧定义的样式(如果与右侧中定义的样式有冲突)则会被右侧的样式覆盖(冲突的部分)。
 
 ``` {python}
 # plt.style.use(['dark_background', 'presentation'])
@@ -704,9 +704,9 @@ data = np.random.randn(50)
 
 ### 临时样式
 
-1.  如果你想为指定的一块代码使用特定的样式,但又不希望改动全局样式,你可以使用`style`
-	包提供的内容管理器去限制你的修改,让他作用于一个特定的词法作用域内.使用如
-	下的代码去将你的样式修改独立出来.
+1.  如果你想为指定的一块代码使用特定的样式,但又不希望改动全局样式,`style`包提供
+    了一个上下文管理器，用于将更改限制在特定范围内.要隔离样式更改，您可以编写如
+    下内容：
 
 ``` {python}
 with plt.style.context('dark_background'):
@@ -719,10 +719,10 @@ plt.show()
 
 ### 动态设置rc 参数
 
-1.  你也可以动态的通过Python脚本修改默认的 rc 文件设置,亦或是通过交互式Python终端来完成.
-2.  所有的 rc 文件设置(参数)都被存储与一个类似_字典_类型的变量中,名叫`matplotlib.rcParams`,这个变量
-	对于matplotlib是一个全局变量.
-3.  rcParams也可以被直接修改,如下:
+1.  你也可以在python中动态更改默认的rc设置脚本,亦或是通过交互式Python终端来完成。
+2.  所有的 rc 文件设置(参数)都被存储与一个类似_字典_类型的变量中,名叫
+    `matplotlib.rcParams`,这个变量对于matplotlib是一个全局变量。
+3.  rcParams可以直接修改，例如：
 
 ``` {python}
 mpl.rcParams['lines.linewidth'] = 2
@@ -745,10 +745,10 @@ plt.plot(data)
 
 ### matplotlibrc 文件
 
-1.  matplotlib使用`matplotlibrc`配置文件来设置各种属性,我们称之为rc 设置或rc 参数.
+1.  matplotlib使用`matplotlibrc`配置文件来设置各种属性,我们称之为rc 设置或rc 参数。
 2.  你可以控制Matplotlib几乎所有的默认数值:
-	图像大小,分辨率,行高,颜色和样式,axes,座标轴,网格参数,文本与字体属性等等.
-3.  当一个matplotlibrc文件被找到,其他的matplotlibrc文件路径便不再被搜索.
+	图像大小,分辨率,行高,颜色和样式,axes,座标轴,网格参数,文本与字体属性等等。
+3.  当一个matplotlibrc文件被找到,其他的matplotlibrc文件路径便不再被搜索。
 4.  用以下方法查看哪个文件路径下的`matplotlibrc`文件被加载了:
 
 ``` {python}
@@ -788,8 +788,8 @@ matplotlib.matplotlib_fname()
 1.  使用`matplotlib.pyplot.figure()`可以创建一个`Figure`实例，也就是画布。这是
     一种便捷的方法，可以把`Figure`跟用户界面或者工具库`FigureCanvas`连接起来。
     当然，也不是必要的。
-2.  可以直接使用`PostSript`，`PDF Gtk+`，`wxPython FigureCanvas`实例，`Figures`能够
-    直接实例化图像，并且自行链接。
+2.  可以直接使用`PostSript`，`PDF Gtk+`，`wxPython FigureCanvas`实例，`Figures`
+    能够直接实例化图像，并且自行链接。
 
 ``` {python}
 import matplotlib.pyplot as plt
@@ -804,9 +804,10 @@ ax = fig.add_subplot(2, 1, 1) # two rows, one column, first plot
 2.  这是因为`Axes`是大部分对象在作图区域上显示得部分。
 3.  并且`Axes`有很多特别的帮助方法(`plot(), text(), hist(), imshow()`)，
     用来创建最通用得作图基元（Line2D, Text, Rectangle, Image,等等）。
-4.  这些帮助方法将会把你的数据（比如`numpy`数组、字符串等）通过基元`Artists`实例
-    表现出来，并且加到相关的存储器中，当要求时，就可以绘制出来。
-5.  可能大部分人比较熟悉的是子图的做法，但子图只是当坐标系是规整时的一种特殊情况。
+4.  这些辅助方法将获取你的数据（例如numpy数组和字符串），并根据需要创建原始
+    Artist实例（例如Line2D），将其添加到相关容器中，并在需要时绘制它们。
+5.  可能大部分人比较熟悉的是子图的做法，但子图只是当坐标系是规整时的一种特殊情
+    况。
 6.  如果想要创建一个任意位置的`Axes`，只需要使用`add_axes()`方法，并把你想要创建
     的位置这样一个列表：\[left, bottom, width, height\]。这四者的取值范围都在0-1。
 
