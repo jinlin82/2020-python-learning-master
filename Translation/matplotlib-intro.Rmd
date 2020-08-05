@@ -1207,45 +1207,47 @@ plt.getp(ax.texts)
   \'font.weight\'    默认空间大小。字符串或整数
   \'font.size\'      默认字体大小(以点为单位)。相对字体大小 (\'large\', \'x-small\') 是根据这个大小计算的。
 
-### Text with non-latin glyphs
 
-1.  Matplotlib仍然没有覆盖用户可能需要的所有符号。
+### 带非拉丁符号的文本
+
+1.  Matplotlib仍未涵盖mpl用户可能需要的所有字形。
 2.  例如，DejaVu没有覆盖中文、韩语或日语。
-3.  将默认字体设置修改为支持所需字体，将字体名称前置到\'font.family\ 或列表中。
+3.  将默认字体设置为支持所需代码点的字体，在字体名称前添加“ font.family”或所需的别名列表:
     1.  `matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'sans-serif']`
-    2.  or set it in your .matplotlibrc file:
+    2.  或在.matplotlibrc文件中设置：
         `font.sans-serif: SimHei, Arial, sans-serif`
 
-# 标注
+# 注释
 
-## 基本标注
+## 基本注释
 
-### Basic annotation
+### 基本注释
 
-1.  用户使用text()，可以将文本放在坐标轴中的任意位置。
-2.  文本常用于注释图形的一些特性，而annotate()方法提供了辅助功能，使注释更容易
+1.  基本text（）的使用，可以将文本放在坐标轴中的任意位置。
+2.  文本的一个常见用例是注释绘图的某些功能，annotate（）方法提供帮助程序功能，使注释更容易。
 3.  在注释中，有两点需要考虑:由参数xy表示的被注释的位置和由xytext表示的文本的位置。
 4.  这两个参数都是(x,y)元组。
 
-### Basic annotation
+
+### 基本注释
 
 ![](images/1581585591.png)
 
-### coordinate systems
+### 坐标系
 
 1.  有各种各样的坐标系可供选择。
-2.  可以使用以下xycoords和textcoords的字符串来指定xy和xytext的位置。
+2.  可以使用以下xycoords和textcoords的字符串之一指定xy和xytext的坐标系
 3.  (默认是 \'data\')
 
   argument              coordinate system
   --------------------- ----------------------------------------------------
-  \'figure points\'     point  从图的左下角开始
-  \'figure pixels\'     pixels 从图的左下角开始
-  \'figure fraction\'   0,0 是图形的左下角 1,1 是右上角
-  \'axes points\'       points 从坐标轴的左下角开始
-  \'axes pixels\'       pixels 从坐标轴的左下角开始
-  \'axes fraction\'     0,0 是坐标轴的左下角 1,1是右上角
-  \'data\'              使用默认坐标设置
+  \'figure points\'     从图的左下角指向的点
+  \'figure pixels\'     图左下角的像素
+  \'figure fraction\'   0,0在图的左下方，1,1在图的右上方
+  \'axes points\'       从轴的左下角开始的点
+  \'axes pixels\'       轴左下角的像素
+  \'axes fraction\'     0,0位于轴的左下方，而1,1位于轴的右上方
+  \'data\'              使用轴数据坐标系
 
 ### 例子
 
@@ -1269,26 +1271,26 @@ plt.show()
 
 ### argument `arrowprops`
 
-1.  您可以通过在可选关键字参数`arrowprops`中提供箭头属性字典来启用箭头从文本到注释点的绘制.
+1.  通过在可选关键字参数'arrowprops'中提供箭头属性字典，可以启用从文本到注释点的箭头绘制。
 
   ---------------- ---------------------------------------------------------------------------
   arrowprops key   description
-  width            箭头的宽度
-  frac             箭头长度占头部的部分
-  headwidth        箭头头部的宽度，以点为单位
-  shrink           move the tip and base some percent away from the annotated point and text
-  \*\*kwargs       any key for matplotlib.patches.Polygon, e.g., facecolor
+  width            箭头的宽度（以点为单位）
+  frac             头部所占箭头长度的分数
+  headwidth        箭头底部的宽度（以点为单位）
+  shrink           移动笔尖并使笔尖远离带注释的点和文本
+  **kwargs         matplotlib.patches.Polygon的任何键，例如facecolor
   ---------------- ---------------------------------------------------------------------------
 
 ## 高级标注
 
-### Annotating with Text with Box
+### 带框的文本注释
 
-1.  pyplot模块(或Axes类的text方法)中的text()函数,给定bbox关键字参数时在文本周围绘制一个框。
+1.  pyplot模块(或Axes类的text方法)中的text()函数采用bbox关键字参数，并在给定时在文本周围绘制一个框。
 2.  与文本关联的patch对象可以通过以下方式访问:
     `bb = t.get_bbox_patch()`
 3.  返回值是FancyBboxPatch的一个实例，可以像往常一样访问和修改patch属性，如facecolor、edgewidth等
-4.  要更改方框的形状，通过设置~boxstyle~方法。
+4.  要更改方框的形状，可使用set_boxstyle方法。
 5.  `pad` ：内边距
 
 ``` {python}
@@ -1300,9 +1302,9 @@ bb = t.get_bbox_patch()
 bb.set_boxstyle("rarrow", pad=0.6)
 ```
 
-### box styles
+### box类型
 
-  Class        Name         Attrs
+  类型         名称          属性
   ------------ ------------ -----------------------------
   Circle       circle       pad=0.3
   DArrow       darrow       pad=0.3
@@ -1314,7 +1316,7 @@ bb.set_boxstyle("rarrow", pad=0.6)
   Sawtooth     sawtooth     pad=0.3,tooth~size~=None
   Square       square       pad=0.3
 
-### Fancybox list
+### Fancybox列表
 
 ``` {python}
 import matplotlib.pyplot as plt
@@ -1338,46 +1340,41 @@ for i, stylename in enumerate(sorted(styles)):
 plt.show()
 ```
 
-### Annotating with Arrow
+### 箭头注释
 
-1.  绘制箭头需要几个步骤。
-    -   创建两点之间的连接路径。这是由connectionstyle键值控制的。
-    -   如果patch对象是给定的(patchA & patchB)，路径会被裁剪以避免patch。
-    -   路径可以进一步缩小到给定的像素量 (shrinkA &
-        shrinkB)
-    -   路径转换为箭头patch对象，由箭头样式键值控制。
-
+1.  箭头绘制需要几个步骤。
+    -   创建两点之间的连接路径，是由connectionstyle键值控制。
+    -   如果patch对象是给定的(patchA 和 patchB)，路径会被裁剪以避免patch。
+    -   路径可以进一步缩小到给定的像素量(shrinkA 和 shrinkB)。
+    -   路径转换为箭头patch对象，该箭头patch由arrowstyle键值控制。
 
 ### 示意图
-
 
 ![](images/annotate_explain.png)
 
 ### `connectionstyle` key
 
-1.  两点之间连接路径的创建由connectionstyle键控制。下面的示例(有限地)演示了每种连接样式的行为。
-
+1.  两点之间的连接路径的创建由connectionstyle键控制。 在下面的示例中（有限）说明了每种连接样式的行为。
 ![](images/connectionstyle_demo.png)
 
 ### `arrowstyle`
 
-1.  根据给定的`arrowstyle`，连接路径(经过剪切和收缩)转变为一个箭头
+1.  然后，根据给定的arrowstyle，将连接路径（剪切和收缩后）更改为箭头补丁
 
 ![](images/fancyarrow_demo.png)
 
-### Using ConnectionPatch
+### 使用ConnectionPatch
 
-1.  ConnectionPatch就像一个没有文本的注释。虽然在大多数情况下建议使用注释函数，但当您希望连接不同轴上的点时，`ConnectionPatch`非常有用。
+1. ConnectionPatch就像没有文本的注释。 虽然在大多数情况下建议使用注释功能，但要连接不同轴上的点时，ConnectionPatch很有用。
 
 1.  <https://matplotlib.org/gallery/userdemo/connect_simple01.html>
 
 ![](images/connect_simple.png)
 
-### Zoom effect between Axes
+### 轴之间的缩放效果
 
 1.  `mpl_toolkits.axes_grid1.inset_locator` 定义了一些有效链接两个轴的patch对象
-2.  理解这些代码需要了解 mpl\'s transform 是如何工作的。
-
+2.  理解代码需要对mpl转换是如何工作的有一定的了解。
 3.  <https://matplotlib.org/gallery/subplots_axes_and_figures/axes_zoom_effect.html>
 
 ![](images/axes_zoom_effect.png)
@@ -1386,15 +1383,13 @@ plt.show()
 
 ### mplot3d和MayaVi有何不同？
 
-1.  MayaVi2是一个非常强大和功能强大的三维图形库。对于高级3D场景和出色的渲染功
-    能，强烈建议使用MayaVi2。
-2.  mplot3d的目的是允许用户创建与matplotlib的2D图具有相同“外观”的简单3D图。
-    此外，用户可以使用他们已经熟悉的相同工具包来生成他们的二维和三维绘图。
+1.  MayaVi2是一个非常强大且功能强大的3D图形库。 为了获得高级3D场景和出色的渲染功能，强烈建议使用MayaVi2。
+2.  mplot3d旨在允许用户创建与matplotlib的2D图相同的“外观”的简单3D图。 此外，用户可以使用他们已经熟悉的相同工具箱来生成2D和3D图。
 
 ### `Axes3D` 对象
 
-1.  使用“projection=‘3d’”关键字创建Axes3D对象，就像创建任何其他轴一样。
-2.  新建一个画布(matplotlib.figure)并在其中添加一个Axes3D类型的新轴
+1.  与其他轴一样，使用projection ='3d'关键字创建Axes3D对象。
+2.  创建一个新的matplotlib.figure.Figure并向其中添加一个新轴，类型为Axes3D
 
 ``` {python}
 import matplotlib.pyplot as plt
@@ -1461,14 +1456,12 @@ plt.show()
 
 ### 其他常见作图包
 
-1.  Pandas：Pandas对于绘制简单的图形比较方便，但是你需要先愿意学习matplotlib。
-2.  Seaborn：可以支持更复杂的可视化方法，但是仍然需要matplotlib的知
-    识去支撑，它的配色方案不错。
-3.  ggplot：ggplot是一个基于R中ggplot2的Python绘图系统及图形语法，它是为了让研究人员看起来用最少的代码快速绘图。
-4.  Bokeh：Bokeh是现代web浏览器的交互式可视化库，它提供了优雅、简
-    洁的多功能图形构建，以及提供大型或主流的高性能的交互性数据库。
-5.  Mayavi：在Python中进行3D科学数据可视化和绘制。
-6.  Turtle graphics：是向孩子们介绍编程的一种流行方式。
+1.  Pandas：Pandas对于绘制简单的图形比较方便，但是需要先愿意学习matplotlib。
+2.  Seaborn：支持一些更复杂的可视化方法，但仍需要对matplotlib知识进行调整。它的配色方案是一个不错的选择。
+3.  ggplot：ggplot是基于R中ggplot2和“图形语法”的Python绘图系统。它专为制作专业外观而设计，可以用最少的代码快速绘制。
+4.  Bokeh：Bokeh是现代web浏览器的交互式可视化库，它提供了优雅、简洁的多功能图形构建，以及提供大型或主流的高性能的交互性数据库。
+5.  Mayavi：在Python中进行3D科学数据可视化和绘图。
+6.  Turtle graphics：是一种向孩子们介绍编程的流行方式。
 
 
 <!-- # 参考文献 -->
