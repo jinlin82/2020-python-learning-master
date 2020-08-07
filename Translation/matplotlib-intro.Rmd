@@ -911,12 +911,13 @@ for ax in fig.axes:
 
 1.  `matplotlib.axis.Axis`实例可以处理网格线、刻度标签、标记、轴标签。
 2.  可以通过配置y轴左右两边的刻度，x轴上下两边的刻度。
-3.  `Axis`中同样存储数据以及视图的自动间隔、平移、缩放，以及`Locator`和`Formatter`
-    实例。这些实例用来控制比如文字型标签等刻度出现的位置以及表示为字符串的方法。
-4.  每个`Axis`对象都包含一个标签`label`属性（这就是`pyplot`调用`xlable()`和`ylabel()`
-    修改的对象），也有一系列的主要、次要的刻度列表。
-5.  这些刻度都是`XTick`和`YTick`实例，它们包含了用来渲染（也就是表现出）刻度、刻度标签
-    的真实的行和文本基元。
+3.  `Axis`中同样存储数据以及视图的自动间隔、平移、缩放，以及`Locator`和
+    `Formatter`实例。这些实例用来控制比如文字型标签等刻度出现的位置以及表示为字
+    符串的方法。
+4.  每个`Axis`对象都包含一个标签`label`属性（这就是`pyplot`调用`xlable()`和
+    `ylabel()`修改的对象），也有一系列的主要、次要的刻度列表。
+5.  这些刻度都是`XTick`和`YTick`实例，它们包含了用来渲染（也就是表现出）刻度、刻
+    度标签的真实的行和文本基元。
 6.  可以通过`get_majorticks()`和`get_minorticks()`方法来获取刻度列表。
 
 ### 例子
@@ -931,7 +932,7 @@ axis.get_ticklines()
 axis.get_ticklines(minor=True)
 ```
 
-1.  注意，刻度线的数量总是标签的两倍，一位内默认情况下，顶部和底部有刻度线，但
+1.  注意：刻度线的数量总是标签的两倍，因为在默认情况下，顶部和底部有刻度线，但
     只有x轴下方有标签。
 
 ### 刻度容器
@@ -973,10 +974,10 @@ plt.show()
 
 1.  当不输入任何额外参数时，将自动确定要添加到图例中的元素。
 2.  在这种情况下，标签来自于artist。
-3.  可以在创建artist时指定它们，也可以通过调用set_label
-    （）函数的方法指定它们。
-4.  通过定义以下划线开头的标签，可以从自动图例元素选择中排除特定线。
-5.  这是所有artist的默认设置，因此调用Axes.legend如果不使用任何参数，也不手动设置标签，则不会绘制图例。
+3.  可以在创建artist时指定它们，也可以通过调用set_label（）函数的方法指定它们。
+4.  通过定义一个下划线开头的标签，可以从自动图例元素选择中排除特定线。
+5.  这是所有artist的默认设置，因此调用Axes.legend如果不使用任何参数，也不手动设
+    置标签，则不会绘制图例。
 
 ### 例子
 
@@ -992,10 +993,10 @@ plt.legend()
 
 ### 标记现有的绘图元素
 
-1.  要为已经存在于轴上的线创建图例（例如通过绘图），只需调用
-    plt.legend()函数，并给每个图例项一个字符串。
-2.  注意：不鼓励使用这种方法，因为通过它们的顺序确定绘图元
-    素和标签之间的关系是隐晦的，很容易搞混乱。
+1.  要为已经存在于轴上的线创建图例（例如通过绘图），只需调用plt.legend()函数，并
+    给每个图例项一个字符串。
+2.  注意：不鼓励使用这种方法，因为通过它们的顺序确定绘图元素和标签之间的关系是隐
+    晦的，很容易搞混乱。
 
 ``` {python}
 plt.plot([1, 2, 3])
@@ -1005,8 +1006,8 @@ plt.legend(['A simple line'])
 
 ### 显示定义图例中的元素
 
-1.  对于完全控制哪些artist有一个图例条目， 
-    可以顺序地在每一个artist后面设置一个图例标签。
+1.  对于完全控制哪些artist有一个图例条目， 可以顺序地在每一个artist后面设置一个
+    图例标签。
 
 `legend((line1, line2, line3), ('label1', 'label2', 'label3'))`
 
@@ -1017,7 +1018,7 @@ plt.legend(['A simple line'])
 
 ### 例子
 
-1.  Examples using matplotlib.pyplot.legend，更多例子见：
+1.  使用matplotlib.pyplot.legend的例子如下，更多例子见：
     <https://matplotlib.org/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend>
 
 ``` {python}
@@ -1043,17 +1044,16 @@ plt.show()
 
 ### 紧缩输出
 
-1.  紧缩输出自动调整子图参数，以便子图适
-    合于图形区域。
-2.  紧缩输出只考虑刻度
-    标签、轴标签和标题。因此，其他的artist可能被剪裁也可能重叠。
-3.  紧缩输出的替代方案是限定输出。
-4.  为了防止这种情况发生，轴的位
-    置需要被调整，对于子图，可以调整子图参数完成（移动轴的边缘为刻度标签腾出空间）。
+1.  tight_layout自动调整子图参数，以便子图适合于图形区域。
+2.  tight_layout()只考虑刻度标签、轴标签和标题。因此，其他的artist可能被剪裁也可
+    能重叠。
+3.  tight_layout的替代方案是constrained_layout。
+4.  为了防止这种情况发生，轴的位置需要被调整，对于子图，可以调整子图参数完成（移
+    动轴的边缘为刻度标签腾出空间）。
 5.  tight_layout()函数会自动调整。
-6.  注意到只用当函数被调用时才会调整子图的参数。
-7.  为了每次重新绘制图形时执行该操作，可以调
-    用函数fig.set_tight_layout(True)，或者设置plt.rcParams['figure.autolayout']=True。
+6.  注意到matplotlib.pyplot.tight_layout()只在被调用时才会调整子图的参数。
+7.  为了每次重新绘制图形时执行该操作，可以调用函数fig.set_tight_layout(True)，或
+    者设置plt.rcParams['figure.autolayout']=True。
 
 ### 例子
 
@@ -1082,8 +1082,7 @@ plt.tight_layout()
 ### 多个子块
 
 1.  当有多个子块时，经常会看到不同轴的标签相互重叠。
-2.  tight_layout()也可以调整不同子图之间的空间，尽量减
-    少出现重叠的情况。
+2.  tight_layout()也可以调整不同子图之间的空间，尽量减少出现重叠的情况。
 3.  即使子块的大小在网格规范兼容的范围内是不同的，tight_layout()也可以工作。
 
 ### 例子
@@ -1105,15 +1104,14 @@ plt.tight_layout()
 
 ### 限定输出
 
-1.  constrained_layout()自动调整子
-    块和修饰，如图例和颜色条，以便它们适合体形窗口，同时尽可能保留用户请求的逻辑布
-    局。
-2.  constrained_layout()和tight_layout()相似，不过用了一个约束解算器用于确
-    定轴的大小。
-3.  constrained_layout()需要先被激活，在
-    添加任何轴到图形前。有两种方法：
-    1.  使用各自的参数到子图或者图形，例如plt.subplots(constrained_layout=True)。
-    2.  通过rcParams激活，设置plt.rcParams['figure.constrained_layout.use'] = True。
+1.  constrained_layout()自动调整子块和修饰，如图例和颜色条，以便它们适合体形窗
+    口，同时尽可能保留用户请求的逻辑布局。
+2.  constrained_layout()和tight_layout()相似，不过用了一个约束解算器用于确定轴的
+    大小。
+3.  constrained_layout()需要先被激活，在添加任何轴到图形前。有两种方法：
+    1.  使用各自的参数到子图或者图形，例如plt.subplot(constrained_layout=True)。
+    2.  通过rcParams激活，设置plt.rcParams['figure.constrained_layout.use'] =
+        True。
 
 ### 例子
 
@@ -1137,13 +1135,17 @@ for ax in axs.flat:
 
 ### 简介
 
-1.  Matplotlib具有广泛的文本支持，包括对数学表达式的支持、对光栅和向量输出的字体支持、带有任意旋转的换行分隔文本以及字符编码支持
-    
-2.  Matplotlib包含自己的Matplotlib.font_manager模块,可以实现跨平台、W3C兼容的字体查找算法。
-   
-3.  用户对文本属性（字体大小,字体的粗细，文字的位置和颜色等）有很大的控制权，可以通过rc文件进行合理的修改。值得注意的是，对于那些对数学或科学图形感兴趣的人，Matplotlib实现了大量TeX数学符号和命令，支持图形中的任何数学表达式。
+1.  Matplotlib具有广泛的文本支持，包括对数学表达式的支持、对光栅和向量输出的字体
+    支持、带有任意旋转的换行分隔文本以及字符编码支持
 
-### Basic text commands
+2.  Matplotlib包含自己的Matplotlib.font_manager模块,可以实现跨平台、W3C兼容的字
+    体查找算法。
+
+3.  用户对文本属性（字体大小,字体的粗细，文字的位置和颜色等）有很大的控制权，可
+    以通过rc文件进行合理的修改。值得注意的是，对于那些对数学或科学图形感兴趣的
+    人，Matplotlib实现了大量TeX数学符号和命令，支持图形中的任何数学表达式。
+
+### 基本的文本命令
 
   pyplot API   OO API        description
   ------------ ------------- ----------------------------------------------------------------------------------
@@ -1166,12 +1168,12 @@ import matplotlib.pyplot as plt
 fig = plt.figure()
 ax = fig.add_subplot(111)
 fig.subplots_adjust(top=0.85) #（调整图形高度）
-# Set titles for the figure and the subplot respectively
+# 分别为图和子图设置标题
 fig.suptitle('bold figure suptitle', fontsize=14, fontweight='bold') # 添加图标题
 ax.set_title('axes title')  #添加轴标题
 ax.set_xlabel('xlabel')  # 添加轴标签
 ax.set_ylabel('ylabel')  # 添加轴标签
-# Set both x- and y-axis limits to [0, 10] instead of default [0, 1]
+# 将x轴和y轴限制在[0,10]，而不是默认值[0,1]
 ax.axis([0, 10, 0, 10]) # 修改轴坐标范围
 ax.text(3, 8, 'boxed italics text in data coords', style='italic',
         bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10}) # 在指定位置添加文本，alpha对应透明度，pad对应图形宽度
@@ -1189,13 +1191,13 @@ plt.show()
 plt.getp(ax.texts)
 ```
 
-### Text properties and layout
+### 文本属性和布局
 
 1.  matplotlib.text文本实例具有各种属性
 2.  这些属性可以通过文本命令的关键字参数(例如，title()、xlabel()和text())来配置
 3.  通过“pl .getp(ax.text)”获取属性列表
 
-### Default Font
+### 默认字体
 
 1.  基本默认字体由一组rcParams控制。
 
