@@ -47,7 +47,12 @@ plt.show()
 
 #直方图hist
 plt.hist(BSdata.身高)
+plt.xlabel('bbb')
 plt.show()
+
+import matplotlib.pyplot as plt
+plt.hist([1,2,3,4])
+plt.xlabel('abc')
 
 plt.hist(BSdata.身高,density=True)
 plt.show()
@@ -306,3 +311,391 @@ ggplot(BSdata,aes(x='身高',y='体重'))+ geom_point() + facet_wrap('性别')
 
 #添加主题
 ggplot(BSdata,aes(x='身高',y='体重',color='性别'))+ geom_point() + theme_bw()
+
+
+###matplotlib
+
+import matplotlib.pyplot as plt
+import numpy as np 
+
+fig = plt.figure() #an empty figure with no axes
+fig.suptitle('No axes on this figure') # Add a title so we know which it is
+plt.show()
+##jupyter不能显示
+
+fig,ax_lst = plt.subplots(2,2) # a figure with a 2*2 grid of Axes
+
+import matplotlib.pyplot as plt
+import numpy as np 
+import pandas as pd 
+ 
+a = pd.DataFrame(np.random.rand(4,5),columns=list('abcde'))
+a_asarray = a.values #把DataFrame降维为Array
+b = np.matrix([[1,2],[3,4]])
+b_asarray = np.asarray(b)
+
+###pyplot
+x = np.linspace(0,2,100)
+plt.plot(x,x,label='linear')
+plt.plot(x,x**2,label='quadratic')
+plt.plot(x,x**3,label='cubic')
+
+plt.xlabel('x label')
+plt.ylabel('y label')
+plt.title('Simple Plot')
+plt.legend()
+plt.show()
+
+import matplotlib
+matplotlib.use('pdf')###generate postscirpt output by default
+
+import matplotlib.pyplot as plt 
+plt.ioff()
+plt.plot([1.6,2.7])
+
+import matplotlib.pyplot as plt 
+plt.plot([1,2,3,4],[1,4,9,16],'ro')
+plt.axis([0,6,0,20])#x轴y轴的范围
+plt.show()
+
+import numpy as np 
+t = np.arange(0,5,0.2)
+plt.plot(t,t,'r--',t,t**2,'bs',t,t**3,'g^')
+plt.show()
+
+names = ['group_a','group_b','group_c']
+values = [1,10,100]
+
+plt.figure(figsize=(9,3))
+plt.subplot(131)
+plt.bar(names,values)
+plt.subplot(132)
+plt.scatter(names,values)
+plt.subplot(133)
+plt.plot(names,values)
+plt.suptitle('Categorical Plotting')
+plt.show()
+
+x = np.arange(10)
+y = x
+line, = plt.plot(x,y,'-')
+line.set_antialiased(False) # turn off antialiasing # 关闭抗锯齿 False不关闭
+
+x1 = x
+y1 = x*2
+x2 = x*3
+y2 = x*4
+lines = plt.plot(x1,y1,x2,y2)
+#use keyword args
+plt.setp(lines,color='r',linewidth=2.0)
+#or MATLAB style string value pairs
+plt.setp(lines,'color','r','linewidth',2.0)
+
+lines = plt.plot([1,2,3])
+plt.setp(lines)
+
+import matplotlib.pyplot as plt
+plt.figure(1)
+plt.subplot(211)
+plt.plot([1,2,3])
+plt.subplot(212)
+plt.plot([4,5,6])
+
+plt.figure(2)
+plt.plot([4,5,6])
+
+plt.figure(1)
+plt.subplot(211)
+plt.title('Easy as 1,2,3')
+
+t = plt.xlabel('my data',fontsize=14,color='red')
+
+mu,sigma = 100,15
+x = mu + sigma*np.random.randn(10000)
+
+# the histogram of the data
+n,bins,patches = plt.hist(x,50,density=1,facecolor='g',alpha=0.75)
+
+plt.xlabel('Smarts')
+plt.ylabel('Probability')
+plt.title('Histogram of IQ')
+plt.text(60,0.025,r'$\mu=100,\ \sigma=15$')
+plt.axis([40,160,0,0.03])
+plt.grid(True)
+plt.show()
+
+plt.title(r'$\sigma_i=15$')
+
+ax = plt.subplot(111)
+t = np.arange(0.0,5.0,0.01)
+s = np.cos(2*np.pi*t)
+line, = plt.plot(t,s,lw=2)
+plt.annotate('local max',xy=(2,1),xytext=(3,1.5),arrowprops=dict(facecolor='black',shrink=0.05))
+plt.ylim(-2,2)
+plt.show()
+
+import numpy as np 
+import matplotlib.pyplot as plt 
+from matplotlib.ticker import FuncFormatter 
+
+data = {'Barton LLC':109438.50,'frami, Hills and Schmidt':103569.59,'Fritsch,Russel and Anserson':112214.71,'Jerde-Hilpert':112591.43,'Keeling LLC':100934.30,'Koepp Ltd':137351.96,'Trantow-Barrows':123381.38,'White-Trantow':135841.99,'Will LCC':104437.60}
+
+group_data = list(data.values())
+group_names = list(data.keys())
+group_mean = np.mean(group_data)
+
+fig,ax = plt.subplots()
+ax.barh(group_names,group_data)
+
+print(plt.style.available)
+plt.style.use('ggplot')
+
+fig,ax = plt.subplots()
+ax.barh(group_names,group_data)
+labels = ax.get_xticklabels()
+
+fig,ax = plt.subplots()
+ax.barh(group_names,group_data)
+labels = ax.get_xticklabels()
+plt.setp(labels,rotation=45,horizontalalignment='right')
+
+def currency(x,pos):
+    """The two args are the value and tick position"""
+    if x>=1e6:
+        s = '${:1.1F}M'.format(x*1e-6)
+    else:
+        s = '${:1.0f}K'.format(x*1e-3)
+    return s
+formatter =  FuncFormatter(currency)
+
+fig,ax = plt.subplots(figsize=(6,8))
+ax.barh(group_names,group_data)
+labels = ax.get_xticklabels()
+plt.setp(labels,rotation=45,horizontalalignment='right')
+
+ax.set(xlim=[-10000,140000],xlabel='Total Revenue',ylabel='Company',title='Company Revenue')
+ax.xaxis.set_major_formatter(formatter)
+
+fig,ax = plt.subplots(figsize=(8,8))
+ax.barh(group_names,group_data)
+labels = ax.get_xticklabels()
+plt.setp(labels,rotation=45,horizontalalignment='right')
+ax.axvline(group_mean,ls='--',color='b')
+
+for group in [3,5,8]:
+    ax.text(145000,group,'New Company',fontsize=10,verticalalignment='center')
+ax.title.set(y=1.05)
+ax.set(xlim=[-10000,140000],xlabel='Total Revenue',ylabel='Company',title='Company Revenue')
+ax.xaxis.set_major_formatter(formatter)
+ax.set_xticks([0,25e3,50e3,75e3,100e3,125e3])
+fig.subplots_adjust(right=0.1)
+plt.show()
+
+print(fig.canvas.get_supported_filetypes())
+fig.savefig('sales.png',transparent=False,dpi=80,bbox_inches='tight')
+
+import numpy as np 
+import matplotlib.pyplot as plt 
+import matplotlib as mpl 
+plt.style.use('ggplot')
+data = np.random.randn(50)
+
+with plt.style.context('dark_background'):
+    plt.plot(np.sin(np.linspace(0,2*np.pi)),'r-o')
+plt.show()
+
+mpl.rcParams['lines.linewidth'] = 2
+mpl.rcParams['lines.color'] = 'b'
+plt.plot(data)
+
+mpl.rc('lines',linewidth=4,color='g')
+plt.plot(data)
+
+import matplotlib
+matplotlib.matplotlib_fname()
+
+
+import matplotlib.pyplot as plt 
+fig = plt.figure()
+ax = fig.add_subplot(2,1,1)# two rows,one columns,first plot
+
+fig2 = plt.figure()
+ax2 = fig2.add_axes([0.15,0.1,0.7,0.3])
+
+import numpy as np 
+t = np.arange(0.0,1.0,0.01)
+s = np.sin(2*np.pi*t)
+line, = ax.plot(t,s,color='blue',lw=2)
+
+type(ax.lines)
+len(ax.lines)
+type(line)
+
+plt.getp(fig)
+plt.getp(ax)
+
+a = line.get_alpha()
+line.set_alpha(0.5*a)
+line.set(alpha=0.5,zorder=2)
+
+fig = plt.figure()
+ax1 = fig.add_subplot(211)
+ax2 = fig.add_axes([0.1,0.1,0.7,0.3])
+print(fig.axes)
+
+for ax in fig.axes:
+    ax.grid(True)
+
+fig,ax = plt.subplots()
+axis = ax.xaxis
+axis.get_ticklocs()
+
+axis.get_ticklabels()
+axis.get_ticklines()
+axis.get_ticklines(minor=True)
+
+np.random.seed(19680801)
+
+fig,ax = plt.subplots()
+ax.plot(100*np.random.rand(20))
+
+formatter = ticker.FormatStrFormatter('$%1.2f')
+ax.yaxis.set_major_formatter(formatter)
+
+for tick in ax.yaxis.get_major_ticks():
+    tick.label1.set_visible(False)
+    tick.label2.set_visible(True)
+    tick.label2.set_color('green')
+plt.show()
+
+line, = ax.plot([1,2,3],label='Inline label')
+ax.legend()
+
+line, = ax.plot([1,2,3])
+line.set_label('Label via method')
+ax.legend
+
+ax.plot([1,2,3])
+ax.legend(['A simple line'])
+
+import numpy as np 
+import matplotlib.pyplot as plt 
+# Make some fake data
+a = b = np.arange(0,3,0.02)
+c = np.exp(a)
+d = c[::-1]#把a倒序
+# Creat plots with pre-defined labels
+fig,ax = plt.subplots()
+ax.plot(a,c,'k--',label='Model length')
+ax.plot(a,d,'k:',label='Data length')
+ax.plot(a,c + d,'k',label='Total message length')
+legend = ax.legend(loc='upper center',shadow=True,fontsize='x-large')
+# Put a nicer background color on the legend
+legend.get_frame().set_facecolor('C0')
+plt.show()
+
+import matplotlib.pyplot as plt 
+import numpy as np 
+plt.rcParams['savefig.facecolor']='0.8'
+
+def example_plot(ax,fontsize=12):
+    ax.plot([1,2])
+    ax.locator_params(nbins=3)
+    ax.set_xlabel('x-label',fontsize=fontsize)
+    ax.set_ylabel('ylabel',fontsize=fontsize)
+    ax.set_title('Title',fontsize=fontsize)
+plt.close('all')
+
+fig,ax = plt.subplots()
+example_plot(ax,fontsize=24)
+
+fig,ax = plt.subplots()
+example_plot(ax,fontsize=24)
+plt.tight_layout()
+
+plt.close('all')
+fig = plt.figure()
+
+ax1 = plt.subplot(221)
+ax2 = plt.subplot(223)
+ax3 = plt.subplot(122)
+
+example_plot(ax1)
+example_plot(ax2)
+example_plot(ax3)
+
+plt.tight_layout()
+
+
+fig,ax = plt.subplots(constrained_layout=False)
+example_plot(ax,fontsize=24)
+
+fig,axs = plt.subplots(2,2,constrained_layout=False)
+for ax in axs.flat:
+    example_plot(ax)
+
+import matplotlib
+import matplotlib.pyplot as plt 
+
+fig  = plt.figure()
+ax = fig.add_subplot(111)
+fig.subplots_adjust(top=0.85)
+
+fig.suptitle('bold figure suptitle',fontsize=14,fontweight='bold')
+ax.set_title('axes title')
+ax.set_xlabel('xlabel')
+ax.set_ylabel('ylabel')
+
+ax.axis([0,10,0,10])
+ax.text(3,8,'boxed italics text in data coords',style='italic',bbox={'facecolor':'red','alpha':0.5,'pad':10})
+ax.text(2,6,r'an equation: $E=mc^2$',fontsize=15)
+
+import matplotlib.pyplot as plt 
+ax = plt.subplot(111)
+
+t = np.arange(0.0,5.0,0.01)
+s = np.cos(2*np.pi*t)
+line, = plt.plot(t,s,lw=2)
+
+ax.annotate('local max',xy=(3,1),xycoords='data',xytext=(0.8,0.95),textcoords='axes fraction',arrowprops=dict(facecolor='black',shrink=0.05),horizontalalignment='right',verticalalignment='top')
+plt.ylim(-2,2)
+plt.show()
+
+###pad页边距
+bbox_props = dict(boxstyle='rarrow,pad=0.3',fc='cyan',ec='b',lw=2)
+t = ax.text(0.5,0.5,'Direction',ha='center',va='center',rotation=45,size=15,bbox=bbox_props)
+bb = t.get_bbox_patch()
+bb.set_boxstyle('rarrow',pad=0.6)
+
+#fancybox list 
+import matplotlib.pyplot as plt 
+import matplotlib.transforms as mtransforms
+import matplotlib.patches as mpatch
+from matplotlib.patches import FancyBboxPatch
+
+styles = mpatch.BoxStyle.get_styles()
+spacing = 1.2
+figheight = (spacing*len(styles)+0.5)
+fig = plt.figure(figsize=(4/1.5,figheight/1.5))
+fontsize = 0.3*72
+
+for i,stylename in enumerate(sorted(styles)):
+    fig.text(0.5,(spacing*(len(styles)-i)-0.5)/figheight,stylename,ha='center',size=fontsize,transform=fig.transFigure,bbox=dict(boxstyle=stylename,fc='w',ec='k'))
+    
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np 
+import matplotlib.pyplot as plt 
+
+plt.rcParams['legend.fontsize']=10
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+
+theta = np.linspace(-4*np.pi,4*np.pi,100)
+z = np.linspace(-2,2,100)
+r = z**2+1
+x = r*np.sin(theta)
+y = r*np.cos(theta)
+
+ax.plot(x,y,z,label='parametric curve')
+ax.legend()
+plt.show()
