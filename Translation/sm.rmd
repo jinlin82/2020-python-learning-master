@@ -131,40 +131,32 @@ Modules with aliases
 `import statsmodels.stats.diagnostic as smsdia`
 `import statsmodels.stats.outliers_influence as oi`
 
-## Fitting models using R-style formulas
+## 使用R样式公式拟合模型
 
-### R-style formulas and `pasty`
+### R样式公式和 `pasty`
 
-1.  statsmodels allows users to fit statistical models using R-style
-    formulas.
-2.  Internally, statsmodels uses the patsy package to convert formulas
-    and data to the matrices that are used in model fitting.
-3.  patsy is a Python package for describing statistical models
-    (especially linear models, or models that have a linear component)
-    and building design matrices. It is closely inspired by and
-    compatible with the formula mini-language used in R and S.
-4.  For instance, if we have some variable y, and we want to regress it
-    against some other variables x, a, b, and the interaction of a and
-    b, then we simply write:
-
-`patsy.dmatrices("y ~ x + a + b + a:b", data)`
+1.  statsmodels允许用户使用R样式公式拟合统计模型。
+2.  在内部，statsmodels使用patsy包将公式和数据转换为模型拟合中使用的矩阵。
+3.  patsy是一个Python软件包，用于描述统计模型（尤其是线性模型或具有线性成分的模
+    型）并构建设计矩阵。 它受到R和S中使用的微型语言公式的紧密启发并与之兼容。
+4.  例如，如果我们有一些变量y，并且想要将其与其他变量x，a，b以及a和b的相互作用进
+    行回归，则只需编写：
+    `patsy.dmatrices("y ~ x + a + b + a:b", data)`
 
 ### `dmatrices`
 
-1.  split the categorical Region variable into a set of indicator
-    variables.
-2.  added a constant to the exogenous regressors matrix.
-3.  returned pandas DataFrames instead of simple numpy arrays. This is
-    useful because DataFrames allow statsmodels to carry-over meta-data
-    (e.g. variable names) when reporting results.
+1.  将类别Region变量拆分为一组指标变量。
+2.  在外生回归矩阵中添加一个常数。
+3.  返回的是Pandas DataFrames而不是简单的numpy数组。这很有用，因为在报告结果
+    时，DataFrames允许statsmodels继承元数据（例如，变量名）。
 
-### Model fit and summary
+### 模型拟合和总结
 
-1.  Fitting a model in statsmodels typically involves 3 easy steps:
-    1.  Use the model class to describe the model
-    2.  Fit the model using a class method
-    3.  Inspect the results using a summary method
-    4.  Type `dir(res)` for a full list of attributes.
+1.  在statsmodels中拟合模型通常涉及3个简单步骤：
+    1.  使用模型类来描述模型。
+    2.  使用类方法拟合模型。
+    3.  使用汇总方法检查结果。
+    4.  输入 `dir(res)` 以获取完整的属性列表。
 
 ``` {.python}
 mod = sm.OLS(y, X)    # Describe model
@@ -172,7 +164,7 @@ res = mod.fit()       # Fit model
 print(res.summary())   # Summarize model
 ```
 
-# main statsmodels API
+# 主要 statsmodels API
 
 ### main statsmodels API
 
