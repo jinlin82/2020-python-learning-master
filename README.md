@@ -127,3 +127,12 @@ P45-56 王悦
 
 - （3.4两项作业放入Week5-Matplotlib中）
 
+# week8
+
+- 看视频lect2
+
+- 看statsmodels pdf，并翻译，（分工P1-5廖明可，P6-10王悦，P11-15陈瑶，P16-20梁依婷，P21-25谢欣悦）
+
+- 完成视频作业（线性模型），命名为zuoye5
+
+- 完成statsmodels_exercise
