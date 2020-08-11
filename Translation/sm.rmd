@@ -91,41 +91,39 @@ print(results.summary())
 
 # 使用流程
 
-## Import Paths and Structure
+## Import Paths and Structure导入路径和结构
 
-### two ways of importing
+### two ways of importing两种导入方式
 
-1.  two ways of importing functions and classes from statsmodels:
-    1.  API import for interactive use: Allows tab completion
+1.  从statsmodel导入函数和类的两种方法:
+    1.  API import for interactive use: Allows tab completion用于交互使用的API导入：允许选项卡完成
     2.  Direct import for programs: Avoids importing unnecessary modules
-        and commands
+        and commands程序的直接导入：避免导入不必要的模块和命令
 
-### API Import for interactive use
+### 用于交互使用的API导入
 
-1.  For interactive use the recommended import is:
+1.  对于交互式使用，建议导入为：
     `import statsmodels.api as sm`
-2.  Importing statsmodels.api will load most of the public parts of
-    statsmodels.
-3.  This makes most functions and classes conveniently available within
-    one or two levels, without making the "sm" namespace too crowded.
-4.  list functions with `dir(sm)`
+2.  导入statsmodels.api将加载大部分statsmodel的公共部分。
+3.  这使得大多数函数和类可以在一到两层中方便地使用，而不会使“sm”名称空间过于拥
+    挤。
+4.  用 `dir(sm)` 列出函数。
 
-### Direct import for programs
+### 程序的直接导入
 
-1.  statsmodels submodules are arranged by topic (e.g. discrete for
-    discrete choice models, or tsa for time series analysis).
+1.  statsmodels子模块按主题排列(例如离散选择模型的离散，或者时间序列分析的tsa)。
 
-Functions and classes:
+函数和类：
 
 `from statsmodels.regression.linear_model import OLS, WLS`
 `from statsmodels.tools.tools import rank, add_constant`
 
-Modules
+模块
 
 `from statsmodels.datasets import macrodata`
 `import statsmodels.stats import diagnostic`
 
-Modules with aliases
+模块的别名
 
 `import statsmodels.regression.linear_model as lm`
 `import statsmodels.stats.diagnostic as smsdia`
