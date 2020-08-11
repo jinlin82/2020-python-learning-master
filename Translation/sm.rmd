@@ -223,29 +223,26 @@ print(res.summary())   # Summarize model
     -   gee(formula, groups, data\[, subset, time, ...\])
     -   glmgam(formula, data\[, subset, drop~cols~\])
 
-# The Datasets Package
 
-### The Datasets Package
+# 数据集包
 
-1.  statsmodels provides data sets (i.e. data and meta-data) for use in
-    examples, tutorials, model testing, etc.
-2.  load statsmodels Available Datasets
-3.  Using Datasets from Stata
-4.  Using Datasets from R
+### 数据集包
 
-### statsmodels Available Datasets
+1.  statsmodels提供用于示例、教程、模型测试等的数据集（即数据和元数据）
+2.  加载statsmodels中的可用数据集
+3.  使用Stata中的数据集
+4.  使用R中的数据集
 
-1.  Available Datasets list:
+### statsmodels可用数据集
+
+1.  可用数据集列表：
     `Anaconda3\Lib\site-packages\statsmodels\datasets`
-2.  Load a dataset: `sm.datasets.datasets_name.load_pandas()`
-3.  Loading data as pandas objects: `load_pandas()` method
-4.  The Dataset object follows the bunch pattern. The full dataset is
-    available in the `data` attribute.
-5.  Most datasets hold convenient representations of the data in the
-    attributes `endog` and `exog`
-6.  Univariate datasets, however, do not have an `exog` attribute.
-7.  Variable names can be obtained by typing: `endog_name` and
-    `exog_name`
+2.  加载数据集：`sm.datasets.datasets_name.load_pandas()`
+3.  将数据加载为pandas对象：`load_pandas()` 方法
+4.  数据集对象遵循束模式，完整的数据集在“data”属性中可用。
+5.  大多数数据集都在属性“endog”和“exog”中保存了方便的数据表示形式。
+6.  但是，单变量数据集没有“exog”属性。
+7.  变量名可以通过键入以下内容获得：`endog_name`和`exog_name`
 
 ### 例子
 
@@ -261,7 +258,7 @@ dat.exog_name
 dat.names
 ```
 
-### Using Datasets from Stata
+### 使用Stata中的数据集
 
 1.  `webuse(data[, baseurl, as_df])` : Download and return an example
     dataset from Stata.
@@ -272,21 +269,16 @@ import statsmodels.api as sm
 auto=sm.datasets.webuse('auto')
 ```
 
-### Using Datasets from R
+### 使用R中的数据集
 
 1.  The Github
-    [Rdatasets](https://github.com/vincentarelbundock/Rdatasets) project
-    gives access to the datasets available in R's core datasets package
-    and many other common R packages.
-2.  All of these datasets are available to statsmodels by using the
-    `get_rdataset` function.
-3.  The actual data is accessible by the `data` attribute.
-4.  `__doc__` 属性可以查看数据帮助信息
+    [Rdatasets](https://github.com/vincentarelbundock/Rdatasets) 项目可以访问R的核心数据包和许多其他常见R包中的可用数据集。
+2.  使用`get_rdataset`函数，所有这些数据集都可用于statsmodels。
+3.  实际数据可以通过“data”属性访问。
+4.  `__doc__` 属性可以查看数据帮助信息。
 5.  由于 Github 网站文件库被封，可以采取以下方法解决：
-    1.  把 [Rdatasets](https://github.com/vincentarelbundock/Rdatasets)
-        项目下载到本地计算机.
-    2.  修改 `Anaconda3\Lib\site-packages\statsmodels\datasets\utils.py`
-        中的 `get_rdataset` 函数.
+    1.  把 [Rdatasets](https://github.com/vincentarelbundock/Rdatasets)项目下载到本地计算机。
+    2.  修改 `Anaconda3\Lib\site-packages\statsmodels\datasets\utils.py`中的 `get_rdataset` 函数。
 
 ``` {.python}
 import statsmodels.api as sm
