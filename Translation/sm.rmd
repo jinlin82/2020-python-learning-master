@@ -95,7 +95,7 @@ print(results.summary())
 
 ### 两种导入方式
 
-1.  从statsmodel导入函数和类的两种方法:
+1.  从statsmodels导入函数和类的两种方法:
     1.  用于交互使用的API导入：允许选项卡完成
     2.  程序的直接导入：避免导入不必要的模块和命令
 
@@ -103,7 +103,7 @@ print(results.summary())
 
 1.  对于交互式使用，建议导入为：
     `import statsmodels.api as sm`
-2.  导入statsmodels.api将加载大部分statsmodel的公共部分。
+2.  导入statsmodels.api将加载大部分statsmodels的公共部分。
 3.  这使得大多数函数和类可以在一到两层中方便地使用，而不会使“sm”名称空间过于拥
     挤。
 4.  用 `dir(sm)` 列出函数。
