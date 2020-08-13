@@ -37,37 +37,30 @@ library(reticulate)
 
 
 
-# Introduction
+# 简介
 
-### Facts
+### 基本情况
 
-1.  Initial release: 2009
-2.  Website: <https://www.statsmodels.org/stable/index.html>
-3.  History:
+1.  初始版本: 2009
+2.  网址: <https://www.statsmodels.org/stable/index.html>
+3.  历史:
 
 ```{=html}
 <!-- -->
 ```
-1.  The models module of scipy.stats was originally written by Jonathan
-    Taylor.
-2.  For some time it was part of scipy but was later removed.
-3.  During the Google Summer of Code 2009, statsmodels was corrected,
-    tested, improved and released as a new package.
-4.  Since then, the statsmodels development team has continued to add
-    new models, plotting tools, and statistical methods.
+1.  scipy.stats的模型模块最初由乔纳森·泰勒所写。
+2.  在一段时间内它都是scipy的一部分，后来被移除了。
+3.  在2009年谷歌代码之夏期间，statsmodels进行了更正、测试、改进，并作为一个新的包发布。
+4.  从那之后，statsmodels的开发团队又继续增添新的模型，作图工具和统计方法。
 
-### What is statsmodels
+### 什么是statsmodels
 
-1.  statsmodels is a Python module that provides classes and functions
-    for the estimation of many different statistical models,
-2.  as well as for conducting statistical tests, and statistical data
-    exploration.
-3.  An extensive list of result statistics are available for each
-    estimator.
-4.  The results are tested against existing statistical packages to
-    ensure that they are correct.
+1.  statsmodels是python中为多种不同的统计模型估计提供类和函数的模块，
+2.  同时也用于进行统计检验和统计数据探索。
+3.  每个估计器都有一个统计结果的扩展列表。
+4.  其结果将依据现有的统计包进行检验，以确保它们是正确的。
 
-### A simple example using ordinary least squares
+### 使用最小二乘法的一个简单例子
 
 ``` {.python}
 import numpy as np
