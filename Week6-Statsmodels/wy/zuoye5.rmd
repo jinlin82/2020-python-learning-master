@@ -1,0 +1,150 @@
+---
+title: "多元线性回归分析"
+author: "金林"
+date: "2020-01"
+output:
+  bookdown::html_document2:
+    fig_caption: true
+    highlight: haddock
+    keep_md: true
+    md_extensions: +east_asian_line_breaks
+    number_sections: true
+    pandoc_args:
+    - --filter
+    - pandoc-crossref
+    - -M
+    - eqnPrefix=
+    seq_numbering: false
+    toc: true
+  bookdown::pdf_document2:
+    keep_tex: true
+    latex_engine: xelatex
+    md_extensions: +east_asian_line_breaks
+    pandoc_args:
+    - --listing
+    - --filter
+    - pandoc-crossref
+    toc: false
+  slidy_presentation:
+    highlight: haddock
+  bookdown::word_document2:
+    fig_caption: true
+    md_extensions: +east_asian_line_breaks
+    pandoc_args:
+    - --filter
+    - pandoc-crossref
+    reference_docx: ./style/word-styles-02.docx
+  ioslides_presentation:
+    highlight: haddock
+    slide_level: 3
+  beamer_presentation:
+    keep_tex: true
+    latex_engine: xelatex
+    toc: true
+    pandoc_args:
+    - --listing
+    - --filter
+    - pandoc-crossref
+    slide_level: 3
+    template: ./style/beamer-template.tex
+csl: ./style/chinese-gb7714-2005-numeric.csl
+css: ./style/markdown.css
+bibliography: Bibfile.bib
+eqnPrefixTemplate: ($$i$$)
+institute: 中南财经政法大学统计与数学学院
+link-citations: true
+linkReferences: true
+chapters: true
+tableEqns: false
+autoEqnLabels: false
+---
+
+
+```{r setup, echo=F, purl=F}
+knitr::opts_knit$set(root.dir = getwd())
+knitr::opts_chunk$set(echo = TRUE, results = 'hide')
+knitr::opts_chunk$set(warning = FALSE, message=FALSE)
+knitr::opts_chunk$set(out.height="0.5\\textwidth", fig.width=5, fig.height=3, fig.align="center")
+```
+
+```{r prepare, echo=F, purl=F}
+rm(list=ls())
+options(digits=4)
+options(scipen=100)
+graphics.off()
+Sys.setlocale("LC_ALL", "Chinese")
+```
+
+### 构建数据集
+
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+
+1. 从R中提取数据，建立数据框，提取GDP变量形成Y向量，提取Labor,Kapital,Technology,Energy四个变量加上截距向量构成设计矩阵X。
+gdp=pd.read_csv('GDP.csv')
+Y=gdp.GDP
+X=gdp[['Labor','Kapital','Technology','Energy']]
+X=sm.add_constant(X)
+
+### 初步查看数据集信息
+gdp.info()
+
+### 建立线性回归模型
+X=X.iloc[1:,:]
+Y=Y.iloc[1:]
+lm=sm.OLS(Y,X).fit()
+lm.summary()
+n=58
+p=4
+
+### 参数估计(估计回归模型的系数矩阵、因变量估计值、回归误差向量)
+
+Bhat=np.linalg.inv(X.T.dot(X)).dot(X.T).dot(Y) # 系数矩阵
+
+Yhat=X.dot(Bhat) # 因变量估计值
+
+Y-Yhat # 回归误差向量
+
+### 多元线性回归函数的拟合优度
+
+SST=(Y-Y.mean()).T.dot(Y-Y.mean())
+SSE=(Y-Yhat).T.dot(Y-Yhat)
+SSR=SST-SSE 
+
+Rsq=SSR/SST
+adj_Rsq=1-(SSE/(n-p-1))/(SST/(n-1))
+
+### 线性关系显著性检验：F检验（右侧检验）
+MSR=SSR/p
+MSE=SSE/(n-p-1)
+F_value=MSR/MSE
+
+import scipy.stats as stats
+rv=stats.f(4,58)
+p_value=1-rv.cdf(F_value)
+
+### 回归系数显著性检验：t检验（双侧检验）
+sigmahat=MSE**0.5
+c=np.diag(np.linalg.inv(X.T.dot(X)))
+se_bhat=sigmahat*(c**0.5)
+
+t_value=Bhat/se_bhat
+rvt=stats.t(n-p-1)
+t_crit_value=rvt.ppf(0.975)
+p_value_t=2*(1-rvt.cdf(t_value))
+
+### 回归系数的区间估计
+Bhat_CI=np.stack((Bhat-t_crit_value*se_bhat, Bhat+t_crit_value*se_bhat),axis=-1)
+
+### 回归模型的预测值
+
+#### 点预测
+X_new=np.array([1,35720,600,38.23,34467])
+
+Y_new=X_new.dot(Bhat)
+
+#### 区间预测
+np.stack((np.array([Y_new-t_crit_value*sigmahat*(1+X_new.dot(np.linalg.inv(X.T.dot(X))).dot(X_new.T))**0.5, Y_new+t_crit_value*sigmahat*(1+X_new.dot(np.linalg.inv(X.T.dot(X))).dot(X_new.T))**0.5]))) ## 个别值区间预测
+
+np.stack((np.array([Y_new-t_crit_value*sigmahat*(X_new.dot(np.linalg.inv(X.T.dot(X))).dot(X_new.T))**0.5, Y_new+t_crit_value*sigmahat*(X_new.dot(np.linalg.inv(X.T.dot(X))).dot(X_new.T))**0.5]))) ##平均值区间预测
