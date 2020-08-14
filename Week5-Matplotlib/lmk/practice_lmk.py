@@ -154,7 +154,6 @@ data={'a':np.arange(50),
       'd':np.random.randn(50)}
 data['b']=data['a']+10*np.random.randn(50)
 data['d']=np.abs(data['d'])*100
-
 plt.scatter('a','b',c='c',s='d',data=data)
 plt.xlabel('entry a')
 plt.ylabel('entry b')
@@ -173,7 +172,7 @@ plt.suptitle('Categorical Plotting')
 plt.show()
 
 ### line properties
-line=plt.plot(x,y,'-')
+line,=plt.plot(x,y,'-')
 line.set_antialiased(False) # turn off antialiasing
 
 lines=plt.plot(x1,y1,x2,y2)
@@ -223,7 +222,7 @@ plt.show()
 ax=plt.subplot(111)
 t=np.arange(0.0,5.0,0.01)
 s=np.cos(2*np.pi*t)
-line=plt.plot(t,s,lw=2)
+line,=plt.plot(t,s,lw=2)
 plt.annotate('local max',xy=(2,1),xytext=(3,1.5),arrowprops=dict(facecolor='black',shrink=0.05)) # xy为需要注释的位置，xytext为注释文本的位置
 plt.ylim(-2,2)
 plt.show()
@@ -269,7 +268,7 @@ plt.setp(labels,rotation=45,horizontalalignment='right')
 def currency(x,pos):
     """The two args are the value and tick position"""
     if x>=1e6:
-        s = '${:1.1f}M'.format(x*1e-6)
+        s='${:1.1f}M'.format(x*1e-6)
     else:
         s='${:1.0f}K'.format(x*1e-3)
     return s
@@ -293,8 +292,8 @@ ax.title.set(y=1.05)
 ax.set(xlim=[-10000,140000],xlabel='Total Revenue',ylabel='Company',title='Company Revenue')
 ax.xaxis.set_major_formatter(formatter)
 ax.set_xticks([0,25e3,50e3,75e3,100e3,125e3])
-fig.subplots_adjust(right=.1)
-plt.show() ### ？？？
+fig.subplots_adjust(right=1)
+plt.show()
 
 ### saving plots
 print(fig.canvas.get_supported_filetypes())
@@ -330,7 +329,7 @@ fig2=plt.figure()
 ax2=fig2.add_axes([0.15,0.1,0.7,0.3])
 t=np.arange(0.0,1.0,0.01)
 s=np.sin(2*np.pi*t)
-line=ax.plot(t,s,color='blue',lw=2)
+line,=ax.plot(t,s,color='blue',lw=2)
 type(ax.lines)
 len(ax.lines)
 type(line)
@@ -339,8 +338,8 @@ type(line)
 plt.getp(fig) # 查看属性
 plt.getp(ax)
 
-a=line.get_alpha() # 'list' object has no attribute 'get_alpha'
-line.set_alpha(0.5*a)
+a=line.get_alpha()
+line.set_alpha(0.5*a) # 示例代码
 line.set(alpha=0.5,zorder=2)
 
 ## object containers
@@ -363,10 +362,11 @@ axis.get_ticklines()
 axis.get_ticklines(minor=True)
 
 ### tick containers
+from matplotlib import ticker
 np.random.seed(19680801)
 fig,ax=plt.subplots()
 ax.plot(100*np.random.rand(20))
-formatter=ticker.FormatStrFormatter('$%1.2f') # ticker
+formatter=ticker.FormatStrFormatter('$%1.2f')
 ax.yaxis.set_major_formatter(formatter)
 
 for tick in ax.yaxis.get_major_ticks():
@@ -376,8 +376,9 @@ for tick in ax.yaxis.get_major_ticks():
 plt.show()
 
 ## legend
-line=ax.plot([1,2,3],label='Inline label')
+line,=ax.plot([1,2,3],label='Inline label')
 ax.legend()
+
 line,=ax.plot([1,2,3])
 line.set_label('Label via method')
 ax.legend()
@@ -468,7 +469,7 @@ plt.getp(ax.texts)
 ax=plt.subplot(111)
 t=np.arange(0.0,5.0,0.01)
 s=np.cos(2*np.pi*t)
-line=plt.plot(t,s,lw=2)
+line,=plt.plot(t,s,lw=2)
 ax.annotate('local max',xy=(3,1),xycoords='data',
             xytext=(0.8,0.95),textcoords='axes fraction',
             arrowprops=dict(facecolor='black',shrink=0.05),
@@ -517,16 +518,3 @@ y=r*np.cos(theta)
 ax.plot(x,y,z,label='parametric curve')
 ax.legend()
 plt.show()
-
-### 支持的3D图形类型
-线形图：Axes3D.plot(self, xs, ys, *args, zdir='z', **kwargs)
-散点图：Axes3D.scatter(self, xs, ys, zs=0, zdir='z', s=20, c=None, depthshade=True, *args, **kwargs)
-线框图：Axes3D.plot_wireframe(self, X, Y, Z, *args, **kwargs)
-曲面图：Axes3D.plot_surface(self, X, Y, Z, *args, norm=None, vmin=None, vmax=None, lightsource=None, **kwargs)
-三维曲面图：Axes3D.plot_trisurf(self, *args, color=None, norm=None, vmin=None, vmax=None, lightsource=None, **kwargs)
-等高线图：Axes3D.contour(self, X, Y, Z, *args, extend3d=False, stride=5, zdir='z', offset=None, **kwargs)
-填充等高线图：Axes3D.contourf(self, X, Y, Z, *args, zdir='z', offset=None, **kwargs)
-多边形图：Axes3D.add_collection3d(self, col, zs=0, zdir='z')
-条形图：Axes3D.bar(self, left, height, zs=0, zdir='z', *args, **kwargs)
-绘制箭头：Axes3D.quiver(X, Y, Z, U, V, W, /, length=1, arrow_length_ratio=.3, pivot='tail', normalize=False, **kwargs)
-添加文本：Axes3D.text(self, x, y, z, s, zdir=None, **kwargs)

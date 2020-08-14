@@ -66,6 +66,39 @@ plt.yticks(np.arange(10,40,5))
 plt.tight_layout()
 plt.show()
 
+### 用agg/apply画多图
+fig,axes=plt.subplots(3,2,figsize=(10,9))
+def plotax(i):
+    if i%2 ==0:
+        axes[i].set_xlabel('wt')
+        axes[i].set_ylabel('mpg')
+        axes[i].set_xticks(np.arange(1,6,0.5))
+        axes[i].set_yticks(np.arange(10,40,5))
+    else:
+        axes[i].set_xlabel('hp')
+        axes[i].set_ylabel('mpg')
+        axes[i].set_xticks(np.arange(50,400,50))
+        axes[i].set_yticks(np.arange(10,40,5))
+def plottitle1(i):
+    if i==1|2:
+        axes[i].set_title('4缸汽车')
+def plottitle2(i):
+    if i==3|4:
+        axes[i].set_title('6缸汽车')
+def plottitle3(i):
+    if i==5|6:
+        axes[i].set_title('8缸汽车')
+
+pd.DataFrame(axes[0]).agg([plotax,plottitle1])
+
+fig,axes=plt.subplots(3,2,figsize=(10,9))
+axes[0].scatter(mt1.wt,mt1.mpg)
+axes[0].set_xlabel('wt')
+axes[0].set_ylabel('mpg')
+axes[0].set_xticks(np.arange(1,6,0.5))
+axes[0].set_yticks(np.arange(10,40,5))
+plt.show()
+
 # 2. 利用trees数据集，完成面板图，要求：
 ## 1. 作 Volume~Girth 的散点图，要求y轴在右边，在图像下方给出Girth的箱线图
 ## 2. 作 Volume~Height 的散点图，要求y轴在左边，在图像下方给出Height的箱线图
@@ -108,6 +141,42 @@ sns.boxplot(x=trees.Height)
 plt.title('Height boxplot')
 
 plt.tight_layout()
+plt.show()
+
+### 改变子图的布局和大小
+fig=plt.figure(constrained_layout=True,figsize=(12,8))
+gs=fig.add_gridspec(3,5)
+
+f_ax1=fig.add_subplot(gs[:-1,0:2])
+plt.scatter(trees.Girth,trees.Volume)
+plt.title('Volume-Girth')
+plt.xlabel('Girth')
+plt.ylabel('Volume')
+plt.xticks(np.arange(8,22,1))
+plt.yticks(np.arange(10,85,5))
+ax=plt.gca()
+ax.yaxis.set_ticks_position('right')
+
+f_ax2=fig.add_subplot(gs[:-1,2])
+sns.boxplot(y=trees.Volume)
+plt.title('Volume boxplot')
+
+f_ax3=fig.add_subplot(gs[:-1,-2:])
+plt.scatter(trees.Height,trees.Volume)
+plt.title('Volume-Height')
+plt.xlabel('Height')
+plt.ylabel('Volume')
+plt.xticks(np.arange(60,95,5))
+plt.yticks(np.arange(10,85,5))
+
+f_ax4=fig.add_subplot(gs[-1:,0:2])
+sns.boxplot(x=trees.Girth)
+plt.title('Girth boxplot')
+
+f_ax5=fig.add_subplot(gs[-1:,-2:])
+sns.boxplot(x=trees.Height)
+plt.title('Height boxplot')
+
 plt.show()
 
 # 3. 在同一个图形中画出以下函数的曲线：
