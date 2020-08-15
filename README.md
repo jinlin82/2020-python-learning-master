@@ -136,3 +136,9 @@ P45-56 王悦
 - 完成视频作业（线性模型），命名为zuoye5
 
 - 完成statsmodels_exercise
+
+# week9
+
+- 看scikit-learnPDF，敲好相应代码，命名为practice.
+
+- 翻译scikit-learnPDF，分工如下：（P4-50廖明可，P51-97王悦，P98-144陈瑶，P145-191梁依婷，P192-237谢欣悦）
