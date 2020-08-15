@@ -156,47 +156,43 @@ print(res.summary())   # Summarize model
 
 # 主要 statsmodels API
 
-### main statsmodels API
+### 主要的statsmodels API
 
-1.  `statsmodels.api`: Cross-sectional models and methods. Canonically
-    imported using `import statsmodels.api as sm.`
-2.  `statsmodels.tsa.api`: Time-series models and methods. Canonically
-    imported using `import statsmodels.tsa.api as tsa.`
-3.  `statsmodels.formula.api`: A convenience interface for specifying
-    models using formula strings and DataFrames. This API directly
-    exposes the from~formula~ class method of models that support the
-    formula API. Canonically imported using
-    `import statsmodels.formula.api as smf`
-4.  The API focuses on models and the most frequently used statistical
-    test, and tools.
+1.  `statsmodels.api`: 横截面的模型和方法。通常使用`import statsmodels.api as
+    sm.`语句进行导入。
+2.  `statsmodels.tsa.api`: 时间序列的模型和方法。通常使用`import
+    statsmodels.tsa.api as tsa.`语句进行导入。
+3.  `statsmodels.formula.api`: 一个用于公式字符串和数据框的模型指定的便捷接口。
+    这个API直接公开了支持公式API的模型的from~formula~类方法。通常使用`import
+    statsmodels.formula.api as smf`语句进行导入。
+4.  API主要关注模型、最常用的统计检验和工具。
 
 ### `statsmodels.api`
 
-1.  Regression
-2.  Imputation
-3.  Generalized Estimating Equations
-4.  Generalized Linear Models
-5.  Discrete and Count Models
-6.  Multivariate Models
-7.  Misc Models
-8.  Graphics
-9.  Tools
+1.  回归
+2.  注入
+3.  广义估计方程
+4.  广义线性模型
+5.  离散和计数模型
+6.  多元模型
+7.  杂项模型
+8.  图形
+9.  工具
 
 ### `statsmodels.tsa.api`
 
-1.  Statistics and Tests
-2.  Univariate Time-Series Analysis
-3.  Exponential Smoothing
-4.  Multivariate Time Series Models
-5.  Filters and Decompositions
-6.  Markov Regime Switching Models
-7.  Time-Series Tools
-8.  X12/X13 Interface
+1.  统计和检验
+2.  单变量时间序列分析
+3.  指数平滑
+4.  多元时间序列模型
+5.  滤波器和分解
+6.  马尔可夫制度转换模型
+7.  时间序列工具
+8.  X12/X13接口
 
 ### `statsmodels.formula.api`
 
-1.  The function descriptions of the methods exposed in the formula API
-    are generic. See the documentation for the parent model for details.
+1.  公式API中公开的方法的函数描述是通用的。具体信息可以参考以下母模型文档。
     -   gls(formula, data\[, subset, drop~cols~\])
     -   wls(formula, data\[, subset, drop~cols~\])
     -   ols(formula, data\[, subset, drop~cols~\])
@@ -212,7 +208,6 @@ print(res.summary())   # Summarize model
     -   nominal~gee~(formula, groups, data\[, subset, ...\])
     -   gee(formula, groups, data\[, subset, time, ...\])
     -   glmgam(formula, data\[, subset, drop~cols~\])
-
 
 # 数据集包
 
