@@ -7,10 +7,9 @@ import math
 plt.rcParams['font.sans-serif']=['SimHei']##SimHei黑体
 plt.rcParams['axes.unicode_minus']=False##正常显示图中负号
 
-
 mtcars=pd.read_csv('./data4/mtcars.csv')
 
-plt.figure(figsize=(12,12))##图形大小
+plt.figure(figsize=(12,15))##图形大小
 cyl4=mtcars[mtcars['cyl']==4]
 cyl6=mtcars[mtcars['cyl']==6]
 cyl8=mtcars[mtcars['cyl']==8]
@@ -27,6 +26,31 @@ plt.subplot(325),plt.scatter('mpg','wt',data=cyl8)
 plt.xlabel('mpg');plt.ylabel('wt');plt.title("8缸汽车的mpg-wt散点图")
 plt.subplot(326),plt.scatter('mpg','hp',data=cyl8)
 plt.xlabel('mpg');plt.ylabel('hp');plt.title("8缸汽车的mpg-hp散点图")
+
+##使用agg/apply画图？？
+cyl4=mtcars[mtcars['cyl']==4]
+cyl6=mtcars[mtcars['cyl']==6]
+cyl8=mtcars[mtcars['cyl']==8]
+cyl=[cyl4,cyl6,cyl8]
+cyl[0]
+cyl[1]
+cyl[2]
+fig,ax=plt.subplots(3,2,figsize=(12,15))
+for i in range(len(cyl)):
+      ax[i][0].scatter('mpg','wt',data=cyl[i])
+      ax[i][0].set_xlabel('mpg');ax[i][0].set_ylabel('wt')
+      ax[i][1].scatter('mpg','hp',data=cyl[i])
+      ax[i][1].set_xlabel('mpg');ax[i][1].set_ylabel('hp')
+      if i==0:
+         ax[i][0].set_title("4缸汽车的mpg-wt散点图")
+         ax[i][1].set_title("4缸汽车的mpg-hp散点图")
+      if i==1:
+         ax[i][0].set_title("6缸汽车的mpg-wt散点图")
+         ax[i][1].set_title("6缸汽车的mpg-hp散点图")
+      if i==2:
+         ax[i][0].set_title("8缸汽车的mpg-wt散点图")
+         ax[i][1].set_title("8缸汽车的mpg-hp散点图")
+   
 
 
 # 2. 利用trees 数据集，完成面板图，要求：
