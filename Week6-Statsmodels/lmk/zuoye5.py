@@ -42,7 +42,7 @@ n=gdp.shape[0]
 p=4
 MSE=SSE/(n-p-1)
 MST=SST/(n-1)
-adjRsq=1-MSE/MST;AdjRsq
+AdjRsq=1-MSE/MST;AdjRsq
 
 ## 线性关系显著性检验：F检验（右侧检验）
 
@@ -62,7 +62,7 @@ se_Bhat=sigmahat*(c**0.5)
 t_value=Bhat/se_Bhat;t_value
 rvt=stats.t(n-p-1)
 t_crivalue=rvt.ppf(0.975);t_crivalue
-p_value=(1-rvt.cdf(t_value))*2;p_value
+p_value=(1-rvt.cdf(abs(t_value)))*2;p_value # t值可能为负，要取绝对值
 
 ## 回归系数的区间估计
 
@@ -77,8 +77,8 @@ x_new.dot(Bhat)
 
 ### 区间预测
 
-PI=np.array([x_new.dot(Bhat)-t_crivalue*(1+x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5,x_new.dot(Bhat)+t_crivalue*(1+x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5]);PI
+PI=np.array([x_new.dot(Bhat)-t_crivalue*(1+x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5,x_new.dot(Bhat)+t_crivalue*(1+x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5]);PI  # 个别值预测
 
-MI=np.array([x_new.dot(Bhat)-t_crivalue*(x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5,x_new.dot(Bhat)+t_crivalue*(x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5]);MI
+CI=np.array([x_new.dot(Bhat)-t_crivalue*(x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5,x_new.dot(Bhat)+t_crivalue*(x_new.dot(np.linalg.inv(X.T.dot(X))).dot(x_new.T))**0.5]);CI  # 平均值预测
 
-np.stack((PI,MI))
+np.stack((PI,CI))

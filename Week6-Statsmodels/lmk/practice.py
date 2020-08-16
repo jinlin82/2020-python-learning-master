@@ -39,7 +39,7 @@ plt.plot(xs,rv2.pdf(xs))
 np.random.standard_t(10,100)
 
 import pandas as pd
-BSdata=pd.read_csv('../Week2-Numpy/data/BSdata.csv',encoding='utf-8')
+BSdata=pd.read_csv('C:/github_repository/2020-python-learning-master/Week2-Numpy/data/BSdata.csv',encoding='utf-8')
 BSdata.身高.mean()-stats.norm.ppf(0.975)*BSdata.身高.std()/np.sqrt(BSdata.shape[0]) # 置信下限
 BSdata.身高.mean()+stats.norm.ppf(0.975)*BSdata.身高.std()/np.sqrt(BSdata.shape[0]) # 置信上限
 
@@ -63,7 +63,7 @@ norm_u_test(BSdata.体重,70)
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
-trees=pd.read_csv('../Week5-Matplotlib/lmk/data/trees.csv')
+trees=pd.read_csv('C:/github_repository/2020-python-learning-master/Week5-Matplotlib/lmk/data/trees.csv')
 mod=smf.ols('Volume~Girth+Height',data=trees)
 res=mod.fit()
 res.summary()
@@ -91,7 +91,7 @@ sns.distplot(z)
 
 #### 正态概率图检验
 import pandas as pd
-BSdata=pd.read_csv('../Week2-Numpy/data/BSdata.csv',encoding='utf-8')
+BSdata=pd.read_csv('C:/github_repository/2020-python-learning-master/Week2-Numpy/data/BSdata.csv',encoding='utf-8')
 stats.probplot(BSdata.身高,dist='norm',plot=plt) # 正态概率图
 stats.probplot(BSdata.支出,dist='norm',plot=plt)
 
@@ -189,8 +189,8 @@ print(results.summary())
 ### statsmodels available datasets
 dat=sm.datasets.longley.load_pandas()
 dat.data
-dat.endog # 第一列
-dat.exog # 除第一列
+dat.endog # 显示第一列
+dat.exog # 显示除第一列
 dat.endog_name
 dat.exog_name
 dat.names
