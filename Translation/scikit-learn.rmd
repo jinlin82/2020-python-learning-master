@@ -540,27 +540,22 @@ search.score(X_test, y_test)
 
 ## 例子：线型回归
 
-### sklearn.linear~model~.LinearRegression
+### sklearn.linear_model.LinearRegression
 
-1.  LinearRegression fits a linear model with coefficients w = (w1, ...,
-    wp) to minimize the residual sum of squares between the observed
-    targets in the dataset, and the targets predicted by the linear
-    approximation.
+1.  LinearRegression拟合一个带系数w = (w1, ..., wp)的线性模型，用来最小化数据集
+    中观测目标与线性近似预测目标之间的残差平方和。
 
-```{=html}
-<!-- -->
-```
-1.  From the implementation point of view, this is just plain Ordinary
-    Least Squares (`scipy.linalg.lstsq`) wrapped as a predictor object.
+2.  从实现的角度来看，这只是普通最小二乘(`scipy.linalg.lstsq`)包装为一个预测器对
+    象。
 
-### Methods
+### 方法
 
   ------------------------------ -----------------------------------------------------------------
-  `fit(self, X, y)`              Fit linear model.
-  `get_params(self[, deep])`     Get parameters for this estimator.
-  `predict(self, X)`             Predict using the linear model.
-  `score(self, X, y)`            Return the coefficient of determination R^2^ of the prediction.
-  `set_params(self, **params)`   Set the parameters of this estimator.
+  `fit(self, X, y)`              拟合线性模型
+  `get_params(self[, deep])`     获取这个估计器的参数
+  `predict(self, X)`             用线性模型进行预测
+  `score(self, X, y)`            返回预测的判定系数R^2
+  `set_params(self, **params)`   设置这个估计器的参数
   ------------------------------ -----------------------------------------------------------------
 
 ### 例子1
@@ -631,38 +626,36 @@ plt.show()
 
 ### scikit-learn 中无监督学习算法
 
-1.  Gaussian mixture models
-2.  Manifold learning
-3.  Clustering
-4.  Biclustering
-5.  Decomposing signals in components (matrix factorization problems)
-6.  Covariance estimation
-7.  Novelty and Outlier Detection
-8.  Density Estimation
-9.  Neural network models (unsupervised)
+1.  Gaussian mixture models高斯混合模型
+2.  Manifold learning流形学习
+3.  Clustering聚类
+4.  Biclustering双向聚类
+5.  Decomposing signals in components (matrix factorization problems)信号的分量分解（矩阵分解问题）
+6.  Covariance estimation协方差估计
+7.  Novelty and Outlier Detection新奇性和异常值检测
+8.  Density Estimation密度估计
+9.  Neural network models (unsupervised)神经网络模型（无监督）
 
 ## 例子：K 均值聚类
 
 ### sklearn.cluster.KMeans
 
-1.  The `KMeans` algorithm clusters data by trying to separate samples
-    in n groups of equal variance, minimizing a criterion known as the
-    inertia or within-cluster sum-of-squares.
-2.  This algorithm requires the number of clusters to be specified.
-3.  It scales well to large number of samples and has been used across a
-    large range of application areas in many different fields.
+1.  `KMeans`算法通过试着将样本分离到n组方差相等的情况下对数据进行聚类，从而最小
+    化被称为惯性或聚类内平方和的标准。
+2.  该算法要求指定集群的数量。
+3.  它可以很好地扩展到大量的样本，并且已经在许多不同领域的应用中广泛使用。
 
-### Methods
+### 方法
 
   -------------------------------- --------------------------------------------------------------------
-  fit(self, X\[, y\])              Compute k-means clustering.
-  fit~predict~(self, X\[, y\])     Compute cluster centers and predict cluster index for each sample.
-  fit~transform~(self, X\[, y\])   Compute clustering and transform X to cluster-distance space.
-  get~params~(self\[, deep\])      Get parameters for this estimator.
-  predict(self, X)                 Predict the closest cluster each sample in X belongs to.
-  score(self, X\[, y\])            Opposite of the value of X on the K-means objective.
-  set~params~(self, \*\*params)    Set the parameters of this estimator.
-  transform(self, X)               Transform X to a cluster-distance space.
+  fit(self, X\[, y\])              计算k-means聚类
+  fit_predict(self, X\[, y\])      计算每个样本的聚类中心并预测聚类索引
+  fit_transform(self, X\[, y\])    计算聚类并将X转换为聚类距离空间
+  get_params(self\[, deep\])       获取这个估计器的参数。
+  predict(self, X)                 预测X中每个样本所属于的最近的聚类
+  score(self, X\[, y\])            k均值目标上的X的相反值
+  set_params(self, \*\*params)     设置估计器的参数
+  transform(self, X)               将X转换为聚类距离空间
   -------------------------------- --------------------------------------------------------------------
 
 ### 例子1
@@ -762,17 +755,13 @@ fig.show()
 
 ### 背景
 
-1.  Learning the parameters of a prediction function and testing it on
-    the same data is a methodological mistake:
-2.  a model that would just repeat the labels of the samples that it has
-    just seen would have a perfect score but would fail to predict
-    anything useful on yet-unseen data.
-3.  This situation is called **overfitting**. To avoid it, it is common
-    practice when performing a (supervised) machine learning experiment
-    to hold out part of the available data as a test set
-    `X_test, y_test`.
-4.  In scikit-learn a random split into training and test sets can be
-    quickly computed with the `train_test_split` helper function.
+1.  学习一个预测函数的参数并在同一数据上测试它是一种方法上的错误:
+2. 如果一个模型只是重复它刚刚看到的样本的标签，那么它会得到一个完美的分数，但它
+   无法对未见数据做出任何有用的预测。
+3.  这种情况称为**过拟合**。为了避免这种情况，在执行一个(监督的)机器学习实验时，
+    通常的做法是将一部分可用数据作为测试集`X_test, y_test`。
+4.  在scikit-learn中，可以通过`train_test_split`辅助函数快速地将训练集和测试集随
+    机分割。
 
 ### 机器学习流程图
 
@@ -780,95 +769,63 @@ fig.show()
 
 ### 为什么需要验证集
 
-1.  When evaluating different settings ("hyperparameters") for
-    estimators, such as the C setting that must be manually set for an
-    SVM, there is still a risk of overfitting on the test set because
-    the parameters can be tweaked until the estimator performs
-    optimally.
-2.  This way, knowledge about the test set can "leak" into the model and
-    evaluation metrics no longer report on generalization performance.
-3.  To solve this problem, yet another part of the dataset can be held
-    out as a so-called " **validation set** "
+1.  在评估评估器的不同设置(“超参数”)时，比如必须为支持向量机手动设置的C设置，由
+    于可以调整参数，直到评估器执行最优，所以仍然存在测试集过拟合的风险。
+2.  这样，关于测试集的知识就会“泄露”到模型中，并且评估度量不再报告泛化性能。
+3.  为了解决这个问题，数据集的另一部分可以作为所谓的“**验证集**”
 
 ### 训练集，验证集和测试集定义
 
-1.  Training Dataset:
+1.  训练集：
 
-    -   The sample of data used to fit the model.
+    -   用于拟合模型的数据样本。
 
-2.  Validation Dataset:
+2.  验证集：
 
-    -   The sample of data used to provide an unbiased evaluation of a
-        model fit on the training dataset while tuning model
-        hyperparameters. The evaluation becomes more biased as skill on
-        the validation dataset is incorporated into the model
-        configuration.
+    -   在调优模型超参数时，该数据样本用于对模型是否适合训练数据集提供无偏评估。
+        随着验证数据集上的技能被合并到模型配置中，评估变得更加有偏。
 
-3.  Test Dataset:
+3.  测试集：
 
-    -   The sample of data used to provide an unbiased evaluation of a
-        final model fit on the training dataset.
+    -   这个数据样本用来提供一个适合训练数据集的无偏评估的最终模型。
 
 ### 训练集
 
-1.  The training set is used to fit the models;use the training set to
-    find the "optimal" weights. used to fit the parameters (e.g. weights
-    of connections between neurons in artificial neural networks) of the
-    model.
-2.  The model (e.g. a neural net or a naive Bayes classifier) is trained
-    on the training dataset using a supervised learning method (e.g.
-    gradient descent or stochastic gradient descent).
-3.  The current model is run with the training dataset and produces a
-    result, which is then compared with the target, for each input
-    vector in the training dataset.
-4.  Based on the result of the comparison and the specific learning
-    algorithm being used, the parameters of the model are adjusted.
-5.  The model fitting can include both variable selection and parameter
-    estimation.
+1.  用训练集来拟合模型，用训练集来寻找“最优”的权重。用于拟合模型的参数(如人工神
+    经网络中神经元之间的连接权值)。
+2.  使用监督学习方法(如梯度下降或随机梯度下降)在训练数据集上对模型(例如神经网络
+    或朴素贝叶斯分类器)进行训练。
+3.  当前的模型与训练数据集一起运行，并产生一个结果，然后与训练数据集中的每个输入
+    向量的目标进行比较。
+4.  根据比较结果和所使用的具体学习算法，对模型的参数进行调整。
+5.  模型拟合可以包括变量选择和参数估计。
 
 ### 验证集
 
-1.  validation dataset provides an unbiased evaluation of a model fit on
-    the training dataset while tuning the model\'s hyperparameters(e.g.
-    the number of hidden units in a neural network).
-2.  the validation set is used to estimate prediction error for model
-    selection;
-3.  Validation datasets can be used for regularization by early
-    stopping: stop training when the error on the validation dataset
-    increases, as this is a sign of overfitting to the training dataset.
-4.  The validation dataset functions as a hybrid: it is training data
-    used by testing, but neither as part of the low-level training nor
-    as part of the final testing.
-5.  The validation dataset may also play a role in other forms of model
-    preparation, such as feature selection.
+1.  当调整模型的超参数时，验证数据集提供了一个适合训练数据集的无偏倚的评估模型。
+    （比如神经网络中隐藏单元的数量)。
+2.  验证集用于估计模型选择的预测误差；
+3.  验证数据集可以通过早期停止用于正则化：当验证数据集上的错误增加时停止训练，因
+    为这是训练数据集过拟合的标志。
+4.  验证数据集的功能是混合的：它是用于测试的训练数据，但既不作为低级训练的一部
+    分，也不作为最终测试的一部分。
+5.  验证数据集还可以在其他形式的模型准备中发挥作用，如特征选择。
 
 ### 测试集
 
-1.  used to provide an unbiased evaluation of a final model fit on the
-    training dataset. If the data in the test dataset has never been
-    used in training (for example in cross-validation), the test dataset
-    is also called a holdout dataset.
-2.  the test set is used for assessment of the generalization error of
-    the final chosen model.
-3.  Ideally, the test set should be kept in a "vault," and be brought
-    out only at the end of the data analysis.
-4.  a test set, by the standard definition in the NN \[neural net\]
-    literature, is never used to choose among two or more networks, so
-    that the error on the test set provides an unbiased estimate of the
-    generalization error.
-
+1.  用于提供一个最终模型的适合训练数据集的无偏评估。如果测试数据集中的数据从来没
+    有在训练中使用过(例如在交叉验证中)，那么测试数据集中也被称为保持数据集。
+2.  测试集用于评估最终选择的模型的泛化误差。
+3.  理想情况下，测试集应该保存在一个“储藏室”中，并且只有在数据分析结束时才取出
+    来。
+4.  根据NN\[神经网络\]文献的标准定义，测试集从不用于在两个或多个网络中进行选择，因此测试集上的误差提供了泛化误差的无偏估计。
 ### 说明
 
-1.  The final model could be fit on the aggregate of the training and
-    validation datasets.
-2.  the "validation dataset" is predominately used to describe the
-    evaluation of models when tuning hyperparameters and data
-    preparation, and the "test dataset" is predominately used to
-    describe the evaluation of a final tuned model when comparing it to
-    other final models.
-3.  That the notions of "validation dataset" and "test dataset" may
-    disappear when adopting alternate resampling methods like k-fold
-    cross validation.
+1.  最后的模型可以在训练数据集和验证数据集的基础上进行拟合。
+2.  在调优超参数和数据准备时，“验证数据集”主要用于描述模型的评估，而“测试数据集”
+    主要用于描述最终调优模型与其他最终模型的评估。
+3.  “验证数据集”和“测试数据集”的概念在采用类似k-fold交叉验证的交替重采样方法时可
+    能会消失。
 4.  参考：
     -   <https://en.wikipedia.org/wiki/Training,_validation,_and_test_sets>
     -   <https://machinelearningmastery.com/difference-test-validation-datasets/>
@@ -918,46 +875,31 @@ clf.score(X_test, y_test)
 
 ### 为什么需要交叉验证
 
-1.  partitioning the available data into three sets, we drastically
-    reduce the number of samples which can be used for learning the
-    model,
-2.  and the results can depend on a particular random choice for the
-    pair of (train, validation) sets.
-3.  A validation set is a single evaluation of the model and has limited
-    ability to characterize the uncertainty in the results.
+1.  把可用的数据分成三组，大大减少了用于学习模型的样本数量，
+2.  并且结果可以依赖于对(训练，验证)集的特定随机选择。
+3.  验证集是对模型的单一评价，并具有有限的能力来表征结果中的不确定性。
 
-### 交叉验证(ross validation)
+### 交叉验证(cross validation)
 
-1.  A solution to this problem is a procedure called cross-validation
-    (CV for short). A test set should still be held out for final
-    evaluation, but the validation set is no longer needed when
-    doing CV.
-2.  It is more than likely that you will not see references to training,
-    validation, and test datasets in modern applied machine learning.
-3.  Reference to a "validation dataset" disappears if the practitioner
-    is choosing to tune model hyperparameters using k-fold
-    cross-validation with the training dataset.
-4.  Reference to the "test dataset" too may disappear if the
-    cross-validation of model hyperparameters using the training dataset
-    is nested within a broader cross-validation of the model.
-5.  Cross validation iterators can be used to directly perform model
-    selection using Grid Search for the optimal hyperparameters of the
-    model.
+1.  这个问题的解决方案是一个称为交叉验证(简称CV)的过程。测试集仍然需要用于最终评
+    估，但在做CV时不再需要验证集。
+2.  现代应用机器学习中，你很可能看不到关于训练、验证和测试数据集的参考。
+3.  如果从业者选择使用k-fold与训练数据集交叉验证来调优模型超参数，那么对“验证数
+    据集”的参考就会消失。
+4.  如果使用训练数据集对模型超参数的交叉验证嵌套在更广泛的模型交叉验证中，那么对
+    “测试数据集”的参考也可能消失。
+5.  交叉验证迭代器可以直接通过网格搜索模型的最优超参数来进行模型选择。
 
 ### k-fold 交叉验证
 
-1.  the training set is split into k smaller sets.
-2.  The following procedure is followed for each of the k "folds":
-    1.  A model is trained using $k-1$ of the folds as training data;
-    2.  the resulting model is validated on the remaining part of the
-        data (i.e., it is used as a test set to compute a performance
-        measure such as accuracy).
-3.  The performance measure reported by k-fold cross-validation is then
-    the average of the values computed in the loop.
-4.  This approach can be computationally expensive, but does not waste
-    too much data (as is the case when fixing an arbitrary validation
-    set), which is a major advantage in problems where the number of
-    samples is very small.
+1.  训练集被分成k个更小的集。
+2.  每一次k次“折叠”的步骤如下:
+    1.  使用$k-1$ 个folds作为训练数据来训练一个模型;
+    2.  生成的模型在数据的其余部分上进行验证(例如，它被用作一个测试集来计算一个
+        性能度量，比如精度)。
+3.  k-fold交叉验证报告的性能度量是循环中计算的值的平均值。
+4.  这种方法的计算代价可能很高，但不会浪费太多数据(就像修复任意验证集一样)，这在
+    样本数量非常少的问题中是一个主要优势。
 
 ### k-fold 交叉验证示意图
 
@@ -987,20 +929,15 @@ model = fit(train)
 skill = evaluate(model, test)
 ```
 
-### Computing cross-validated metrics
+### 计算交叉验证指标
 
-1.  The simplest way to use cross-validation is to call the
-    **cross~valscore~** helper function on the estimator and the
-    dataset.
-2.  The following example demonstrates how to estimate the accuracy of a
-    linear kernel support vector machine on the iris dataset by
-    splitting the data, fitting a model and computing the score 5
-    consecutive times.
-3.  When the `cv` argument is an integer, **cross~valscore~** uses the
-    KFold strategies by default.
-4.  By default, the score computed at each CV iteration is the score
-    method of the estimator. It is possible to change this by using the
-    `scoring` parameter.
+1.  使用交叉验证的最简单方法是在估计器和数据集上调用**cross_val_score** helper函
+    数。
+2.  下面的例子演示了如何通过分割数据、拟合模型和连续5次计算分数来估计iris数据集
+    上的线性核支持向量机的精度。
+3. 当“cv”参数是整数时，**cross_val_score**默认使用KFold策略。
+4.  默认情况下，每次CV迭代计算的分数是估计器的分数方法。可以通过使用“score”参数
+    来改变这一点。
 
 ### 例子
 
@@ -1020,11 +957,10 @@ scores
 
 ### 不同数据类型交叉验证
 
-1.  Cross-validation iterators for i.i.d. data
-2.  Cross-validation iterators with stratification based on class
-    labels.
-3.  Cross-validation iterators for grouped data
-4.  Cross validation of time series data
+1.  用于独立同分布数据的交叉验证迭代器。
+2.  基于类标签分层的交叉验证迭代器。
+3.  用于分组数据的交叉验证迭代器。
+4.  用于时间序列数据的交叉验证迭代器。
 
 ### 5种交叉验证方式
 
@@ -1079,57 +1015,45 @@ for train_index, test_index in ss.split(X):
     print("%s %s" % (train_index, test_index))
 ```
 
-## Tuning the hyper-parameters of an estimator
+## 调整估计器的超参数
 
-### hyper-parameters
+### 超参数
 
-1.  Hyper-parameters are parameters that are not directly learnt within
-    estimators. In scikit-learn they are passed as arguments to the
-    constructor of the estimator classes.
-2.  Typical examples include `C`, `kernel` and `gamma` for Support
-    Vector Classifier, `alpha` for Lasso, etc.
-3.  It is possible and recommended to search the hyper-parameter space
-    for the best cross validation score.
-4.  Any parameter provided when constructing an estimator may be
-    optimized in this manner. Specifically, to find the names and
-    current values for all parameters for a given estimator, use:
+1.  超参数是不能直接从估计器中获得的参数。在scikit-learn中，它们作为参数传递给估
+    计器类的构造函数。
+2.  典型的例子包括对于支持向量分类器的 `C`， `kernel` 和 `gamma` , `alpha` 套索，等等。
+3.  这是可能的，建议搜索超参数空间，以获得最佳交叉验证评分。
+4.  在构造估计器时提供的任何参数都可以用这种方式进行优化。具体来说，要查找给定估
+    计器的所有参数的名称和当前值，请使用:
 
 ``` {.python}
 estimator.get_params()
 ```
 
-### How to search
+### 如何搜索
 
-1.  A search consists of:
-    1.  an estimator (regressor or classifier such as
-        `sklearn.svm.SVC()`);
-    2.  a parameter space;
-    3.  a method for searching or sampling candidates;
-    4.  a cross-validation scheme; and
-    5.  a score function.
+1.  搜索包括：
+    1.  估计量(回归或分类器，如`sklearn.svm.SVC()`)；
+    2.  一个参数空间；
+    3.  一种搜索或抽样候选者的方法；
+    4.  一个交叉验证方案；
+    5.  一个得分函数。
 
-### Two generic approaches
+### 两种通用的方法
 
-1.  Two generic approaches to sampling search candidates are provided in
-    scikit-learn:
-    1.  for given values, `GridSearchCV` exhaustively considers all
-        parameter combinations,
-    2.  while `RandomizedSearchCV` can sample a given number of
-        candidates from a parameter space with a specified distribution.
-2.  Note that it is common that a small subset of those parameters can
-    have a large impact on the predictive or computation performance of
-    the model while others can be left to their default values.
-3.  It is recommended to read the docstring of the estimator class to
-    get a finer understanding of their expected behavior
+1.  scikit-learn中提供了抽样搜索候选的两种通用方法：
+    1.  对于给定的值，`GridSearchCV`会全面考虑所有参数组合，
+    2.  而`RandomizedSearchCV`可以从指定分布的参数空间中抽取给定数量的候选。
+2.  请注意，这些参数的一个小子集通常会对模型的预测或计算性能产生很大影响，而其他
+    参数可以保留其默认值。
+3.  建议阅读estimator类的文档字符串，以更好地理解它们的预期行为。
 
-### Exhaustive Grid Search
+### 详尽的网格搜索
 
-1.  The grid search provided by `GridSearchCV` exhaustively generates
-    candidates from a grid of parameter values specified with the
-    **param~grid~** parameter.
-2.  The `GridSearchCV` instance implements the usual estimator API: when
-    "fitting" it on a dataset all the possible combinations of parameter
-    values are evaluated and the best combination is retained.
+1.  由`GridSearchCV`提供的网格搜索会从**param_grid**参数指定的参数值网格中全面生
+    成候选参数。
+2.  `GridSearchCV`实例实现了通常的estimator API:当将其“拟合”到数据集上时，将评估
+    所有可能的参数值组合，并保留最佳组合。
 
 ``` {.python}
 param_grid = [
@@ -1138,31 +1062,21 @@ param_grid = [
  ]
 ```
 
-### Randomized Parameter Optimization
+### 随机参数优化
 
-1.  While using a grid of parameter settings is currently the most
-    widely used method for parameter optimization, other search methods
-    have more favourable properties.
-2.  `RandomizedSearchCV` implements a randomized search over parameters,
-    where each setting is sampled from a distribution over possible
-    parameter values.
-3.  This has two main benefits over an exhaustive search:
-    1.  A budget can be chosen independent of the number of parameters
-        and possible values.
-    2.  Adding parameters that do not influence the performance does not
-        decrease efficiency.
+1.  虽然使用参数设置网格是目前使用最广泛的参数优化方法，但其他搜索方法具有更有利
+    的性能。
+2.  `RandomizedSearchCV`实现了对参数的随机搜索，其中每个设置都从可能的参数值的分
+    布中采样。
+3.  相对于穷尽搜索，有两个主要的好处:
+    1. 预算的选择可以独立于参数的数量和可能的值。
+    2. 添加不影响性能的参数不会降低效率。
 
-### Randomized Parameter Optimization
+### 随机参数优化
 
-1.  Specifying how parameters should be sampled is done using a
-    dictionary, very similar to specifying parameters for
-    `GridSearchCV`.
-2.  Additionally, a computation budget, being the number of sampled
-    candidates or sampling iterations, is specified using the
-    **n~iter~** parameter.
-3.  For each parameter, either a distribution over possible values or a
-    list of discrete choices (which will be sampled uniformly) can be
-    specified.
+1.  指定如何采样参数是使用字典来完成的，这与为`GridSearchCV`指定参数非常相似。
+2.  另外，使用**n_iter**参数指定计算预算，即抽样候选数或抽样迭代数。
+3.  对于每个参数，可以指定可能值的分布或一系列离散选择(将统一采样)。
 
 ``` {.python}
 {'C': scipy.stats.expon(scale=100), 'gamma': scipy.stats.expon(scale=.1),
