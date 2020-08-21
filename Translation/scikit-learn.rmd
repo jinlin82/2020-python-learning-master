@@ -39,150 +39,115 @@ library(reticulate)
 
 # 简介
 
-### What is scikit-learn
+### 什么是scikit-learn
 
-1.  Scikit-learn (formerly scikits.learn and also known as sklearn) is a
-    free software machine learning library for the Python programming
-    language.
-2.  It features various classification, regression and clustering
-    algorithms including support vector machines, random forests,
-    gradient boosting, k-means and DBSCAN,
-3.  and is designed to interoperate with the Python numerical and
-    scientific libraries NumPy and SciPy.
+1.  Scikit-learn（之前作scikits.learn，也叫sklearn）是python编程语言的一个免
+    费软件机器学习库。
+2.  它具有各种分类，回归和聚类算法，包括支持向量机器，随机林，梯度增强，k-均值和
+    DBSCAN，
+3.  同时它设计成可与python数值和科学库numpy和scipy进行交互操作。
 
 ![](images/Scikit_learn.png)
 
-### Facts
+### 基本情况
 
-1.  Initial release: June 2007;
-2.  Website: <https://scikit-learn.org/stable/>
-3.  History:
+1.  初始版本：2007年6月；
+2.  网址：<https://scikit-learn.org/stable/>
+3.  历史：
 
 ```{=html}
 <!-- -->
 ```
-1.  This project was started in 2007 as a Google Summer of Code project
-    by David Cournapeau.
-2.  Later that year, Matthieu Brucher started work on this project as
-    part of his thesis.
-3.  The first public release, February the 1st 2010.
-4.  Since then, several releases have appeared following a \~3 month
-    cycle.
+1.  该项目始于2007年由David Cournapeau创立的谷歌代码之夏项目。
+2.  那年晚些时候，作为论文的一部分，Matthieu Brucher开始了这个项目的工作。
+3.  第一个公开发行版本，是在2010年2月1日。
+4.  从那之后，有几个版本以每三个月的周期发布。
 
-### the inclusion criteria for new algorithms
+### 新算法的包含准则
 
-1.  only consider well-established algorithms for inclusion.
-2.  A rule of thumb is at least 3 years since publication, 200+
-    citations and wide use and usefulness.
-3.  A technique that provides a clear-cut improvement (e.g. an enhanced
-    data structure or a more efficient approximation technique) on a
-    widely-used method will also be considered for inclusion.
-4.  From the algorithms or techniques that meet the above criteria, only
-    those which fit well within the current API of scikit-learn, that is
-    a fit, predict/transform interface and ordinarily having
-    input/output that is a numpy array or sparse matrix, are accepted.
+1.  仅考虑包含成熟算法。
+2.  一个经验准则是，自发布的至少三年后，有200多次的引用，广泛的使用和实用。
+3.  对广泛使用的方法提供明确改进的技术（如，一种经强化的数据结构或更有效率的近似
+    技术）也将被纳入考虑范围。
+4.  在满足上述标准的算法或技术中，只有那些能极佳匹配scikit-learn当前API的才能被
+    接受，即拟合，预测或转换接口以及通常具有numpy数组或稀疏矩阵的输入或输出。
 
-### Related Projects
+### 相关项目
 
 1.  <https://scikit-learn.org/stable/related_projects.html>
 
 # 基本概念
 
-## Machine learning
+## 机器学习
 
 ### 概念
 
-1.  Machine learning tackles Problems range from building a prediction
-    function linking different observations, to classifying
-    observations, or learning the structure in an unlabeled dataset.
-2.  In general, a learning problem considers a set of n samples of data
-    and then tries to predict properties of unknown data.
-3.  If each sample is more than a single number and, for instance, a
-    multi-dimensional entry (aka multivariate data), it is said to have
-    several `attributes` or `features`.
+1.  机器学习解决的问题涵盖从建立连接不同观测值的预测函数，到对观测值进行分类，或
+    学习未标记数据集中的结构。
+2.  通常，学习问题会考虑一组n个样本的数据，然后尝试预测未知数据的属性。
+3.  如果每个样本都不止一个数字，例如，一个多维数据项（也称多元数据），那么它就被
+    称为具有多个 `属性` 或 `特征`。
 
 ```{=html}
 <!-- -->
 ```
-1.  statistical learning
+1.  统计学习
 
-    -   the use of machine learning techniques with the goal of
-        statistical inference: drawing conclusions on the data at hand.
+    -   以统计推断为目标的机器学习的使用：根据现有的数据得出结论。
 
 ### 分类
 
-1.  supervised learning
+1.  有监督学习
 
-    -   the data comes with additional attributes that we want to
-        predict.
+    -   数据具有我们想要预测的附加属性。
 
-2.  unsupervised learning
+2.  无监督学习
 
-    1.  in which the training data consists of a set of input vectors x
-        without any corresponding target values.
-    2.  The goal in such problems may be to discover groups of similar
-        examples within the data, where it is called clustering,
-    3.  or to determine the distribution of data within the input space,
-        known as density estimation,
-    4.  or to project the data from a high-dimensional space down to two
-        or three dimensions for the purpose of visualization.
+    1.  其中训练数据由一组没有任何相应目标值的输入向量x组成。
+    2.  这类问题的目标可能是发现数据中多组相似的例子，也就是所谓的聚类，
+    3.  或者确定数据在输入空间中的分布，称为密度估计，
+    4.  又或者将数据从从高维空间投影到二维或三维以可视化。
 
-### supervised learning {#supervised-learning-1}
+### 有监督学习 {#supervised-learning-1}
 
-1.  classification
+1.  分类
 
-    1.  samples belong to two or more classes and we want to learn from
-        already labeled data how to predict the class of unlabeled data.
-    2.  Another way to think of classification is as a discrete (as
-        opposed to continuous) form of supervised learning where one has
-        a limited number of categories and for each of the n samples
-        provided, one is to try to label them with the correct category
-        or class.
+    1.  样本属于两个或两个以上的类，我们想从已标记的数据中学习如何预测未标记数据
+        的类。
+    2.  另一种将分类视为一种离散的（与连续的相反）有监督学习的形式，在这种形式下，
+        仅拥有有限数量的类别，并且对提供的n个样本中的每一个，都要尝试用正确的类
+        别或类来标记它们。
 
-2.  regression
+2.  回归
 
-    1.  if the desired output consists of one or more continuous
-        variables, then the task is called regression.
+    1.  如果期望的输出由一个或多个连续变量组成，那么这个工作就成为回归。
 
-### Training set and testing set
+### 训练集和测试集
 
-1.  Machine learning is about learning some properties of a data set and
-    then testing those properties against another data set.
-2.  While experimenting with any learning algorithm, it is important not
-    to test the prediction of an estimator on the data used to fit the
-    estimator as this would not be evaluating the performance of the
-    estimator on new data. This is why datasets are often split into
-    train and test data.
-3.  A common practice in machine learning is to evaluate an algorithm by
-    splitting a data set into two.
-4.  We call one of those sets the training set, on which we learn some
-    properties;
-5.  we call the other set the testing set, on which we test the learned
-    properties.
+1.  机器学习是学习一个数据集的一些属性，然后根据另一个数据及来测试这些数据集。
+2.  在试验任何学习算法时，不要在用于拟合估计器的数据上测试一个估计器的预测值这一
+    点是很重要的，因为这将无法评估估计器在新数据上的表现。这也是为什么数据集常被
+    分成训练数据和测试数据。
+3.  机器学习中的一个常见操作是通过将一个数据集分成两个来评估一个算法。
+4.  我们称其中一个集合为训练集，我们在训练集上学习一些属性；
+5.  我们称另一个集合为测试集，在这个集合中我们测试学习到的属性。
 
-## Datasets
+## 数据集
 
-### Included datasets
+### 包含的数据集
 
-1.  scikit-learn comes with a few standard datasets, for instance the
-    iris and digits datasets for classification and the boston house
-    prices dataset for regression.
-2.  A dataset is a dictionary-like object that holds all the data and
-    some metadata about the data.
-3.  This data is stored in the `.data` member, which is a `n_samples`,
-    `n_features` array.
+1.  scikit-learn附带了一些标准数据集，例如用于分类的鸢尾和数字数据集以及用于回
+    归的波士顿房价数据集。
+2.  数据集是一个类似字典的对象，它保存所有数据和有关数据的一些元数据。
+3.  此数据存储在 `.data` 子类中，即一个 `n_samples` ，`n_features` 数组。
 
-### Included datasets
+### 包含的数据集
 
-1.  [@4]We say that the first axis of these arrays is the **samples**
-    axis, while the second is the **features** axis.
-2.  In the case of supervised problem, one or more response variables
-    are stored in the `.target` member.
-3.  The data is always a 2D array, shape (n~samples~, n~features~),
-    although the original data may have had a different shape.
-4.  When the data is not initially in the (n~samples~, n~features~)
-    shape, it needs to be preprocessed in order to be used by
-    scikit-learn.
+1.  我们说这些数组的第一个轴是 **样本** 轴，第二个轴是 **特征** 轴。
+2.  在有监督问题的情况下，一个或多个响应变量被存储在 `.target` 子类中。
+3.  数据通常是二维数组，形状（n~samples~, n~features~），尽管原始数组可能有不同的形状。
+4.  当数据起初并非（n~samples~, n~features~）的形状时，需要对其进行预处理以供
+    scikit-learn使用。
 
 ### 例子
 
@@ -206,19 +171,16 @@ library(reticulate)
     data = digits.images.reshape((digits.images.shape[0], -1))
     ```
 
-## Estimator and parameters
+## 估计器和参数
 
-### Estimator
+### 估计器
 
-1.  the main API implemented by scikit-learn is that of the estimator.
-2.  estimators: An object which manages the estimation and decoding of a
-    model.
-3.  An estimator is any object that learns from data; it may be a
-    classification, regression or clustering algorithm or a transformer
-    that extracts/filters useful features from raw data.
-4.  All estimator objects expose a `fit` method that takes a dataset
-    (usually a 2-d array)
-5.  We can consider the estimator as a black box.
+1.  scikit-learn执行的主要API是估计器的API。
+2.  估计器：负责模型估计和解码的对象。
+3.  估计器是从数据中学习的任何对象；它可以是分类，回归或聚类算法，也可以是从原始
+    数据中提取/过滤有用特征的转换器。
+4.  所有估计器对象都拥有一个使用数据集（通常是二维数组）的 `fit` 方法。
+5.  我们可以把估计器视为一个黑箱。
 
 ```{=html}
 <!-- -->
@@ -229,45 +191,37 @@ library(reticulate)
     estimator.fit(data)
     ```
 
-### parameters
+### 参数
 
-1.  Estimator parameters:
+1.  估计器参数：
 
-    -   All the parameters of an estimator can be set when it is
-        instantiated or by modifying the corresponding attribute:
+    -   一个估计器的所有参数都可以在实例化或修改相应属性时设置：
 
     ``` {.python}
     estimator = Estimator(param1=1, param2=2)
     estimator.param1
     ```
 
-2.  Estimated parameters:
+2.  待估参数：
 
-    -   When data is fitted with an estimator, parameters are estimated
-        from the data at hand. All the estimated parameters are
-        attributes of the estimator object ending by an underscore:
+    -   当数据用估计器拟合时，参数将根据现有的数据估计。所有待估参数都是估计器对
+        象的属性，以下划线结尾：
 
     ``` {.python}
     estimator.estimated_param_ 
     ```
 
-### The problem solved in supervised learning
+### 有监督学习解决的问题
 
-1.  Supervised learning consists in learning the link between two
-    datasets:
-    1.  the observed data X and an external variable y that we are
-        trying to predict, usually called "target" or "labels".
-    2.  Most often, y is a 1D array of length n~samples~.
-2.  All supervised estimators in scikit-learn implement a `fit(X, y)`
-    method to fit the model and a `predict(X)` method that, given
-    unlabeled observations X, returns the predicted labels y.
-3.  If the prediction task is to classify the observations in a set of
-    finite labels, in other words to "name" the objects observed, the
-    task is said to be a **classification** task. When doing
-    classification in scikit-learn, y is a vector of integers or
-    strings.
-4.  if the goal is to predict a continuous target variable, it is said
-    to be a **regression** task.
+1.  有监督学习由学习两个数据及之间的联系构成：
+    1.  我们试图预测的观测数据X和外部变量y，通常称为“目标”或“标签”。
+    2.  通常，y是一个长度为n~样本~的一维数组。
+2.  scikit-learn中的所有有监督估计器都执行一个 `fit(X, y)` 方法来拟合模型，以及
+    一个 `predict(X)` 方法，在给定未标记的观测值X的情况下，返回预测标签y。
+3.  如果预测任务是在一组有限的标签中对观测值进行分类，换言之就是“命名”预测到的对
+    象，则该任务就称为 **分类** 任务。在scikit-learn中进行分类时，y是整数或字符
+    串的向量。
+4.  如果目的是预测一个连续的目标变量，那么就称为 **regression** 任务。
 
 ### 支持向量机例子
 
@@ -284,14 +238,12 @@ library(reticulate)
     clf.predict(digits.data[-1:])
     ```
 
-## Model selection
+## 模型选择
 
-### Choosing the right estimator
+### 选择正确的估计器
 
-1.  Often the hardest part of solving a machine learning problem can be
-    finding the right estimator for the job.
-2.  Different estimators are better suited for different types of data
-    and different problems.
+1.  通常，解决机器学习问题最困难的部分是为工作找到正确的估计器。
+2.  不同的估计器适合不同类型的数据和不同的问题。
 3.  <https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html>
 
 ### 分类图
@@ -300,54 +252,41 @@ library(reticulate)
 
 ### Score
 
-1.  every estimator exposes a `score` method that can judge the quality
-    of the fit (or the prediction) on new data.
-2.  To get a better measure of prediction accuracy (which we can use as
-    a proxy for goodness of fit of the model), we can successively split
-    the data in folds that we use for training and testing.
-3.  Scikit-learn has a collection of classes which can be used to
-    generate lists of train/test indices for popular cross-validation
-    strategies.
-4.  They expose a `split` method which accepts the input dataset to be
-    split and yields the train/test set indices for each iteration of
-    the chosen cross-validation strategy.
+1.  每个估计器都有一个 `score` 方法，可以评判新数据的拟合（或预测）质量。
+2.  为了更好地衡量预测精度（我们可以用它来代表模型的拟合优度），我们可以将用于训
+    练和测试的数据连续地分成几部分。
+3.  Scikit-learn有一个类集合，可用于为流行的交叉验证策略生成训练/测试索引列表。
+4.  他们拥有一个 `split` 方法，该方法接受要拆分的输入数据集，并为所选交叉验证策
+    略的每次迭代生成训练/测试索引。
 
 ### Cross-validated scores
 
-1.  The cross-validation score can be directly calculated using the
-    `cross_val_score` helper.
-2.  Given an estimator, the cross-validation object and the input
-    dataset, the `cross_val_score` splits the data repeatedly into a
-    training and a testing set, trains the estimator using the training
-    set and computes the scores based on the testing set for each
-    iteration of cross-validation.
-3.  By default the estimator's score method is used to compute the
-    individual scores.
+1.  交叉验证分数可以使用 `cross_val_score` 助手直接计算。
+2.  给定一个估计器，交叉验证对象和输入数据集，`cross_val_score` 将数据重复分解为
+    训练集和数据集，使用训练集训练估计器，并根据每次交叉验证迭代的训练集计算得分。
+3.  默认使用估计器的score方法计算个体得分。
 
 ### Grid-search
 
-1.  scikit-learn provides an object that, given data, computes the score
-    during the fit of an estimator on a parameter grid and chooses the
-    parameters to maximize the cross-validation score.
-2.  By default, the GridSearchCV uses a 3-fold cross-validation.
-    However, if it detects that a classifier is passed, rather than a
-    regressor, it uses a stratified 3-fold. The default will change to a
-    5-fold cross-validation in version 0.22.
+1.  scikit-learn提供了一个对象，在给定数据的情况下，计算估计器在参数网格上拟合时
+    的得分，并选择参数以使交叉验证的分最大化。
+2.  默认情况下，GridSearchCV使用三重交叉验证。然而，如果它检测到一个分类量被传
+    递，而不是一个回归量，那就将使用一个分层的三重交叉验证。在版本0.22中，默认情
+    况将变为使用五重交叉验证。
 
 # 应用流程
 
-## Fitting and predicting: estimator basics
+## 拟合与预测：估计器基础
 
-### Fitting
+### 拟合
 
-1.  Scikit-learn provides dozens of built-in machine learning algorithms
-    and models, called estimators.
-2.  Each estimator can be fitted to some data using its `fit` method.
+1.  Scikit-learn提供了几十种内置的机器学习算法和模型，称为估计器。
+2.  每个估计器都可以使用它的 `fit` 方法来拟合某些数据。
 
 ```{=html}
 <!-- -->
 ```
-1.  example: fit a `RandomForestClassifier` to data
+1.  例子：将 `RandomForestClassifier` 与数据匹配
 
     ``` {.python}
     from sklearn.ensemble import RandomForestClassifier
@@ -358,36 +297,28 @@ library(reticulate)
     clf.fit(X, y)
     ```
 
-### Fitting
+### 拟合
 
-1.  The `fit` method generally accepts 2 inputs.
-2.  The samples matrix (or design matrix) X. The size of X is typically
-    (n~samples~, n~features~), which means that samples are represented
-    as rows and features are represented as columns.
-3.  The target values y which are real numbers for regression tasks, or
-    integers for classification (or any other discrete set of values).
-    For unsupervized learning tasks, y does not need to be specified.
-4.  y is usually 1d array where the i th entry corresponds to the target
-    of the i th sample (row) of X.
-5.  Both X and y are usually expected to be numpy arrays or equivalent
-    array-like data types, though some estimators work with other
-    formats such as sparse matrices.
+1.  `fit` 方法通常接受两个输入。
+2.  样本矩阵（或设计矩阵）X。X的大小通常为(n~samples~, n~features~)，即样本表示为行，特
+    征表示为列。
+3.  目标值y是回归任务的实数，或用于分类的整数（或其他任何离散值得的集）。对于无监
+    督学习任务，无需明确y。
+4.  y通常是一维数组，其中第i项对应于X的第i个样本（行）的目标。
+5.  尽管有些估计器使用例如稀疏矩阵的其他格式，X和y则通常认为是numpy数组或等效的类
+    似数组的数据类型。
 
-## Transformers and pre-processors
+## 转换器和预处理器
 
-### Transformers and pre-processors
+### 转换器和预处理器
 
-1.  Machine learning workflows are often composed of different parts.
-2.  A typical pipeline consists of a pre-processing step that transforms
-    or imputes the data, and a final predictor that predicts target
-    values.
-3.  In scikit-learn, pre-processors and transformers follow the same API
-    as the estimator objects (they actually all inherit from the same
-    `BaseEstimator` class).
-4.  The transformer objects don't have a `predict` method but rather a
-    `transform` method that outputs a newly transformed sample matrix X.
-5.  Apply different transformations to different features: the
-    `ColumnTransformer` is designed for these use-cases.
+1.  机器学习工作流通常由不同的部分组成。
+2.  一条典型的管线包括一个转换或插补数据的预处理步骤和一个预测目标值的最终预测量。
+3.  在scikit-learn中，预处理器和转换器都遵循与估计器对象相同的API（实际上它们都继
+    承自相同的 `BaseEstimator` 类）。
+4.  转换器对象没有 `predict` 方法，而有一个输出新转换的样本矩阵X的 `transform` 
+    方法。
+5.  针对不同特征应用不同转换：`ColumnTransformer` 正是为这些用例设计的。
 
 ### 例子
 
@@ -398,17 +329,13 @@ X = [[0, 15],
 StandardScaler().fit(X).transform(X)
 ```
 
-## Pipelines: chaining pre-processors and estimators
+## 管线：链接预处理器和估计器
 
-### Pipeline
+### 管线
 
-1.  Transformers and estimators (predictors) can be combined together
-    into a single unifying object: a `Pipeline`.
-2.  The pipeline offers the same API as a regular estimator: it can be
-    fitted and used for prediction with fit and predict.
-3.  As we will see later, using a pipeline will also prevent you from
-    data leakage, i.e. disclosing some testing data in your training
-    data.
+1.  转换器和估计器（预测量）可以组合成一个统一的对象: 一个 `Pipeline`。
+2.  该管线提供了与常规估计器相同的API：它可以通过fit和predict进行拟合并用于预测。
+3.  我们将在后面看到，使用管线还可以防止数据泄漏，即在训练数据中泄露一些测试数据。
 
 ### 例子
 
@@ -433,24 +360,19 @@ pipe.fit(X_train, y_train)
 accuracy_score(pipe.predict(X_test), y_test)
 ```
 
-## Model evaluation
+## 模型评估
 
-### Model evaluation
+### 模型评估
 
-1.  Fitting a model to some data does not entail that it will predict
-    well on unseen data.
-2.  This needs to be directly evaluated.
-3.  We have just seen the `train_test_split` helper that splits a
-    dataset into train and test sets, but scikit-learn provides many
-    other tools for model evaluation, in particular for
-    cross-validation.
+1.  将一个模型与某些数据相拟合并不意味着它能很好地预测未知数据。
+2.  这需要直接评估。
+3.  我们刚刚看到了将数据集拆分为训练集和测试集的 `train_test_split` 助手，但是
+    scikit-learn还提供了许多其他的模型评估工具，特别是交叉验证工具。
 
 ### 例子
 
--   We here briefly show how to perform a 5-fold cross-validation
-    procedure, using the `cross_validate` helper. Note that it is also
-    possible to manually iterate over the folds, use different data
-    splitting strategies, and use custom scoring functions.
+-   这里我们简要介绍如何使用 `cross_validate` 助手执行5重交叉验证程序。请注意，
+    还可以手动迭代折叠，使用不同的数据分割策略，并使用自定义的评分函数。
 
 ``` {.python}
 from sklearn.datasets import make_regression
@@ -464,29 +386,22 @@ result = cross_validate(lr, X, y)  # defaults to 5-fold CV
 result['test_score']  # r_squared score is high because dataset is easy
 ```
 
-## Automatic parameter searches
+## 自动参数搜索
 
-### parameter searches
+### 参数搜索
 
-1.  All estimators have parameters (often called hyper-parameters in the
-    literature) that can be tuned.
-2.  The generalization power of an estimator often critically depends on
-    a few parameters.
-3.  For example a `RandomForestRegressor` has a n~estimators~ parameter
-    that determines the number of trees in the forest, and a max~depth~
-    parameter that determines the maximum depth of each tree.
-4.  Quite often, it is not clear what the exact values of these
-    parameters should be since they depend on the data at hand.
-5.  Scikit-learn provides tools to automatically find the best parameter
-    combinations (via cross-validation).
+1.  所有的估计器都有可以调整的参数（文献中常称为超参数）。
+2.  估计器的泛化能力通常取决于几个参数。
+3.  例如，`RandomForestRegressor` 有一个 n~estimators~ 参数，用于确定林中树
+    的数目，以及一个 max~depth~参数，用于确定每棵树的最大深度。
+4.  通常，这些参数的确切值应该是多少是不明确的，因为它们取决于现有的数据。 
+5.  Scikit-learn提供了自动找到最佳参数组合的工具（通过交叉验证）。
 
 ### 例子
 
-1.  In the following example, we randomly search over the parameter
-    space of a random forest with a `RandomizedSearchCV` object.
-2.  When the search is over, the `RandomizedSearchCV` behaves as a
-    `RandomForestRegressor` that has been fitted with the best set of
-    parameters.
+1.  在下面的例子中，我们使用`RandomizedSearchCV` 对象随机搜索随机林的参数空间。
+2.  当搜索完成时，`RandomizedSearchCV` 表现得像已经拟合了最佳参数集的
+    `RandomForestRegressor`。
 
 ### 例子: 代码
 
@@ -517,26 +432,26 @@ search.score(X_test, y_test)
 
 ### scikit-learn 有监督学习算法
 
-1.  Linear Models
-2.  Linear and Quadratic Discriminant Analysis
-3.  Kernel ridge regression
-4.  Support Vector Machines
-5.  Stochastic Gradient Descent
-6.  Nearest Neighbors
-7.  Gaussian Processes
-8.  Cross decomposition
-9.  Naive Bayes
+1.  线性模型
+2.  线性和二次判别分析
+3.  核岭回归
+4.  支持向量机
+5.  随机梯度下降
+6.  最近的邻居
+7.  高斯过程
+8.  交叉分解
+9.  朴素贝叶斯
 
 ### scikit-learn 有监督学习算法
 
-1.  [@10]Decision Trees
-2.  Ensemble methods
-3.  Multiclass and multilabel algorithms
-4.  Feature selection
-5.  Semi-Supervised
-6.  Isotonic regression
-7.  Probability calibration
-8.  Neural network models (supervised)
+1.  决策树
+2.  集成方法
+3.  多类和多标签算法
+4.  特征选择
+5.  半监督
+6.  保序回归
+7.  概率校准
+8.  神经网络模型（有监督）
 
 ## 例子：线型回归
 
@@ -1035,7 +950,7 @@ estimator.get_params()
 ### 如何搜索
 
 1.  搜索包括：
-    1.  估计量(回归或分类器，如`sklearn.svm.SVC()`)；
+    1.  估计器(回归或分类器，如`sklearn.svm.SVC()`)；
     2.  一个参数空间；
     3.  一种搜索或抽样候选者的方法；
     4.  一个交叉验证方案；
