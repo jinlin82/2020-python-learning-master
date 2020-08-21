@@ -2413,42 +2413,26 @@ X = np.array([[0, 1], [2, 3]])
 transformer.transform(X)
 ```
 
-## Imputation of missing values
+## 缺失值的插补
 
 ### 简介
 
-1.  For various reasons, many real world datasets contain missing
-    values, often encoded as blanks, NaNs or other placeholders.
-2.  Such datasets however are incompatible with scikit-learn estimators
-    which assume that all values in an array are numerical, and that all
-    have and hold meaning.
-3.  A basic strategy to use incomplete datasets is to discard entire
-    rows and/or columns containing missing values. However, this comes
-    at the price of losing data which may be valuable (even though
-    incomplete).
-4.  A better strategy is to impute the missing values, i.e., to infer
-    them from the known part of the data.
+1.  由于各种原因，许多真实世界的数据集包含缺失的值，这些值通常被编码为空格、nan或其他占位符。
+2.  然而，这样的数据集与scikit-learn估计器不兼容，后者假设一个数组中的所有值都是数值，并且都有意义。
+3.  使用不完整数据集的基本策略是丢弃包含缺失值的整行和/或列。然而，这是以丢失可能有价值（即使不完整）的数据为代价的。
+4.  一种更好的策略是对缺失值进行插补，即从已知的部分数据中推断出来。
 
-### Univariate vs. Multivariate Imputation
+### 单变量与多元插补
 
-1.  One type of imputation algorithm is univariate, which imputes values
-    in the i-th feature dimension using only non-missing values in that
-    feature dimension (e.g. `impute.SimpleImputer`).
-2.  By contrast, multivariate imputation algorithms use the entire set
-    of available feature dimensions to estimate the missing values (e.g.
-    `impute.IterativeImputer`).
+1.  一种类型的插补算法是单变量的，它只使用第i个特征维中的非缺失值(e.g. `impute.SimpleImputer`).
+2.  相比之下，多元插补算法使用一整套可用的特征维数来估计缺失值(e.g.`impute.IterativeImputer`).
 
-### Univariate feature imputation
+### 单变量特征插补
 
-1.  The `SimpleImputer` class provides basic strategies for imputing
-    missing values.
-2.  Missing values can be imputed with a provided constant value, or
-    using the statistics (mean, median or most frequent) of each column
-    in which the missing values are located.
-3.  This class also allows for different missing values encodings.
-4.  The `SimpleImputer` class also supports categorical data represented
-    as string values or pandas categoricals when using the
-    **\'most~frequent~\'** or **\'constant\'** strategy.
+1.  `SimpleImputer` 类提供了对缺失值进行插补的基本策略。
+2.  缺失值可以用提供的常量值进行插补，也可以使用缺失值所在列的统计数据（平均数、中位数或众数）进行插补。
+3.  这个类还允许不同的缺失值编码
+4.  当使用 **\'most~frequent~\'** 或 **\'constant\'** 策略时，`SimpleImputer` 类还支持以字符串值或pandas类别表示的分类数据。
 
 ### 例子
 
@@ -2473,74 +2457,42 @@ imp = SimpleImputer(strategy="most_frequent")
 print(imp.fit_transform(df))
 ```
 
-### Multivariate feature imputation
+### 多元特征插补
 
-1.  A more sophisticated approach is to use the `IterativeImputer`
-    class, which models each feature with missing values as a function
-    of other features, and uses that estimate for imputation.
-2.  It does so in an iterated round-robin fashion: at each step, a
-    feature column is designated as output y and the other feature
-    columns are treated as inputs X. A regressor is fit on (X, y) for
-    known y. Then, the regressor is used to predict the missing values
-    of y.
-3.  This is done for each feature in an iterative fashion, and then is
-    repeated for **max~iter~** imputation rounds. The results of the
-    final imputation round are returned.
+1.  一种更为复杂的方法是使用“iterativeinputter”类，该类将每个特征的缺失值建模为其他特征的函数，并将该估计值用于插补。
+2.  它以循环循环的方式进行：在每一步，一个特征列被指定为输出y，其他特征列被视为输入X。一个回归函数适合于已知y的（X，y）。然后，使用回归器预测y的缺失值。
+3.  这是以迭代方式对每个特征进行的，然后在**max~iter~**插补轮中重复进行。返回最后一轮插补的结果。
 
-### Flexibility of IterativeImputer
+### 迭代输入的灵活性
 
-1.  There are many well-established imputation packages in the R data
-    science ecosystem: Amelia, mi, mice, missForest, etc.
-2.  missForest is popular, and turns out to be a particular instance of
-    different sequential imputation algorithms that can all be
-    implemented with `IterativeImputer` by passing in different
-    regressors to be used for predicting missing feature values.
-3.  In the case of missForest, this regressor is a Random Forest.
+1.  在R数据科学生态系统中，有许多成熟的插补包：Amelia、mi、mice、missForest等。
+2.  missForest很受欢迎，它是不同序列插补算法的一个具体实例，这些算法都可以通过“iterativeinputter”来实现，方法是通过传递不同的回归函数来预测缺失的特征值。
+3.  在missForest的例子中，这个回归量是一个随机预测。
 
-### Multiple vs. Single Imputation
+### 多重插补与单一插补
 
-1.  In the statistics community, it is common practice to perform
-    multiple imputations, generating, for example, `m` separate
-    imputations for a single feature matrix.
-2.  Each of these `m` imputations is then put through the subsequent
-    analysis pipeline (e.g. feature engineering, clustering, regression,
-    classification).
-3.  The `m` final analysis results (e.g. held-out validation errors)
-    allow the data scientist to obtain understanding of how analytic
-    results may differ as a consequence of the inherent uncertainty
-    caused by the missing values.
-4.  The above practice is called multiple imputation.
+1.  在统计界，通常的做法是进行多个插补，例如，为一个单一的特征矩阵生成“m”单独的插补。
+2.  然后，将这些“m”插补中的每一个进行后续分析（例如特征工程、聚类、回归、分类）
+3.  “m”最终分析结果（例如，确认错误）使数据科学家能够了解由于缺失值所造成的固有不确定性，分析结果可能会有什么不同。
+4.  上述做法称为多重插补。
 
-### IterativeImputer: Single Imputation
+### 迭代插补器：单一插补
 
-1.  Our implementation of `IterativeImputer` was inspired by the R MICE
-    package (Multivariate Imputation by Chained Equations),
-2.  but differs from it by returning a single imputation instead of
-    multiple imputations.
-3.  However, `IterativeImputer` can also be used for multiple
-    imputations by applying it repeatedly to the same dataset with
-    different random seeds when **sample~posterior~=True**.
+1.  我们实现`IterativeImputer`的灵感来自R MICE软件包（通过链式方程进行多元插补）
+2.  但与之不同的是，它返回一个插补而不是多个插补。
+3.  但是，当**sample~posterior~=True**时，`IterativeImputer`也可以用于多个插补，方法是在同一个数据集上重复使用不同的随机种子。
 
-### Nearest neighbors imputation
+### 近邻插补
 
-1.  The `KNNImputer` class provides imputation for filling in missing
-    values using the k-Nearest Neighbors approach.
-2.  By default, a euclidean distance metric that supports missing
-    values, **nan~euclideandistances~**, is used to find the nearest
-    neighbors.
-3.  Each missing feature is imputed using values from **n~neighbors~**
-    nearest neighbors that have a value for the feature.
-4.  The feature of the neighbors are averaged uniformly or weighted by
-    distance to each neighbor.
-5.  If a sample has more than one feature missing, then the neighbors
-    for that sample can be different depending on the particular feature
-    being imputed.
+1.  `KNNImputer` 类提供了使用k-最近邻方法填充缺失值的插补。
+2.  默认情况下，使用支持缺失值的欧几里得距离度量**nan~euclideandInstances~**，来查找最邻近的值。
+3.  每个缺失的特征都是使用 **n~neighbors~**个具有该特征值的最邻近的值来估算的。
+4.  邻域的特征被均匀地平均化或按到每个邻域的距离加权。
+5.  如果一个样本有一个以上的特征缺失，那么该样本的邻域可以根据被插补的特定特征而不同。
 
 ### 例子
 
-1.  The following snippet demonstrates how to replace missing values,
-    encoded as `np.nan`, using the mean feature value of the two nearest
-    neighbors of samples with missing values:
+1.  下面的代码片段演示如何替换缺少的值，编码为`np.nan`，使用缺失值样本的两个最近邻的平均特征值：
 
 ``` {.python}
 import numpy as np
@@ -2552,29 +2504,18 @@ imputer = KNNImputer(n_neighbors=2, weights="uniform")
 imputer.fit_transform(X)
 ```
 
-### Marking imputed values
+### 标记估算值
 
-1.  The `MissingIndicator` transformer is useful to transform a dataset
-    into corresponding binary matrix indicating the presence of missing
-    values in the dataset.
-2.  This transformation is useful in conjunction with imputation.
-3.  When using imputation, preserving the information about which values
-    had been missing can be informative.
-4.  Note that both the `SimpleImputer` and `IterativeImputer` have the
-    boolean parameter **add~indicator~** (False by default) which when
-    set to True provides a convenient way of stacking the output of the
-    `MissingIndicator` transformer with the output of the imputer.
+1.  `MissingIndicator` 转换器可用于将数据集转换为相应的二进制矩阵，指示数据集中是否存在缺失值。
+2.  这种转换与插补结合使用是有用的。
+3.  在使用插补时，保留关于哪些值丢失的信息可以提供信息。
+4.  注意 `SimpleImputer` and `IterativeImputer` 都有布尔参数**add~indicator~** （默认为False），当设置为True时，可以方便地将 `MissingIndicator` 转换器的输出与输入器的输出叠加起来。
 
-### Marking imputed values
+### 标记估算值
 
-1.  [@5] `NaN` is usually used as the placeholder for missing values.
-    However, it enforces the data type to be float. The parameter
-    **missing~values~** allows to specify other placeholder such as
-    integer. In the following example, we will use -1 as missing values.
-2.  The `features` parameter is used to choose the features for which
-    the mask is constructed. By default, it is **\'missing-only\'**
-    which returns the imputer mask of the features containing missing
-    values at fit time.
+1.  `NaN` 通常用作missing的占位符值。但是，它强制数据类型为float。参数
+    **missing~values~** 允许指定其他占位符，如integer。在下面的示例中，我们将使用-1作为缺失值。
+2.  `features` 参数用于选择为其构造掩码的功能。默认情况下，它是 **\'missing-only\'**，它会在拟合时返回包含缺失值的要素的不适当掩码。
 
 ### 例子
 
@@ -2590,89 +2531,65 @@ mask_missing_values_only
 indicator.features_
 ```
 
-## Unsupervised dimensionality reduction
+## 无监督降维
 
-### Unsupervised dimensionality reduction
+### 无监督降维
 
-1.  If your number of features is high, it may be useful to reduce it
-    with an unsupervised step prior to supervised steps.
-2.  Many of the Unsupervised learning methods implement a transform
-    method that can be used to reduce the dimensionality.
+1.  如果特征数量很高，那么在有监督的步骤之前先用一个无监督的步骤来减少它可能是有用的。
+2.  许多无监督学习方法实现了一种可以用来降低维数的变换方法。
 
 ```{=html}
 <!-- -->
 ```
-1.  PCA: principal component analysis
+1.  PCA: 主成分分析
 
-    -   `decomposition.PCA` looks for a combination of features that
-        capture well the variance of the original features.
+    -   `decomposition.PCA` 寻找能很好地捕捉原始特征变化的特征组合。
 
-2.  Random projections
+2.  随机投影
 
-    -   The module: **random~projection~** provides several tools for
-        data reduction by random projections.
+    -   模块: **random~projection~** 提供了几种通过随机投影进行数据缩减的工具。
 
-3.  Feature agglomeration
+3.  特征聚集
 
-    -   `cluster.FeatureAgglomeration` applies Hierarchical clustering
-        to group together features that behave similarly.
+    -   `cluster.FeatureAgglomeration` 将层次聚类应用于将行为相似的要素组合在一起。
 
-## Random Projection
+## 随机投影
 
 ### 简介
 
-1.  The **sklearn.random~projection~** module implements a simple and
-    computationally efficient way to reduce the dimensionality of the
-    data by trading a controlled amount of accuracy (as additional
-    variance) for faster processing times and smaller model sizes.
-2.  This module implements two types of unstructured random matrix:
-    Gaussian random matrix and sparse random matrix.
-3.  The dimensions and distribution of random projections matrices are
-    controlled so as to preserve the pairwise distances between any two
-    samples of the dataset. Thus random projection is a suitable
-    approximation technique for distance based method.
+1.  **sklearn.random~projection~** 模块实现了一种简单且计算效率高的方法来降低数据的维数，方法是以可控精度（作为附加方差）换取更快的处理时间和更小的模型大小。
+2.  该模块实现了两类非结构化随机矩阵：高斯随机矩阵和稀疏随机矩阵。
+3.  控制随机投影矩阵的维数和分布，以保持数据集任意两个样本之间的成对距离。因此，随机投影是一种适合于基于距离的方法的近似技术。
 
-### Gaussian random projection
+### 高斯随机投影
 
-1.  Let\'s say we have a numeric dataset with $n$ examples, each of
-    which is represented by $d$ features (where $d$ is presumably
-    relatively large, maybe on the order of hundreds or thousands).
+1.  假设我们有一个包含n个示例的数值数据集，每个示例都由d特征表示（其中d可能相对较大，可能在数百或数千个数量级上）。
 
-2.  In other words, our data is a matrix $X$, with $n$ rows and $d$
-    columns.
+2.  换句话说，我们的数据是一个矩阵X，有n行和d列。
 
-3.  Suppose we want to reduce the dimensionality of our data so that
-    each example is represented by only $k$ features, where $k$ is
-    small, like 2 or 10.
+3.  假设我们想减少数据的维数，这样每个例子只由k特征表示，其中k很小，比如2或10。
 
-4.  For Gaussian random projection we construct a projection matrix $R$
-    with $d$ rows and $k$ columns.
+4.  对于高斯随机投影，我们构造了一个包含d行和k列的投影矩阵R。
 
-5.  Each entry is independently sampled from a standard Gaussian
-    distribution
+5.  每个条目都是从标准高斯分布中独立采样的。
 
 $$
     R_{ij} \sim N(0, 1)
 $$
 
-### Gaussian random projection
+### 高斯随机投影
 
--   The projection is done by multiplying our data matrix by the
-    projection matrix:
+-   通过将数据矩阵乘以投影矩阵来完成投影：
 
 $$
     Y = \frac{1}{\sqrt{k}}XR
-$$ so that our output dataset $Y$ has $n$ rows with only $k$ columns.
+$$ 
+这样我们的输出数据集Y有n行k列。
 
-The scalar $1/\sqrt{k}$ ensures that the Euclidean distance between any
-two points in the new low-dimensional space is very close to the
-distance between the same points in the original high-dimensional space,
-with high probability.
+标量scalar $1/\sqrt{k}$ 确保新低维空间中任意两点之间的欧几里德距离非常接近
+原始高维空间中相同点之间的距离，具有很高的概率。
 
--   The **sklearn.random~projection~.GaussianRandomProjection** reduces
-    the dimensionality by projecting the original input space on a
-    randomly generated matrix where components are drawn from the
-    following distribution $N(0, \frac{1}{n_{components}})$ .
+-   **sklearn.random~projection~.GaussianRandomProjection** 通过将原始输入空间投影到一个随机生成的矩阵上，在这个矩阵中，组件是从以下分布 $N(0, \frac{1}{n_{components}})$ 中提取的，从而降低了维数。
 
 ### 例子
 
@@ -2688,204 +2605,161 @@ X_new.shape
 
 ## 其他数据集转换方法
 
-### Kernel Approximation
+### 核近似
 
--   This submodule contains functions that approximate the feature
-    mappings that correspond to certain kernels, as they are used for
-    example in support vector machines.
--   Nystroem Method for Kernel Approximation
--   Radial Basis Function Kernel
--   Additive Chi Squared Kernel
--   Skewed Chi Squared Kernel
+-   这个子模块包含一些函数，这些函数近似于对应于某些核的特征映射，例如在支持向量机中使用它们。
+-   核逼近的Nystroem方法
+-   径向基函数核
+-   加性卡方核
+-   斜卡方核
 
-### Pairwise metrics, Affinities and Kernels
+### 成对度量、亲和力和核函数
 
-1.  The `sklearn.metrics.pairwise` submodule implements utilities to
-    evaluate pairwise distances or affinity of sets of samples.
-2.  This module contains both distance metrics and kernels.
-3.  Cosine similarity
-4.  Linear kernel
-5.  Polynomial kernel
-6.  Sigmoid kernel
-7.  RBF kernel
-8.  Laplacian kernel
-9.  Chi-squared kernel
+1.  `sklearn.metrics.pairwise` 子模块实现实用程序来评估样本集的成对距离或亲和力。
+2.  此模块包含距离度量和内核。
+3.  余弦相似度
+4.  线性核
+5.  多项式核
+6.  乙状核
+7.  RBF核
+8.  拉普拉斯核
+9.  卡方核
 
-### Transforming the prediction target (y)
+### 转换预测目标(y)
 
-1.  These are transformers that are not intended to be used on features,
-    only on supervised learning targets.
-2.  `LabelBinarizer` is a utility class to help create a label indicator
-    matrix from a list of multi-class labels.
-3.  `LabelEncoder` is a utility class to help normalize labels such that
-    they contain only values between 0 and n~classes~-1.
+1.  这些是不打算在功能上使用的转换器，仅在有监督的学习目标上使用。
+2.  `LabelBinarizer` 是一个实用程序类，用于帮助从多类标签列表创建标签指示符矩阵。
+3.  `LabelEncoder` 是一个实用程序类，用于帮助规范化标签，使其仅包含0到n~类~1之间的值。
 
 # 数据集导入
 
 ### 简介
 
-1.  The sklearn.datasets package embeds some small toy datasets.
-2.  This package also features helpers to fetch larger datasets commonly
-    used by the machine learning community to benchmark algorithms on
-    data that comes from the 'real world'.
-3.  To evaluate the impact of the scale of the dataset (n~samples~ and
-    n~features~) while controlling the statistical properties of the
-    data (typically the correlation and informativeness of the
-    features), it is also possible to generate synthetic data.
+1.  sklearn.datasets包中嵌入了一些小的toy数据集。
+2.  这个软件包还提供了帮助程序来获取更大的数据集，这些数据集通常被机器学习社区用来对来自“真实世界”的数据进行算法基准测试。
+3.  为了评估数据集规模 (n~samples~ and n~features~) 的影响，同时控制数据的统计特性（通常是特征的相关性和信息性），还可以生成合成数据。
 
-## General dataset API
+## 通用数据集API
 
-### loader and fetcher
+### 加载与获取
 
-1.  The dataset loaders. They can be used to load small standard
-    datasets, described in the Toy datasets section.
-2.  The dataset fetchers. They can be used to download and load larger
-    datasets, described in the Real world datasets section.
-3.  Both loaders and fetchers functions return a dictionary-like object
-    holding at least two items: an array of shape **n~samples~ \*
-    n~features~** with key `data` (except for 20newsgroups).
-4.  and a numpy array of length **n~samples~**, containing the target
-    values, with key `target`.
+1.  数据集加载器。 它们可用于加载小的标准数据集，如“toy数据集”部分所述。
+2.  数据集获取器。它们可用于下载和加载更大的数据集，如“真实世界”数据集部分所述。
+3.  loader和fetchers函数都返回一个类似字典的对象，其中至少包含两个项：一个shape **n~samples~ \*n~features~** 的数组，键为`data`（20个新闻组除外）。
+4.  以及一个长度为**n~samples~**，包含目标值的numpy数组，键为 `target`。
 
-### loader and fetcher
+### 加载与获取
 
-1.  It's also possible for almost all of these function to constrain the
-    output to be a tuple containing only the data and the target, by
-    setting the **return~Xy~** parameter to True.
-2.  The datasets also contain a full description in their `DESCR`
-    attribute and some contain **feature~names~** and **target~names~**.
-    See the dataset descriptions below for details.
+1.  通过将**return~Xy~**参数设置为True，几乎所有这些函数都可以将输出约束为只包含数据和目标的元组。
+2.  数据集的`DESCR`属性中也包含完整的描述，有些数据集包含 **feature~names~** 和 **target~names~**.
+    有关详细信息，请参阅下面的数据集说明。
 
-### The dataset generation functions
+### 数据集生成函数
 
-1.  The dataset generation functions. They can be used to generate
-    controlled synthetic datasets, described in the Generated datasets
-    section.
-2.  These functions return a `tuple (X, y)` consisting of a **n~samples~
-    \* n~features~** numpy array X and an array of length **n~samples~**
-    containing the targets y.
+1.  数据集生成函数。它们可用于生成受控合成数据集，如生成数据集部分所述。
+2.  这些函数返回一个`tuple (X, y)` 由一个 **n~samples~\* n~features~** numpy数组X和一个包含目标y的长度为**n~samples~**的数组组成。
 
-### Toy datasets
+### Toy数据集
 
-1.  scikit-learn comes with a few small standard datasets that do not
-    require to download any file from some external website.
-2.  These datasets are useful to quickly illustrate the behavior of the
-    various algorithms implemented in scikit-learn. They are however
-    often too small to be representative of real world machine learning
-    tasks.
-3.  They can be loaded using the following functions:
+1.  scikit-learn 附带了一些小的标准数据集，这些数据集不需要从外部网站下载任何文件。
+2.  这些数据集有助于快速说明scikit—learn中实现的各种算法的行为。然而，它们往往太小，不能代表真实世界的机器学习任务。
+3.  可以使用以下函数加载它们：
 
   ---------------------- -----------------------------------------------------------------------
-  load~boston~()         Load and return the boston house-prices dataset (regression).
-  load~iris~()           Load and return the iris dataset (classification).
-  load~diabetes~()       Load and return the diabetes dataset (regression).
-  load~digits~()         Load and return the digits dataset (classification).
-  load~linnerud~()       Load and return the linnerud dataset (multivariate regression).
-  load~wine~()           Load and return the wine dataset (classification).
-  load~breastcancer~()   Load and return the breast cancer wisconsin dataset (classification).
+  load~boston~()         加载并返回boston house-prices数据集(回归)
+  load~iris~()           加载并返回iris数据集(分类)
+  load~diabetes~()       加载并返回diabetes数据集(回归)
+  load~digits~()         加载并返回digits数据集(分类)
+  load~linnerud~()       加载并返回linnerud数据集(多元回归)
+  load~wine~()           加载并返回wine数据集(分类)
+  load~breastcancer~()   加载并返回breast cancer wisconsin数据集(分类)
   ---------------------- -----------------------------------------------------------------------
 
-### Real world datasets
+### Real world数据集
 
-1.  scikit-learn provides tools to load larger datasets, downloading
-    them if necessary.
-2.  They can be loaded using the following functions:
+1.  scikit-learn 提供了加载较大数据集的工具，并在必要时下载它们。
+2.  可以使用以下函数加载它们：
 
   ------------------------------------- -------------------------------------------------------------------------------------
-  fetch~olivettifaces~                  Load the Olivetti faces data-set from AT&T (classification).
-  fetch~20newsgroups~                   Load the filenames and data from the 20 newsgroups dataset (classification).
-  fetch~20newsgroupsvectorized~         Load the 20 newsgroups dataset and vectorize it into token counts (classification).
-  fetch~lfwpeople~                      Load the Labeled Faces in the Wild (LFW) people dataset (classification).
-  fetch~lfwpairs~                       Load the Labeled Faces in the Wild (LFW) pairs dataset (classification).
-  fetch~covtype~(\[data~home~, ...\])   Load the covertype dataset (classification).
-  fetch~rcv1~                           Load the RCV1 multilabel dataset (classification).
-  fetch~kddcup99~                       Load the kddcup99 dataset (classification).
-  fetch~californiahousing~              Load the California housing dataset (regression).
+  fetch~olivettifaces~                  从AT&T加载Olivetti faces数据集 (分类)
+  fetch~20newsgroups~                   从20个新闻组数据集中加载文件名和数据（分类）
+  fetch~20newsgroupsvectorized~         加载20个新闻组数据集并将其矢量化为令牌计数（分类）
+  fetch~lfwpeople~                      在Wild（LFW）people数据集中加载带标签的人脸（分类）
+  fetch~lfwpairs~                       在Wild（LFW）pairs数据集中加载带标签的面（分类）
+  fetch~covtype~(\[data~home~, ...\])   加载covertype数据集（分类）
+  fetch~rcv1~                           加载rcv1多标签数据集（分类）
+  fetch~kddcup99~                       加载kddcup99数据集（分类）
+  fetch~californiahousing~              加载加利福尼亚住房数据集（回归）
   ------------------------------------- -------------------------------------------------------------------------------------
 
-## Generated datasets
+## 生成的数据集
 
-### Generators for classification and clustering
+### 分类和聚类生成器
 
-1.  scikit-learn includes various random sample generators that can be
-    used to build artificial datasets of controlled size and complexity.
-2.  These generators produce a matrix of features and corresponding
-    discrete targets.
-3.  Single label: Both **make~blobs~** and **make~classification~**
-    create multiclass datasets by allocating each class one or more
-    normally-distributed clusters of points.
-4.  Multilabel: **make~multilabelclassification~** generates random
-    samples with multiple labels, reflecting a bag of words drawn from a
-    mixture of topics.
-5.  Biclustering:
+1.  scikit-learn 包括各种随机样本生成器，可用于构建大小和复杂度可控的人工数据集。
+2.  这些生成器生成特征矩阵和相应的离散目标。
+3.  单标签: **make~blobs~**和**make~classification~**通过为每个类分配一个或多个正态分布的点簇来创建多类数据集。
+4.  多标签: **make~multilabelclassification~** 生成带有多个标签的随机样本，反映出从多个主题混合而来的单词。
+5.  双聚类:
 
   ------------------------------------------------------ ----------------------------------------------------------------------------
-  make~biclusters~(shape, n~clusters~\[, noise, ...\])   Generate an array with constant block diagonal structure for biclustering.
-  make~checkerboard~(shape, n~clusters~\[, ...\])        Generate an array with block checkerboard structure for biclustering.
+  make~biclusters~(shape, n~clusters~\[, noise, ...\])   
+  生成一个具有恒定块对角结构的数组以进行双聚类。
+  make~checkerboard~(shape, n~clusters~\[, ...\])        
+  生成一个具有分块棋盘结构的数组用于双聚类。
   ------------------------------------------------------ ----------------------------------------------------------------------------
+
 
 ### Generators for regression
 
-1.  **make~regression~** produces regression targets as an
-    optionally-sparse random linear combination of random features, with
-    noise.
-2.  Its informative features may be uncorrelated, or low rank (few
-    features account for most of the variance).
+1.  **make~regression~** 将生成随机特征的可选稀疏随机线性组合（带有噪声）作为回归目标。
+2.  它的信息特征可能是不相关的，或者等级较低（很少的特征可以解释大部分的方差）。
 
-### Generators for manifold learning
+### 多种学习生成器
 
   ------------------------------------------------------- -------------------------------
-  make~scurve~(\[n~samples~, noise, random~state~\])      Generate an S curve dataset.
-  make~swissroll~(\[n~samples~, noise, random~state~\])   Generate a swiss roll dataset
+  make~scurve~(\[n~samples~, noise, random~state~\])      生成S曲线数据集
+  make~swissroll~(\[n~samples~, noise, random~state~\])   生成swiss滚动数据集
   ------------------------------------------------------- -------------------------------
 
-### Generators for decomposition
+
+### 分解生成器
 
   --------------------------------------------------- --------------------------------------------------------------------
-  make~lowrankmatrix~(\[n~samples~, ...\])            Generate a mostly low rank matrix with bell-shaped singular values
-  make~sparsecodedsignal~(n~samples~, ...\[, ...\])   Generate a signal as a sparse combination of dictionary elements.
-  make~spdmatrix~(n~dim~\[, random~state~\])          Generate a random symmetric, positive-definite matrix.
-  make~sparsespdmatrix~(\[dim, alpha, ...\])          Generate a sparse symmetric definite positive matrix.
+  make~lowrankmatrix~(\[n~samples~, ...\])            生成具有钟形奇异值的低秩矩阵
+  make~sparsecodedsignal~(n~samples~, ...\[, ...\])   生成一个作为字典元素稀疏组合的信号
+  make~spdmatrix~(n~dim~\[, random~state~\])          生成一个随机对称正定矩阵
+  make~sparsespdmatrix~(\[dim, alpha, ...\])          生成稀疏对称正定矩阵
   --------------------------------------------------- --------------------------------------------------------------------
 
-## Loading other datasets
+## 下载其他数据集
 
-### Sample images
+### 示例图像
 
-1.  Scikit-learn also embed a couple of sample JPEG images published
-    under Creative Commons license by their authors.
-2.  Those images can be useful to test algorithms and pipeline on 2D
-    data.
+1.  Scikit-learn 还嵌入了作者根据Creative Commons许可发布的几个JPEG图像示例。
+2.  这些图像可以用来测试算法和二维数据的流水线。
 
   -------------------------------- -----------------------------------------------
-  load~sampleimages~()             Load sample images for image manipulation.
-  load~sampleimage~(image~name~)   Load the numpy array of a single sample image
+  load~sampleimages~()             加载示例图像以进行图像处理
+  load~sampleimage~(image~name~)   加载单个示例图像的numpy数组
   -------------------------------- -----------------------------------------------
 
-### Datasets in svmlight / libsvm format
+### svmlight/libsvm 格式的数据集
 
-1.  scikit-learn includes utility functions for loading datasets in the
-    svmlight/libsvm format.
-2.  In this format, each line takes the form \<label\>
-    \<feature-id\>:\<feature-value\> \<feature-id\>:\<feature-value\>
+1.  scikit-learn 包含用于加载svmlight/libsvm格式的数据集的实用程序函数。
+2.  在这种格式中，每行采用\<label\>\<feature-id\>:\<feature-value\> \<feature-id\>:\<feature-value\>
     ....
-3.  This format is especially suitable for sparse datasets.
-4.  In this module, scipy sparse CSR matrices are used for X and numpy
-    arrays are used for y.
-5.  Public datasets in svmlight / libsvm format:
+3.  这种格式特别适用于稀疏数据集。
+4.  在这个模块中，scipy稀疏CSR矩阵用于X，numpy数组用于y。
+5.  svmlight/libsvm格式的公共数据集：
     <https://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets>
 
-### Downloading datasets from the openml.org repository
+### 从openml.org网站存储库下载数据集
 
-1.  [openml.org](https://www.openml.org) is a public repository for
-    machine learning data and experiments, that allows everybody to
-    upload open datasets.
-2.  The sklearn.datasets package is able to download datasets from the
-    repository using the function **sklearn.datasets.fetch~openml~**.
-3.  To fully specify a dataset, you need to provide a name and a
-    version, though the version is optional.
-4.  You can get more information on the dataset by looking at the
-    `DESCR` and `details` attributes.
+1.  [openml.org](https://www.openml.org) 是一个用于机器学习数据和实验的公共存储库，允许每个人上传开放的数据集。
+2.  sklearn.datasets包能够使用函数**sklearn.datasets.fetch~openml~**从存储库下载数据集。
+3.  要完全指定数据集，需要提供名称和版本，但版本是可选的。
+4.  通过查看`DESCR` 和 `details` 属性，可以获得有关数据集的更多信息。
 
 ``` {.python}
 import numpy as np
@@ -2901,41 +2775,25 @@ mice.details
 mice.url
 ```
 
-## Loading from external datasets
+## 下载外部数据集
 
 ### 简介
 
-1.  scikit-learn works on any numeric data stored as numpy arrays or
-    scipy sparse matrices.
-2.  Other types that are convertible to numeric arrays such as pandas
-    DataFrame are also acceptable.
-3.  Here are some recommended ways to load standard columnar data into a
-    format usable by scikit-learn:
-    1.  `pandas.io` provides tools to read data from common formats
-        including CSV, Excel, JSON and SQL.
-    2.  `scipy.io` specializes in binary formats often used in
-        scientific computing context such as .mat and .arff
-    3.  `numpy/routines.io` for standard loading of columnar data into
-        numpy arrays
-    4.  scikit-learn's **datasets.load~svmlightfile~** for the svmlight
-        or libSVM sparse format
-    5.  scikit-learn's **datasets.load~files~** for directories of text
-        files where the name of each directory is the name of each
-        category and each file inside of each directory corresponds to
-        one sample from that category.
+1.  scikit-learn 可以处理存储为numpy数组或scipy稀疏矩阵的任何数值数据。
+2.  其他可转换为数字数组的类型（如pandas DataFrame）也是可以接受的。
+3.  以下是一些将标准列式数据加载到scikit—learn可用格式的推荐方法：
+    1.  `pandas.io` 提供从常见格式（包括CSV、Excel、JSON和SQL）读取数据的工具。
+    2.  `scipy.io` 专门研究科学计算环境中常用的二进制格式，如.mat和.arff。
+    3.  `numpy/routines.io` 用于将列式数据标准加载到numpy数组中。
+    4.  scikit-learn中 **datasets.load~svmlightfile~** 用于svmlight或libSVM稀疏格式
+    5.  scikit-learn中 **datasets.load~files~** 用于文本文件的目录，其中每个目录的名称是每个类别的名称，每个目录中的每个文件对应于该类别中的一个示例。
 
-### images, videos, and audio file
+### 图像、视频和音频文件
 
-1.  For some miscellaneous data such as images, videos, and audio, you
-    may wish to refer to:
-    1.  `skimage.io` or Imageio for loading images and videos into numpy
-        arrays
-    2.  `scipy.io.wavfile.read` for reading WAV files into a numpy
-        array.
-2.  Categorical (or nominal) features stored as strings (common in
-    pandas DataFrames) will need converting to numerical features using
-    `sklearn.preprocessing.OneHotEncoder` or
-    `sklearn.preprocessing.OrdinalEncoder` or similar.
+1.  对于一些其他数据，如图像、视频和音频，您可能希望参考：
+    1.  `skimage.io`或 Imageio 用于将图像和视频加载到numpy数组中。
+    2.  `scipy.io.wavfile.read` 用于将WAV文件读入numpy数组。
+2.  分类（或名义）特征存储为字符串 (常见于pandas DataFrames) 将需要转换为数字特征使用 `sklearn.preprocessing.OneHotEncoder` 或 `sklearn.preprocessing.OrdinalEncoder` 或其他类似的。
 
 
 <!-- # 参考文献 -->
