@@ -1490,19 +1490,15 @@ from sklearn.preprocessing import Binarizer
 make_pipeline(Binarizer(), MultinomialNB())
 ```
 
-### 获取中间处理步骤: Accessing steps
+### 获取中间处理步骤: 访问步骤
 
-1.  The estimators of a pipeline are stored as a list in the steps
-    attribute, but can be accessed by index or name by indexing (with
-    **\[idx\]**) the Pipeline.
-2.  Pipeline's **named_steps** attribute allows accessing steps by name
-    with tab completion in interactive environments.
-3.  A sub-pipeline can also be extracted using the slicing notation
-    commonly used for Python Sequences such as lists or strings
-    (although only a step of 1 is permitted). This is convenient for
-    performing only some of the transformations (or their inverse).
-4.  管道中参数设置方法: Parameters of the estimators in the pipeline can
-    be accessed using the **\<estimator\>\_\_\<parameter\>** syntax.
+1.  管道的估计器以列表的形式存储在steps属性中，但是可以通过索引或通过索引(使用
+    **\[idx\]**)访问管道。
+2.  管道的**named~steps~**属性允许在交互式环境中通过tab完成按名称访问步骤。
+3.  子管道也可以使用通常用于Python序列(如列表或字符串)的切片符号来提取(尽管只允
+    许步骤1)。这对于仅执行某些转换(或它们的逆)很方便。
+4.  管道中参数设置方法: 参数估计的管道可以使用访问
+    **\<estimator\>\_\_\<parameter\>**语法。
 
 ### 例子
 
@@ -1524,19 +1520,15 @@ param_grid = dict(reduce_dim__n_components=[2, 5, 10],
 grid_search = GridSearchCV(pipe, param_grid=param_grid)
 ```
 
-### Caching transformers: avoid repeated computation
+### 缓存变压器:避免重复计算
 
-1.  Fitting transformers may be computationally expensive. With its
-    `memory` parameter set, Pipeline will cache each transformer after
-    calling fit.
-2.  This feature is used to avoid computing the fit transformers within
-    a pipeline if the parameters and input data are identical.
-3.  A typical example is the case of a grid search in which the
-    transformers can be fitted only once and reused for each
-    configuration.
-4.  The parameter `memory` is needed in order to cache the transformers.
-    memory can be either a string containing the directory where to
-    cache the transformers or a `joblib.Memory` object.
+1.  安装转换器的计算费用可能很高。当它的`memory`参数设置好后，管道将缓存每个转换
+    器调用。
+2.  该特性用于避免当参数和输入数据相同时使用管道计算拟合转换结果。
+3.  一个典型的例子是网格搜索，其中每次转换只能拟合一次，每次转换都可以重复使用配
+    置。
+4.  为了缓存转换，需要使用参数`memory`。memory可以是一个字符串，包含将缓存的转换器
+    目录，或是一个`joblib.Memory`的对象。
 
 ### 例子
 
@@ -1551,19 +1543,15 @@ cachedir = mkdtemp()
 pipe = Pipeline(estimators, memory=cachedir)
 pipe
 
-# Clear the cache directory when you don't need it anymore
+# 当不需要该缓存目录时，即可清除它
 rmtree(cachedir)
 ```
 
-### Transforming target in regression
+### 回归目标变换
 
-1.  `compose.TransformedTargetRegressor` transforms the targets y before
-    fitting a regression model.
-2.  The predictions are mapped back to the original space via an inverse
-    transform.
-3.  It takes as an argument the regressor that will be used for
-    prediction, and the transformer that will be applied to the target
-    variable.
+1.  `compose.TransformedTargetRegressor`可以在拟合回归模型之前转换目标y。
+2.  通过逆变换将预测映射回原始空间。
+3.  它以将用于预测的回归变量和将应用于目标变量的转换作为论据。
 
 ### 例子
 
@@ -1588,29 +1576,22 @@ raw_target_regr = LinearRegression().fit(X_train, y_train)
 print('R2 score: {0:.2f}'.format(raw_target_regr.score(X_test, y_test)))
 ```
 
-### FeatureUnion: composite feature spaces
+### FeatureUnion: 复合特征空间
 
-1.  `FeatureUnion` combines several transformer objects into a new
-    transformer that combines their output.
-2.  A FeatureUnion takes a list of transformer objects. During fitting,
-    each of these is fit to the data independently.
-3.  The transformers are applied in parallel, and the feature matrices
-    they output are concatenated side-by-side into a larger matrix.
-4.  FeatureUnion serves the same purposes as Pipeline - convenience and
-    joint parameter estimation and validation.
-5.  FeatureUnion and Pipeline can be combined to create complex models.
+1.  `FeatureUnion`将几个转换器对象组合到一个新的转换器中，该转换器将它们的输出组
+    合在一起。
+2.  FeatureUnion接受一个转换器对象列表。在拟合过程中，每一个都独立地适合于数据。
+3.  转换器并联使用，它们输出的特征矩阵被串接成一个更大的矩阵。
+4.  FeatureUnion的目的与管道相同，即方便并联合参数估计和验证。
+5.  FeatureUnion和Pipeline可以结合起来创建复杂的模型。
 
 ### 用法
 
-1.  A FeatureUnion is built using a list of `(key, value)` pairs, where
-    the key is the name you want to give to a given transformation (an
-    arbitrary string; it only serves as an identifier) and value is an
-    estimator object.
-2.  Like pipelines, feature unions have a shorthand constructor called
-    **make~union~** that does not require explicit naming of the
-    components.
-3.  Like Pipeline, individual steps may be replaced using
-    **set~params~**, and ignored by setting to \'drop\'.
+1.  一个FeatureUnion是用一个`(key, value)`列表构建的，其中key是所给定的转换名称
+    (一个任意的字符串;它只是作为一个标识符)，而value是一个估计对象。
+2.  与管道一样，特性联合也有一个称为**make~union~**的简写构造函数，它不需要显式
+    地命名组件。
+3.  像管道一样，单个步骤可以用**set~params~**替换，也可以设置为\'drop\'忽略。
 
 ### 例子
 
@@ -1625,69 +1606,53 @@ combined
 combined.set_params(kernel_pca='drop')
 ```
 
-### ColumnTransformer for heterogeneous data
+### ColumnTransformer用于异构数据
 
-1.  Many datasets contain features of different types, say text, floats,
-    and dates, where each type of feature requires separate
-    preprocessing or feature extraction steps.
-2.  Often it is easiest to preprocess data before applying scikit-learn
-    methods, for example using pandas.
-3.  Processing your data before passing it to scikit-learn might be
-    problematic for one of the following reasons:
-    1.  Incorporating statistics from test data into the preprocessors
-        makes cross-validation scores unreliable (known as data
-        leakage), for example in the case of scalers or imputing missing
-        values.
-    2.  You may want to include the parameters of the preprocessors in a
-        parameter search.
+1.  许多数据集包含不同类型的特征，比如文本、浮动和日期，其中每种类型的特征都需要
+    单独的预处理或特征提取步骤。
+2.  通常在应用scikiti-learn方法之前对数据进行预处理是最简单的，例如使用pandas。
+3.  在将数据传递给scikit-learn之前对其进行处理可能会出现以下问题:
+    1.  将测试数据中的统计数据合并到预处理程序中会使交叉验证分数不可靠(称为数据
+        泄漏)，例如在标量或输入缺失值的情况下。
+    2.  你可能想要在参数搜索中包含预处理程序的参数。
 
-### ColumnTransformer for heterogeneous data
+### ColumnTransformer用于异构数据
 
-1.  The `ColumnTransformer` helps performing different transformations
-    for different columns of the data, within a Pipeline that is safe
-    from data leakage and that can be parametrized. `ColumnTransformer`
-    works on arrays, sparse matrices, and pandas DataFrames.
-2.  To each column, a different transformation can be applied, such as
-    preprocessing or a specific feature extraction method.
-3.  The **make~columntransformer~** function is available to more easily
-    create a `ColumnTransformer` object. Specifically, the names will be
-    given automatically.
+1.  `ColumnTransformer`能够在一个管道内，对数据的不同列执行不同的转换，该管道是
+    安全的，不会发生数据泄漏，并且可以参数化。`ColumnTransformer`用于数组、稀疏
+    矩阵和pandas的数据框。
+2.  对于每一列，可以应用不同的变换，如预处理或特定的特征提取方法。
+3.  **make~columntransformer~**函数可以更容易地创建`ColumnTransformer`对象。具体
+    来说，名字会自动给出。
 4.  例子
     1.  [Column Transformer with Heterogeneous Data
         Sources](https://scikit-learn.org/stable/auto_examples/compose/plot_column_transformer.html#sphx-glr-auto-examples-compose-plot-column-transformer-py)
     2.  [Column Transformer with Mixed
         Types](https://scikit-learn.org/stable/auto_examples/compose/plot_column_transformer_mixed_types.html#sphx-glr-auto-examples-compose-plot-column-transformer-mixed-types-py)
 
-## Feature extraction
+## 特征提取
 
 ### 简介
 
-1.  The **sklearn.feature~extraction~** module can be used to extract
-    features in a format supported by machine learning algorithms from
-    datasets consisting of formats such as text and image.
-2.  Feature extraction is very different from Feature selection: the
-    former consists in transforming arbitrary data, such as text or
-    images, into numerical features usable for machine learning. The
-    latter is a machine learning technique applied on these features.
+1.  **sklearn.feature~extraction~**模块可用于从文本和图像等格式组成的数据集中以
+    机器学习算法支持的格式提取特征。
+2.  特征提取与特征选择有很大的不同：前者是将任意数据，如文本或图像，转化为可用于
+    机器学习的数字特征。后者是一种应用于这些特性的机器学习技术。
 
-### Loading features from dicts
+### 从字典中加载特征
 
-1.  The class `DictVectorizer` can be used to convert feature arrays
-    represented as lists of standard Python dict objects to the
-    NumPy/SciPy representation used by scikit-learn estimators.
-2.  While not particularly fast to process, Python's dict has the
-    advantages of being convenient to use, being sparse (absent features
-    need not be stored) and storing feature names in addition to values.
-3.  `DictVectorizer` implements what is called one-of-K or "one-hot"
-    coding for categorical (aka nominal, discrete) features.
-4.  Categorical features are "attribute-value" pairs where the value is
-    restricted to a list of discrete of possibilities without ordering
-    (e.g. topic identifiers, types of objects, tags, names...).
+1.  `DictVectorizer`类可以用来将标准Python字典对象列表表示的特征数组，转换为
+    scikit-learn估计器使用的NumPy/SciPy来表示。
+2.  虽然处理速度不是特别快，但Python的字典具有使用方便、稀疏(不需要存储的特性)和
+    除了存储值之外还存储特征名的优点。
+3.   `DictVectorizer`实现所谓的one-of-K或"one-hot"编码，用于分类的(又称名义的，
+     离散的)特征。
+4.  分类特征是“属性-值”，其中的值被限制在没有排序的离散可能性的列表中(例如，主题
+    标识符、对象类型、标签、名称……)。
 
 ### 例子
 
--   In the following, "city" is a categorical attribute while
-    "temperature" is a traditional numerical feature.
+-   以下，“城市”是分类属性，“温度”是传统的数值特征。
 
 ``` {.python}
 measurements = [
@@ -1703,136 +1668,94 @@ vec.fit_transform(measurements).toarray()
 vec.get_feature_names()
 ```
 
-### Text feature extraction
+### 文本特征提取
 
-1.  Text Analysis is a major application field for machine learning
-    algorithms.
-2.  However the raw data, a sequence of symbols cannot be fed directly
-    to the
+1.  文本分析是机器学习算法的一个主要应用领域。
+2.  而对于原始数据，符号序列不能直接供给算法本身，因为大多数算法都希望得到固定大
+    小的数字特征向量，而不是可变长度的原始文本文档。
+3.  为了解决这个问题，scikit-learn提供了从文本内容中提取数字特征的最常用方法的实
+    用工具(**bag**)。
 
-algorithms themselves as most of them expect numerical feature vectors
-with a fixed size rather than the raw text documents with variable
-length.
-
-1.  In order to address this, scikit-learn provides utilities(**bag**)
-    for the
-
-most common ways to extract numerical features from text content.
-
-### Text feature extraction
+### 文本特征提取
 
 1.  bag(multiset)
 
-    1.  In mathematics, a multiset (aka bag or mset) is a modification
-        of the concept of a set that, unlike a set, allows for multiple
-        instances for each of its elements.
-    2.  The positive integer number of instances, given for each element
-        is called the multiplicity of this element in the multiset.
+    1.  在数学中，多集(又名包或mset)是集合概念的修改，与集合不同，它允许每个元素
+        有多个实例。
+    2.  每个元素实例的正整数称为该元素在多集中的多重性。
 
 2.  bag utilities
 
-    1.  **tokenizing** strings and giving an integer id for each
-        possible token, for instance by using white-spaces and
-        punctuation as token separators.
-    2.  **counting** the occurrences of tokens in each document.
-    3.  **normalizing** and weighting with diminishing importance tokens
-        that occur in the majority of samples / documents.
+    1.  **标记**字符串并为每个可能的标记提供一个整数id，例如使用空格和标点符号作
+        为标记分隔符。
+    2.  **计算**每个文档中标记的出现次数。
+    3.  对大多数样本/文档中出现的重要标记进行**归一化**和加权。
 
-### features and samples
+### 特征和样本
 
-1.  each **individual token occurrence frequency** (normalized or not)
-    is treated as a **feature**.
-2.  the vector of all the token frequencies for a given document is
-    considered a multivariate **sample**.
-3.  A corpus of documents can thus be represented by a matrix with one
-    row per document and one column per token (e.g. word) occurring in
-    the corpus.
+1.  每个**个体标志发生频率**(标准化与否)都被视为一个**特征**。
+2.  一个给定文档的所有标志频率的向量被认为是一个多元**样本**。
+3.  因此，一个文档的语料库可以用一个矩阵来表示，在语料库中含有每个文档的一行，每
+    个标志(例如单词)的一列。
 
-### Bag of Words
+### 词汇包
 
-1.  We call **vectorization** the general process of turning a
-    collection of text documents into numerical feature vectors.
-2.  This specific strategy (tokenization, counting and normalization) is
-    called the **Bag of Words** representation.
-3.  Documents are described by word occurrences while completely
-    ignoring the relative position information of the words in the
-    document.
+1.  我们把把一组文本文档转化为数字特征向量的一般过程称为**向量化**。
+2.  这种特定的策略(标记化、计数和规范化)被称为**词汇包**表示。
+3.  用单词出现的情况来描述文档，完全忽略了单词在文档中的相对位置信息。
 
-### Sparsity
+### 稀疏
 
-1.  As most documents will typically use a very small subset of the
-    words used in the corpus, the resulting matrix will have many
-    feature values that are zeros (typically more than 99% of them).
-2.  For instance a collection of 10,000 short text documents (such as
-    emails) will use a vocabulary with a size in the order of 100,000
-    unique words in total while each document will use 100 to 1000
-    unique words individually.
-3.  In order to be able to store such a matrix in memory but also to
-    speed up algebraic operations matrix/vector, implementations will
-    typically use a sparse representation such as the implementations
-    available in the `scipy.sparse` package.
+1.  由于大多数文档通常使用语料库中使用的单词的一个非常小的子集，因此得到的矩阵将
+    有许多为零的特征值(通常超过99%)。
+2.  例如，一个包含10,000个短文本文档(比如电子邮件)的集合将使用一个词汇表，其大小
+    总计为100,000个唯一单词，而每个文档将分别使用100到1000个唯一单词。
+3.  为了能够在内存中存储这样的矩阵，同时也为了加速代数运算矩阵/向量，实现通常会
+    使用稀疏表示法，就像`scipy.sparse`包中可用的实现那样。稀疏的包。
 
-### Stop words
+### 停词
 
-1.  Stop words are words like "and", "the", "him", which are presumed to
-    be uninformative in representing the content of a text, and which
-    may be removed to avoid them being construed as signal for
-    prediction.
-2.  Sometimes, however, similar words are useful for prediction, such as
-    in classifying writing style or personality.
-3.  take care in choosing a stop word list. Popular stop word lists may
-    include words that are highly informative to some tasks, such as
-    computer.
-4.  You should also make sure that the stop word list has had the same
-    preprocessing and tokenization applied as the one used in the
-    vectorizer.
+1.  停词是指像“and”、“the”、“him”这样的词，这些词被认为在表示文本的内容时没有提
+    供信息，可以删除它们，以避免它们被理解为预测的信号。
+2.  然而，同样的词有时对预测是有用的，如用于分类写作风格或个性。
+3.  在选择停词表时要注意：流行的停词表可能包括对某些任务有高度信息的词，如
+    computer。
+4.  你还应确保停词表已经应用了与矢量器中使用的相同的预处理和记号化。
 
-### Image feature extraction
+### 图像特征提取
 
-1.  Patch extraction
+1.  补丁提取Patch extraction
 
-    1.  The **extract~patches2d~** function extracts patches from an
-        image stored as a two-dimensional array, or three-dimensional
-        with color information along the third axis.
-    2.  For rebuilding an image from all its patches, use
-        **reconstruct~frompatches2d~**.
+    1.  **extract~patches2d~**函数从存储为二维数组的图像中提取补丁，或者沿着第三
+        个轴存储颜色信息的三维图像。
+    2.  使用**reconstruct~frompatches2d~**从所有的补丁中重建图像。
+        .
 
-## Preprocessing data
+## 数据预处理
 
 ### 简介
 
-1.  The `sklearn.preprocessing` package provides several common utility
-    functions and transformer classes to change raw feature vectors into
-    a representation that is more suitable for the downstream
-    estimators.
-2.  In general, learning algorithms benefit from standardization of the
-    data set. If some outliers are present in the set, robust scalers or
-    transformers are more appropriate.
+1.  `sklearn.preprocessing`包提供了几个常用的实用函数和转换器类，可以将原始特征
+    向量转换为更适合于下游估计器的表示。
+2.  一般来说，学习算法受益于数据集的标准化。如果数据集中存在一些异常值，鲁棒标量
+    或变形器更合适。
 
-### 标准化(Standardization)
+### 标准化
 
-1.  Standardization of datasets is a common requirement for many machine
-    learning estimators implemented in scikit-learn;
-2.  they might behave badly if the individual features do not more or
-    less look like standard normally distributed data: Gaussian with
-    zero mean and unit variance.
-3.  In practice we often ignore the shape of the distribution and just
-    transform the data to center it by removing the mean value of each
-    feature, then scale it by dividing non-constant features by their
-    standard deviation.
+1.  数据集的标准化是许多在scikit-learn中实现的机器学习估计器的共同需求;
+2.  如果单个特征或多或少不像标准正态分布数据:即均值和单位方差为零的高斯分布数
+    据，那么它们可能表现得很糟糕。
+3.  在实践中，我们经常忽略分布的形状，只是通过去除每个特征的均值来将数据转换为中
+    心，然后通过不恒定特征除以其标准差来缩放数据。
 
 ### 标准化实施方法
 
-1.  The function `scale` provides a quick and easy way to perform this
-    operation on a single array-like dataset.
-2.  Scaled data has zero mean and unit variance.
-3.  The `preprocessing` module further provides a utility class
-    `StandardScaler` that implements the Transformer API to compute the
-    mean and standard deviation on a training set so as to be able to
-    later reapply the same transformation on the testing set.
-4.  It is possible to disable either centering or scaling by either
-    passing **with~mean~=False** or **with~std~=False** to the
-    constructor of `StandardScaler`.
+1.  函数`scale`提供了一种在一个单一的类数组数据集里执行这个操作的快捷方法。
+2.  缩放数据具备零均值和单位方差。
+3.  `preprocessing`模块进一步提供了一个工具类实现变压器`StandardScaler` API来计
+    算在一个训练集里的平均值和标准偏差,可以以后再申请相同的转换测试集。
+4.  可以通过传递**with~mean~=False**或**with~std~=False** 到`StandardScaler`的构
+    造函数来禁用定心或扩展。
 
 ### 标准化例子
 
@@ -1859,19 +1782,14 @@ X_test = [[-1., 1., 0.]]
 scaler.transform(X_test)
 ```
 
-### Scaling features to a range
+### 缩放特征到一个范围
 
-1.  An alternative standardization is scaling features to lie between a
-    given minimum and maximum value, often between zero and one, or so
-    that the maximum absolute value of each feature is scaled to unit
-    size.
-2.  This can be achieved using `MinMaxScaler` or `MaxAbsScaler`,
-    respectively.
-3.  As with `scale`, the module further provides convenience functions
-    **minmax~scale~** and **maxabs~scale~** if you don't want to create
-    an object.
-4.  If MinMaxScaler is given an explicit feature~range~=(min, max) the
-    full formula is:
+1.  另一种标准化是将特征缩放到给定的最小值和最大值之间，通常介于0和1之间，或者将
+    每个特征的最大绝对值缩放到单位大小。
+2.  这可以分别使用`MinMaxScaler`或`MaxAbsScaler`来实现。
+3.  与`scale`一样，如果您不想创建对象，该模块还进一步提供了**minmax~scale~**和
+    **maxabs~scale~**方便函数。
+4.  如果给MinMaxScaler一个显式的feature~range~=(min, max)，完整公式为:
 
 ``` {.python}
 X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
@@ -1897,30 +1815,20 @@ min_max_scaler.scale_
 min_max_scaler.min_
 ```
 
-### Non-linear transformation
+### 非线性变换
 
-1.  Two types of transformations are available: quantile transforms and
-    power transforms.
-2.  Both quantile and power transforms are based on monotonic
-    transformations of the features and thus preserve the rank of the
-    values along each feature.
-3.  Quantile transforms put all features into the same desired
-    distribution based on the formula $G^{-1}(F(X))$ where $F$ is the
-    cumulative distribution function of the feature and $G^{-1}$ the
-    quantile function of the desired output distribution $G$.
-4.  By performing a rank transformation, a quantile transform smooths
-    out unusual distributions and is less influenced by outliers than
-    scaling methods. It does, however, distort correlations and
-    distances within and across features.
-5.  Power transforms are a family of parametric transformations that aim
-    to map data from any distribution to as close to a Gaussian
-    distribution.
+1.  有两种类型的变换可用:分位数变换和幂变换。
+2.  分位数变换和幂变换都是基于特征的单调变换，从而保持每个特征上的值的秩恒定。
+3.  分位数变换把所有特征转换成所需的基于$G^{-1}(F(X))$的相同分布公式（其中$F$是
+    特征的累积分布函数）和$G^{-1}$所需的输出分布的分位数函数$G$。
+4.  通过执行一个秩变换,分位数转换可以平滑异常分布，且其受异常值的影响比缩放方法
+    小。然而，它确实扭曲了特征内部和之间的相关性和距离。
+5.  幂变换是一组旨在将数据从任意分布映射到接近高斯分布的参数变换。
 
-### Mapping to a Uniform distribution
+### 映射到一个均匀分布
 
-1.  `QuantileTransformer` and **quantile~transform~** provide a
-    non-parametric transformation to map the data to a uniform
-    distribution with values between 0 and 1.
+1.  `QuantileTransformer`和**quantile~transform~**提供了一个将数据映射到值在0到1
+    之间的均匀分布非参数转换。 
 
 ``` {.python}
 from sklearn.datasets import load_iris
@@ -1934,20 +1842,15 @@ X_test_trans = quantile_transformer.transform(X_test)
 np.percentile(X_train[:, 0], [0, 25, 50, 75, 100]) 
 ```
 
-### Mapping to a Gaussian distribution
+### 映射到一个高斯分布
 
-1.  In many modeling scenarios, normality of the features in a dataset
-    is desirable. Power transforms are a family of parametric, monotonic
-    transformations that aim to map data from any distribution to as
-    close to a Gaussian distribution as possible in order to stabilize
-    variance and minimize skewness.
-2.  PowerTransformer currently provides two such power transformations,
-    the Yeo-Johnson transform and the Box-Cox transform.
-3.  Box-Cox can only be applied to strictly positive data. In both
-    methods, the transformation is parameterized by $\lambda$ , which is
-    determined through maximum likelihood estimation.
-4.  It is also possible to map data to a normal distribution using
-    QuantileTransformer by setting **output~distribution~=\'normal\'**.
+1.  在许多建模场景中，数据集的特征常态化是可取的。幂变换是一组参数单调变换，旨在
+    将数据从任意分布映射到尽可能接近高斯分布，以稳定方差和最小化偏态。
+2.  PowerTransformer目前提供两种这样的功率转换，Yeo-Johnson转换和Box-Cox转换。
+3.  Box-Cox只能应用于严格的正反应。在这两种方法中，变换都是由极大似然估计确定的
+    $\lambda$拟合参数化。
+4.  通过设置**output~distribution~=\'normal\'**，也可以使用QuantileTransformer将
+    数据映射到正态分布。
 
 ### 例子
 
@@ -1963,20 +1866,15 @@ X_trans = quantile_transformer.fit_transform(X)
 quantile_transformer.quantiles_
 ```
 
-### 正规化(Normalization)
+### 正规化
 
-1.  Normalization is the process of scaling individual samples to have
-    unit norm. This process can be useful if you plan to use a quadratic
-    form such as the dot-product or any other kernel to quantify the
-    similarity of any pair of samples.
-2.  The function normalize provides a quick and easy way to perform this
-    operation on a single array-like dataset, either using the l1 or l2
-    norms.
-3.  The `preprocessing` module further provides a utility class
-    `Normalizer` that implements the same operation using the
-    Transformer API (even though the `fit` method is useless in this
-    case: the class is stateless as this operation treats samples
-    independently).
+1.  正规化是将个体样本缩放到单位范数的过程。如果你计划使用二次形式(如点积)或任何
+    其他核来量化任何一对样本的相似性，那么这个过程将非常有用。
+2.  函数normalize提供了一种在一个单一的类数组数据集上执行这个操作的简捷方法，使
+    用l1或l2规范。
+3.  `preprocessing`模块进一步提供了一个实用程序类`Normalizer`，它使用Transformer
+    API实现相同的操作(尽管`fit`方法在这种情况下没有用:因为这个操作独立地处理示
+    例，所以类是无状态的)。
 
 ### 例子
 
@@ -2001,41 +1899,31 @@ normalizer.transform(X)
 normalizer.transform([[-1.,  1., 0.]])
 ```
 
-### 分类属性编码Encoding categorical features
+### 分类属性编码
 
-1.  Often features are not given as continuous values but categorical.
-2.  To convert categorical features to integer codes, we can use the
-    `OrdinalEncoder`.
-3.  This estimator transforms each categorical feature to one new
-    feature of integers (0 to **n~categories~ - 1**)
-4.  Such integer representation can, however, not be used directly with
-    all scikit-learn estimators, as these expect continuous input, and
-    would interpret the categories as being ordered, which is often not
-    desired.
+1.  特征通常不是连续的，而是分类的。
+2.  为了将分类特征转换为整数码，我们可以使用`OrdinalEncoder`。
+3.  这个估计器把每个分类特征都转换到一个新特征整数(0到**n~categories~ - 1**)。
+4.  然而,这样的整数表示不能直接与所有scikit-learn估计器一起使用,因为这些期望连续
+    输入,并将类别解释为有序的，这通常是不理想的。
 
-### 分类属性编码Encoding categorical features
+### 分类属性编码
 
-1.  Another possibility to convert categorical features to features that
-    can be used with scikit-learn estimators is to use a one-of-K, also
-    known as one-hot or dummy encoding.
-2.  This type of encoding can be obtained with the `OneHotEncoder`,
-    which transforms each categorical feature with **n~categories~**
-    possible values into n~categories~ binary features, with one of them
-    1, and all others 0.
-3.  By default, the values each feature can take is inferred
-    automatically from the dataset and can be found in the
-    \*categories~\*~ attribute.
-4.  It is possible to specify this explicitly using the `parameter`
-    categories.
+1.  另一种将分类特征转换为可用于scikit-learn估计器的特征的可能性是使用one-of-K编
+    码，也称为one-hot编码或dummy编码。
+2.  这种类型的编码可以通过`OneHotEncoder`获得，该编码器将每个具有
+    **n~categories~**可能值的分类特征转换为n_categories二进制特征，其中一个为1，
+    其他所有为0。
+3.  默认情况下，每个特征可以取的值是自动从数据集中推断出来的，可以在
+    \*categories~\*~ 属性中找到。
+4.  可以使用`parameter`类别明确地指定这一点。
 
-### 分类属性编码Encoding categorical features
+### 分类属性编码
 
-1.  It is also possible to encode each column into **n~categories~ - 1**
-    columns instead of n~categories~ columns by using the `drop`
-    parameter.
-2.  This parameter allows the user to specify a category for each
-    feature to be dropped. This is useful to avoid co-linearity in the
-    input matrix in some classifiers.
+1.  也可以使用`drop`参数将每个列编码为**n~categories~ - 1**列，而不是
+    n_categories列。
+2.  这个参数允许用户为每个要删除的功能指定一个类别。这是有用的，以避免在一些分类
+    器的输入矩阵中出现共线性。
 
 ### 例子
 
@@ -2062,8 +1950,8 @@ genders = ['female', 'male']
 locations = ['from Africa', 'from Asia', 'from Europe', 'from US']
 browsers = ['uses Chrome', 'uses Firefox', 'uses IE', 'uses Safari']
 enc = preprocessing.OneHotEncoder(categories=[genders, locations, browsers])
-# Note that for there are missing categorical values 
-# for the 2nd and 3rd feature
+# 注意此时存在分类值缺失 
+# 对于第二和第三特征
 X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
 enc.fit(X)
 enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
@@ -2075,29 +1963,21 @@ drop_enc.categories_
 drop_enc.transform(X).toarray()
 ```
 
-### 离散化Discretization
+### 离散化
 
-1.  Discretization (otherwise known as quantization or binning) provides
-    a way to partition continuous features into discrete values.
-2.  Certain datasets with continuous features may benefit from
-    discretization, because discretization can transform the dataset of
-    continuous attributes to one with only nominal attributes.
+1.  离散化(也称为量化或封装)提供了一种将连续特征分割成离散值的方法。
+2.  某些具有连续特征的数据集可能会受益于离散化，因为离散化可以将具有连续属性的数
+    据集转换为只有名义属性的数据集。
 
-### K-bins discretization
+### K-bins离散化
 
-1.  K-bins discretization: `KBinsDiscretizer` discretizes features into
-    k bins.
-2.  By default the output is one-hot encoded into a sparse matrix and
-    this can be configured with the `encode` parameter.
-3.  For each feature, the bin edges are computed during fit and together
-    with the number of bins, they will define the intervals.
-4.  Discretization is similar to constructing histograms for continuous
-    data. However, histograms focus on counting features which fall into
-    particular bins, whereas discretization focuses on assigning feature
-    values to these bins.
-5.  `KBinsDiscretizer` implements different binning strategies, which
-    can be selected with the `strategy` parameter. The 'uniform'
-    strategy uses constant-width bins.
+1.  k-bins离散化:`KBinsDiscretizer`将特征离散到k个箱子中。
+2.  默认输出是one-hot编码到稀疏矩阵，这可以与`encode`参数配置。
+3.  对于每个特征，在fit时可以计算出bin的边缘，它与bin的数量一起定义间隔。
+4.  离散化类似于对连续数据构造直方图。然而，直方图侧重于统计落在特定箱子里的特
+    征，而离散化侧重于给这些箱子分配特征值。
+5.  `KBinsDiscretizer`实现了不同的封装策略，可以通过`strategy`参数进行选择。
+    'uniform'策略使用恒定宽度的箱子。
 
 ### 例子
 
@@ -2113,23 +1993,16 @@ est = preprocessing.KBinsDiscretizer(n_bins=[3, 2, 2], encode='ordinal').fit(X)
 est.transform(X)
 ```
 
-### Feature binarization
+### 特征二值化
 
-1.  Feature binarization is the process of thresholding numerical
-    features to get boolean values.
-2.  This can be useful for downstream probabilistic estimators that make
-    assumption that the input data is distributed according to a
-    multi-variate Bernoulli distribution.
-3.  As for the `Normalizer`, the utility class `Binarizer` is meant to
-    be used in the early stages of `sklearn.pipeline.Pipeline`. The fit
-    method does nothing as each sample is treated independently of
-    others.
-4.  It is possible to adjust the threshold of the binarizer by using
-    `threshold` parameter.
-5.  the preprocessing module provides a companion function binarize to
-    be used when the transformer API is not necessary.
-6.  Note that the `Binarizer` is similar to the `KBinsDiscretizer` when
-    k = 2, and when the bin edge is at the value threshold.
+1.  特征二值化是对数值特征进行阈值化得到布尔值的过程。
+2.  这对于下游的概率估计是有用的，这些估计假设输入数据是服从多变量伯努利分布分布
+    的。
+3.  至于`Normalizer`, 实用类`Binarizer`用于`sklearn.pipeline.Pipeline`的早期阶
+    段。由于每个样本都是独立处理的，因此拟合方法没有任何作用。
+4.  使用`threshold`参数可以调整二进制器的阈值。
+5.  当不需要应用程序接口转换器时，预处理模块提供了一个配对函数二进制。
+6.  注意，当k = 2，bin边缘在阈值时，`Binarizer`与`KBinsDiscretizer`类似。
 
 ### 例子
 
@@ -2149,22 +2022,18 @@ binarizer = preprocessing.Binarizer(threshold=1.1)
 binarizer.transform(X)
 ```
 
-### Generating polynomial features
+### 生成多项式特征
 
-1.  Often it's useful to add complexity to the model by considering
-    nonlinear features of the input data.
-2.  A simple and common method to use is polynomial features, which can
-    get features' high-order and interaction terms.
-3.  It is implemented in `PolynomialFeatures`.
-4.  In some cases, only interaction terms among features are required,
-    and it can be gotten with the setting **interaction~only~=True**
+1.  通过考虑输入数据的非线性特征来增加模型的复杂性通常是有用的。
+2.  一种简单而常用的方法是多项式特征，它可以得到特征的高阶项和相互作用项。
+3.  它是在`PolynomialFeatures`中实现的。It is implemented in .
+4.  在某些情况下，只需要特性之间的交互项，可以通过设置**interaction~only~=True**
+    得到结果。
 
 ### 例子
 
-1.  The features of X have been transformed $(X_1, X_2)$ from to
-    $(1, X_1, X_2, X_1^2, X_1X_2, X_2^2)$.
-2.  The features of X have been transformed $(X_1, X_2, X_3)$ from to
-    $(1, X_1, X_2, X_3, X_1X_2, X_1X_3, X_2X_3, X_1X_2X_3)$ .
+1.  X的特征值从$(X_1, X_2)$转换为$(1, X_1, X_2, X_1^2, X_1X_2, X_2^2)$.
+2.  X的特征值从$(X_1, X_2, X_3)$转换为$(1, X_1, X_2, X_3, X_1X_2, X_1X_3,X_2X_3,X_1X_2X_3)$ .
 
 ``` {.python}
 import numpy as np
