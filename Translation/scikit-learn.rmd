@@ -992,7 +992,7 @@ param_grid = [
 ### 随机参数优化
 
 1.  指定如何采样参数是使用字典来完成的，这与为`GridSearchCV`指定参数非常相似。
-2.  另外，使用**n_iter**参数指定计算预算，即抽样候选数或抽样迭代数。
+2.  另外，使用`n_iter`参数指定计算预算，即抽样候选数或抽样迭代数。
 3.  对于每个参数，可以指定可能值的分布或一系列离散选择(将统一采样)。
 
 ``` {.python}
@@ -1002,32 +1002,32 @@ param_grid = [
 
 ### 随机参数优化
 
-1.  原则上，可以传递提供rvs（随机变量样本）方法以采样值的任何函数。 调用rvs函数
+1.  原则上，可以传递提供`rvs`（随机变量样本）方法以采样值的任何函数。 调用`rvs`函数
     应从连续调用的可能参数值中提供独立的随机样本。
 2.  对于连续参数，例如上面的`C`，指定连续分布以充分利用随机性很重要。 这样，增加
-    **n_iter**总是会导致更精细的搜索。
+    `n_iter`总是会导致更精细的搜索。
 
 ### 指定客观指标
 
 1.  默认情况下，参数搜索使用估算器的 `score` 功能来评估参数设置。
-2.  这是用来分类的**sklearn.metrics.accuracy_score**和用来回归的
-    **sklearn.metrics.r2_score**。
+2.  这是用来分类的`sklearn.metrics.accuracy_score`和用来回归的
+    `sklearn.metrics.r2_score`。
 3.  对于某些应用程序，其他计分功能更适合（例如，在不平衡分类中，准确性得分通常不
     具信息性）。
 4.  可以通过`GridSearchCV`, `RandomizedSearchCV`和下面描述的许多专用交叉验证工具
-    的scoring参数指定替代的`scoring`函数。
+    的`scoring`参数指定替代的`scoring`函数。
 
 ## 指标和评分：量化预测的质量
 
 ### 3种不同的API
 
-1.  有3种不同的API可用于评估模型预测的质量：
+1.  有3种不同的`API`可用于评估模型预测的质量：
 2.  `Dummy` 估算量对于获取这些指标的基线值以进行随机预测很有用。
 
 ```{=html}
 <!-- -->
 ```
-1.  估算量评分方法：
+3.  估算量评分方法：
 
     -   估算量有一种计分方法，可为设计要解决的问题提供默认的评估标准。
     -   本页中没有讨论此问题，但是每个估算量的文档中都对此进行了讨论。
@@ -1052,89 +1052,85 @@ param_grid = [
     算器应用何种度量。
 2.  对于最常见的用例，您可以使用`scoring`参数指定一个计分器对象。
 3.  所有计分器对象均遵循以下约定：较高的返回值比较低的返回值更好。
-4.  因此，用于度量模型与数据之间距离的度量（如**metrics.mean_squarederror**）可
-    以作为**neg_meansquarederror**（其返回度量值的取反值）使用。
+4.  因此，用于度量模型与数据之间距离的度量（如`metrics.mean_squarederror`）可
+    以作为`neg_meansquarederror`（其返回度量值的取反值）使用。
 
 ### 分类指标
 
 1.  其中一些仅限于二进制分类的情况：
-    1.  precision_recallcurve(y_true, probas_pred): 计算不同概率阈值的精确召
+    1.  `precision_recallcurve(y_true, probas_pred)`: 计算不同概率阈值的精确召
         回对
-    2.  roc_curve(y_true, y_score\[, pos_label, ...\]): 计算接收器工作特性
-        （ROC）
+    2.  `roc_curve(y_true, y_score[, pos_label, ...])`: 计算接收器工作特性
+        `（ROC）`
 2.  其他人也可以在多类情况下工作：
-    1.  balanced_accuracyscore(y_true, y_pred\[, ...\]): 计算平衡精度
-    2.  cohen_kappascore(y1, y2\[, labels, weights, ...\]): Cohen's kappa: 度量
+    1.  `balanced_accuracyscore(y_true, y_pred[, ...])`: 计算平衡精度
+    2.  `cohen_kappascore(y1, y2[, labels, weights, ...])`: `Cohen's kappa`: 度量
         注释者间协议的统计数据。
-    3.  confusion_matrix(y_true, y_pred\[, labels, ...\]): 计算混淆矩阵以评估
+    3.  `confusion_matrix(y_true, y_pred[, labels, ...])`: 计算混淆矩阵以评估
         分类的准确性。
-    4.  hinge_loss(y_true, pred_decision\[, labels, ...\]): 平均铰链损耗（非
+    4.  `hinge_loss(y_true, pred_decision[, labels, ...])`: 平均铰链损耗（非
         常规）
-    5.  matthews_corrcoef(y_true, y_pred\[, ...\]): 计算马修斯相关系数（MCC）
-    6.  roc_aucscore(y_true, y_score\[, average, ...\]): 根据预测分数计算接收
-        器工作特性曲线（ROC AUC）下的面积。
+    5.  `matthews_corrcoef(y_true, y_pred[, ...])`: 计算马修斯相关系数`（MCC）`
+    6.  `roc_aucscore(y_true, y_score[, average, ...])`: 根据预测分数计算接收
+        器工作特性曲线`（ROC AUC）`下的面积。
 
 ### 分类指标
 
 1.  有些在多标签的情况下也可以使用：
-    1.  accuracy_score(y_true, y_pred\[, normalize, ...\]): Accuracy
-        classification score.
-    2.  classification_report(y_true, y_pred\[, ...\]): Build a text
-        report showing the main classification metrics
-    3.  f1_score(y_true, y_pred\[, labels, ...\]): Compute the F1
-        score, also known as balanced F-score or F-measure
-    4.  fbeta_score(y_true, y_pred, beta\[, labels, ...\]): Compute
-        the F-beta score
-    5.  hamming_loss(y_true, y_pred\[, labels, ...\]): Compute the
-        average Hamming loss.
-    6.  jaccard_score(y_true, y_pred\[, labels, ...\]): Jaccard
-        similarity coefficient score
-    7.  log_loss(y_true, y_pred\[, eps, normalize, ...\]): Log loss,
-        aka logistic loss or cross-entropy loss.
-    8.  multilabel_confusionmatrix(y_true, y_pred): Compute a
-        confusion matrix for each class or sample
+    1.  `accuracy_score(y_true, y_pred[, normalize, ...])`: 准确性分类评分。
+    2.  `classification_report(y_true, y_pred[, ...])`: 建立文字报告，显示主要的
+        分类指标。
+    3.  `f1_score(y_true, y_pred[, labels, ...])`: 计算`F1`分数，也称为平衡`F`分
+        数或`F`测量。
+    4.  `fbeta_score(y_true, y_pred, beta[, labels, ...])`: 计算`F-beta`分数。
+    5.  `hamming_loss(y_true, y_pred[, labels, ...])`: 计算平均`Hamming`损失。
+    6.  `jaccard_score(y_true, y_pred[, labels, ...])`: 雅卡德相似系数得分。
+    7.  `log_loss(y_true, y_pred[, eps, normalize, ...])`: 对数损失，又称逻辑损失
+        或交叉熵损失。
+    8.  `multilabel_confusionmatrix(y_true, y_pred)`: 为每个类别或样本计算混淆矩
+        阵。
 
-### Classification metrics
+### 分类指标
 
-1.  precision_recallfscoresupport(y_true, y_pred): 计算每个班级的精度，召回率，
-    F量度和支持
-2.  precision_score(y_true, y_pred\[, labels, ...\]): 计算精度
-3.  recall_score(y_true, y_pred\[, labels, ...\]): 计算召回率
-4.  roc_aucscore(y_true, y_score\[, average, ...\]): 根据预测分数计算接收器工作
-    特性曲线（ROC AUC）下的面积。
-5.  zero_oneloss(y_true, y_pred\[, normalize, ...\]): 零一分类损失。
+1.  `precision_recallfscoresupport(y_true, y_pred)`: 计算每个班级的精度，召回率，
+    `F`量度和支持
+2.  `precision_score(y_true, y_pred[, labels, ...])`: 计算精度
+3.  `recall_score(y_true, y_pred[, labels, ...])`: 计算召回率
+4.  `roc_aucscore(y_true, y_score[, average, ...])`: 根据预测分数计算接收器工作
+    特性曲线`（ROC AUC）`下的面积。
+5.  `zero_oneloss(y_true, y_pred[, normalize, ...])`: 零一分类损失。
 6.  还有一些解决二进制和多标签（但不是多类）问题的方法：
-    average_precisionscore(y_true, y_score\[, ...\]):根据预测分数计算平均精度
-    （AP）
+    `average_precisionscore(y_true, y_score[, ...])`:根据预测分数计算平均精度
+    `（AP）`
 
 ### 多标签排名指标
 
-1.  覆盖错误： The `coverage_error`
-2.  标签排名平均精度： The`label_ranking_average_precision_score`
-3.  排名损失： The `label_ranking_loss`
+1.  覆盖错误
+2.  标签排名平均精度
+3.  排名损失
 4.  归一化折现累积收益
 
 ### 回归指标
 
-1.  解释方差得分： The `explained_variance_score`
-2.  最大错误： The `max_error`
-3.  平均绝对误差： The `mean_absolute_error`
-4.  均方误差： The `mean_squared_error`
-5.  均方对数误差： The `mean_squared_log_error`
-6.  中位数绝对错误： The `median_absolute_error`
-7.  R²得分，确定系数： The `r2_score`
-8.  平均泊松，伽玛和特威迪偏差： The`mean_tweedie_deviance`
+1.  解释方差得分
+2.  最大错误
+3.  平均绝对误差
+4.  均方误差
+5.  均方对数误差
+6.  中位数绝对错误
+7.  `R²`得分，确定系数
+8.  平均泊松，伽玛和特威迪偏差
 
 ### 聚类指标
 
 1.  调整后的兰德指数： `adjusted_rand_score`
 2.  基于相互信息的分数： `adjusted_mutual_info_score`
-3.  同质性，完整性和V度量： `homogeneity_score`,
+3.  同质性，完整性和`V`度量： `homogeneity_score`,
     `completeness_score`, `v_measure_score`
 4.  福克斯-锦葵分数： `fowlkes_mallows_score`
 5.  轮廓系数： `silhouette_score`
-6.  Calinski-Harabasz指数： `calinski_harabasz_score`
-7.  Davies-Bouldin指数： `davies_bouldin_score`
+6.  `Calinski-Harabasz`指数： `calinski_harabasz_score`
+7.  `Davies-Bouldin`指数： `davies_bouldin_score`
 8.  权变矩阵： `sklearn.metrics.cluster.contingency_matrix`
 
 ### 虚拟估计量
@@ -1147,11 +1143,11 @@ param_grid = [
 ```
 1.  `DummyClassifier` 实现几种简单的分类策略：
 
-    1.  **stratified** 通过遵守训练集类别分布来生成随机预测。
-    2.  **most_frequent** 总是预测训练集中最频繁的标签。
-    3.  **prior** 总是预测训练集中最频繁的标签。
-    4.  **uniform** 随机均匀地生成预测。
-    5.  **constant** 总是预测用户提供的恒定标签。
+    1.  `stratified` 通过遵守训练集类别分布来生成随机预测。
+    2.  `most_frequent` 总是预测训练集中最频繁的标签。
+    3.  `prior` 总是预测训练集中最频繁的标签。
+    4.  `uniform`随机均匀地生成预测。
+    5.  `constant` 总是预测用户提供的恒定标签。
 
 ### 虚拟估计量
 
@@ -1187,22 +1183,22 @@ clf.score(X_test, y_test)
 
 1.  `DummyRegressor` 还实现了四个简单的回归经验法则：
 
-    1.  **mean** 总是预测训练目标的平均值。
-    2.  **median** 总是预测训练目标的中位数。
-    3.  **quantile** 总是预测用户提供的训练目标的分位数。
-    4.  **constant** 总是预测用户提供的恒定值。
+    1.  `mean` 总是预测训练目标的平均值。
+    2.  `median` 总是预测训练目标的中位数。
+    3.  `quantile` 总是预测用户提供的训练目标的分位数。
+    4.  `constant` 总是预测用户提供的恒定值。
     5.  在所有这些策略中，预测方法完全忽略了输入数据。
 
 ## 模型持久性
 
 ### 模型持久性
 
-1.  训练了scikit学习模型后，希望有一种方法可以持久保留模型以备将来使用，而不必重
+1.  训练了`scikit`学习模型后，希望有一种方法可以持久保留模型以备将来使用，而不必重
     新训练。
-2.  通过使用Python的内置持久性模型`pickle`，可以在scikit-learn中保存模型。
-3.  在scikit-learn的特定情况下，最好使用`joblib`的替代pickle（`dump` &
-    `load`），这种方法在内部通常携带大型numpy数组的对象上效率更高。 适用于适合的
-    scikit-learn估计器，但只能在磁盘上pickle而不能在字符串上pickle。
+2.  通过使用`Python`的内置持久性模型`pickle`，可以在`scikit-learn`中保存模型。
+3.  在`scikit-learn`的特定情况下，最好使用`joblib`的替代`pickle`（`dump` &
+    `load`），这种方法在内部通常携带大型`numpy`数组的对象上效率更高。 适用于适合的
+    `scikit-learn`估计器，但只能在磁盘上`pickle`而不能在字符串上`pickle`。
 
 ### 例子
 
@@ -1245,16 +1241,15 @@ clf = load('filename.joblib')
     些嘈杂样本。
 3.  我们使用三种不同的估计器来拟合该函数：具有1、4和15阶多项式特征的线性回归。
 
-`\center
-[[file:images/overfitting.png]`{=latex}\]
+![](images/overfitting.png)
 
 ### 简介例子
 
 1.  我们看到，第一个估计器充其量只能提供与样本和真实函数的较差拟合，因为它太简单
-    了（高偏差，**underfiting**)
+    了（高偏差，`underfiting`)
 2.  第二个估算器几乎完美地估计了它
 3.  而最后一个估算器可以完美地近似训练数据，但不能很好地拟合真实函数，即它对变化
-    的训练数据非常敏感（高方差， **overfitting**).
+    的训练数据非常敏感（高方差， `overfitting`).
 4.  在示例中我们看到的简单的一维问题中，很容易看到估计量是否存在偏差或方差。
 5.  但是，在高维空间中，模型变得非常难以可视化。
 
@@ -1268,7 +1263,7 @@ clf = load('filename.joblib')
 4.  为了获得适当的泛化估计，我们必须在另一个测试集上计算分数。
 5.  但是，有时可能需要绘制单个超参数对训练得分和验证得分的影响，以找出估计器对于
     某些超参数值是过度拟合还是不足。
-6.  在这种情况下，功能**validation_curve**可以提供帮助。
+6.  在这种情况下，功能`validation_curve`可以提供帮助。
 
 ### 验证曲线
 
@@ -1276,7 +1271,7 @@ clf = load('filename.joblib')
 2.  如果训练得分高而验证得分低，则估计量过拟合
 3.  否则效果很好。
 4.  低培训分数和高验证分数通常是不可能的。
-5.  这三种情况都可以在下面的图中找到，我们在其中更改了数字数据集上SVM的参数$\gamma$。
+5.  这三种情况都可以在下面的图中找到，我们在其中更改了数字数据集上`SVM`的参数$\gamma$。
 
 ![](images/validation_curve.png)
 
@@ -1305,13 +1300,13 @@ valid_scores
 
 1.  学习曲线显示了针对不同数量的训练样本的估计量的有效性和训练得分。
 2.  这是一种工具，它可以找出我们从添加更多训练数据中受益多少，以及估算器是否遭受方差误差或偏差误差的影响更大。
-3.  我们可以使用函数**learning_curve**来生成绘制这样的学习曲线所需的值（已使用的样本数，训练集的平均分数和验证集的平均分数）。
+3.  我们可以使用函数`learning_curve`来生成绘制这样的学习曲线所需的值（已使用的样本数，训练集的平均分数和验证集的平均分数）。
 
 ### 学习曲线
 
-1.  考虑以下示例，其中绘制了朴素贝叶斯分类器和SVM的学习曲线。
+1.  考虑以下示例，其中绘制了朴素贝叶斯分类器和`SVM`的学习曲线。
 2.  对于朴素的贝叶斯，随着训练集规模的增加，验证分数和训练分数都收敛到一个非常低的值。 因此，我们可能不会从更多的训练数据中受益匪浅。
-3.  相反，对于少量数据，SVM的训练得分远大于验证得分。 添加更多的训练样本将最有可能增加泛化性。
+3.  相反，对于少量数据，`SVM`的训练得分远大于验证得分。 添加更多的训练样本将最有可能增加泛化性。
 
 ![](images/leaning_curve.png)
 
@@ -1345,13 +1340,13 @@ valid_scores
 
 ### 偏相关图
 
-1.  部分依赖图（PDP）显示目标响应与一组“目标”特征之间的依赖关系，将所有其他特征
+1.  部分依赖图（`PDP`）显示目标响应与一组“目标”特征之间的依赖关系，将所有其他特征
     （“互补”特征）的值边缘化。直观上，我们可以将部分依赖关系解释为 预期目标响应
     是“目标”功能的函数。
 2.  由于人类感知的局限性，目标特征集的大小必须很小（通常为一两个），因此通常在最
     重要的特征中选择目标特征。
 3.  ` sklearn.inspection`模块提供了一个便利函数
-    **plot_partialdependence**来创建单向和双向的部分依赖图。
+    `plot_partialdependence`来创建单向和双向的部分依赖图。
 
 ### 排列特征重要性
 
@@ -1360,33 +1355,33 @@ valid_scores
 3.  排列特征的重要性定义为当随机混合单个特征值时模型得分的降低。
 4.  此过程破坏了特征与目标之间的关系，因此模型得分的下降表示模型对特征的依赖程度。
 5.  该技术受益于模型不可知，并且可以使用特征的不同排列进行多次计算。
-6.  **permutation_importance**函数计算给定数据集的估计量的特征重要性。
+6.  `permutation_importance`函数计算给定数据集的估计量的特征重要性。
 
 ## 可视化
 
 ### 简介
 
-1.  Scikit-learn定义了一个简单的API，用于创建用于机器学习的可视化。
-2.  此API的关键功能是无需重新计算即可进行快速绘图和视觉调整。
+1.  `Scikit-learn`定义了一个简单的`API`，用于创建用于机器学习的可视化。
+2.  此`API`的关键功能是无需重新计算即可进行快速绘图和视觉调整。
 
 ```{=html}
 <!-- -->
 ```
 1.  函数
 
-    -   inspection.plot_partialdependence(...\[, ...\]): 部分依赖图。
-    -   metrics.plot_confusionmatrix(estimator, X, ...): 绘制混淆矩阵。
-    -   metrics.plot_precisionrecallcurve(...\[, ...\]): 绘制二元分类器的精确召回曲线。
-    -   metrics.plot_roccurve(estimator, X, y\[, ...\]): 绘制接收器工作特性（ROC）曲线。
+    -   `inspection.plot_partialdependence(...[, ...])`: 部分依赖图。
+    -   `metrics.plot_confusionmatrix(estimator, X, ...)`: 绘制混淆矩阵。
+    -   `metrics.plot_precisionrecallcurve(...[, ...])`: 绘制二元分类器的精确召回曲线。
+    -   `metrics.plot_roccurve(estimator, X, y[, ...])`: 绘制接收器工作特性`（ROC）`曲线。
 
 ### 简介
 
 1.  显示对象
 
-    -   inspection.PartialDependenceDisplay(...): 部分依赖图（PDP）可视化。
-    -   metrics.ConfusionMatrixDisplay(...): 混淆矩阵可视化。
-    -   metrics.PrecisionRecallDisplay(precision, ...): 精确调用可视化。
-    -   metrics.RocCurveDisplay(fpr, tpr, roc_auc, ...): ROC曲线可视化。
+    -   `inspection.PartialDependenceDisplay(...)`: 部分依赖图`（PDP）`可视化。
+    -   `metrics.ConfusionMatrixDisplay(...)`: 混淆矩阵可视化。
+    -   `metrics.PrecisionRecallDisplay(precision, ...)`: 精确调用可视化。
+    -   `metrics.RocCurveDisplay(fpr, tpr, roc_auc, ...)`: `ROC`曲线可视化。
 
 ### 例子
 
@@ -1417,7 +1412,7 @@ svc_disp.plot(ax=ax, alpha=0.8)
 
 ### 简介
 
-1.  scikit-learn提供了一个转换器库，可以清理（请参见预处理数据），缩小（请参见无
+1.  `scikit-learn`提供了一个转换器库，可以清理（请参见预处理数据），缩小（请参见无
     监督的降维），展开（请参见内核近似）或生成（请参见特征提取）要素表示。
 2.  像其他估计量一样，它们由具有`fit`方法的类表示，该方法从训练集中学习模型参数
     （例如，标准化的均值和标准差），以及`transform`方法，将这种转换模型应用于看
@@ -1425,9 +1420,9 @@ svc_disp.plot(ax=ax, alpha=0.8)
 
 ### 简介
 
-1.  **fit~transform~**可以更方便，更有效地同时建模和转换训练数据。
+1.  `fit_transform`可以更方便，更有效地同时建模和转换训练数据。
 2.  管道和复合估算器中介绍了将此类变压器并联或串联的方法。
-3.  成对度量，亲和力和内核涵盖将特征空间转换为亲和度矩阵，而变换预测目标（y）则考虑在scikit学习中使用目标空间（例如分类标签）的转换。
+3.  成对度量，亲和力和内核涵盖将特征空间转换为亲和度矩阵，而变换预测目标`（y）`则考虑在`scikit`学习中使用目标空间（例如分类标签）的转换。
 
 ## 管道和复合估算器
 
@@ -1437,7 +1432,7 @@ svc_disp.plot(ax=ax, alpha=0.8)
 2.  最常用的工具是管道。
 3.  流水线通常与`FeatureUnion`结合使用，后者将变压器的输出连接到一个复合特征空间中。
 4.  `TransformedTargetRegressor`处理转换目标（即对数变换y）。
-5.  相比之下，管道仅转换观察到的数据（X）。
+5.  相比之下，管道仅转换观察到的数据`（X）`。
 
 ### 管道：链接估算器
 
@@ -1471,7 +1466,7 @@ svc_disp.plot(ax=ax, alpha=0.8)
 
 1.  `Pipeline`是使用`(key, value)`对的`list`构建的，其中键是一个包含您要赋予此步
     骤名称的字符串，而值是一个估计器对象。
-2.  实用函数**make_pipeline**是构造管道的简写； 它使用可变数量的估算器并返回管
+2.  实用函数`make_pipeline`是构造管道的简写； 它使用可变数量的估算器并返回管
     道，并自动填充名称。
 
 ### 管道构建例子
