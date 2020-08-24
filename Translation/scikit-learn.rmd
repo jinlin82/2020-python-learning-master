@@ -43,7 +43,7 @@ library(reticulate)
 
 1.  Scikit-learn（之前作scikits.learn，也叫sklearn）是python编程语言的一个免
     费软件机器学习库。
-2.  它具有各种分类，回归和聚类算法，包括支持向量机器，随机森林，梯度增强，k-均值和
+2.  它具有各种分类，回归和聚类算法，包括支持向量机，随机森林，梯度增强，k-均值和
     DBSCAN，
 3.  同时它设计成可与python数值和科学库numpy和scipy进行交互操作。
 
@@ -139,14 +139,14 @@ library(reticulate)
 1.  scikit-learn附带了一些标准数据集，例如用于分类的鸢尾和数字数据集以及用于回
     归的波士顿房价数据集。
 2.  数据集是一个类似字典的对象，它保存所有数据和有关数据的一些元数据。
-3.  此数据存储在 `.data` 子类中，即一个 `n_samples` ，`n_features` 数组。
+3.  此数据存储在 `.data` 子类中，即一个 `n_samples, n_features` 数组。
 
 ### 包含的数据集
 
 1.  我们说这些数组的第一个轴是 **样本** 轴，第二个轴是 **特征** 轴。
 2.  在有监督问题的情况下，一个或多个响应变量被存储在 `.target` 子类中。
-3.  数据通常是二维数组，形状（n~samples~, n~features~），尽管原始数组可能有不同的形状。
-4.  当数据起初并非（n~samples~, n~features~）的形状时，需要对其进行预处理以供
+3.  数据通常是二维数组，形状（n_samples, n_features），尽管原始数组可能有不同的形状。
+4.  当数据起初并非（n_samples, n_features）的形状时，需要对其进行预处理以供
     scikit-learn使用。
 
 ### 例子
@@ -215,7 +215,7 @@ library(reticulate)
 
 1.  有监督学习由学习两个数据及之间的联系构成：
     1.  我们试图预测的观测数据X和外部变量y，通常称为“目标”或“标签”。
-    2.  通常，y是一个长度为n~samples~的一维数组。
+    2.  通常，y是一个长度为 `n_samples` 的一维数组。
 2.  scikit-learn中的所有有监督估计器都执行一个 `fit(X, y)` 方法来拟合模型，以及
     一个 `predict(X)` 方法，在给定未标记的观测值X的情况下，返回预测标签y。
 3.  如果预测任务是在一组有限的标签中对观测值进行分类，换言之就是“命名”预测到的对
@@ -300,8 +300,8 @@ library(reticulate)
 ### 拟合
 
 1.  `fit` 方法通常接受两个输入。
-2.  样本矩阵（或设计矩阵）X。X的大小通常为(n~samples~, n~features~)，即样本表示为行，特
-    征表示为列。
+2.  样本矩阵（或设计矩阵）X。X的大小通常为（n_samples, n_features），即样本表示
+    为行，特征表示为列。
 3.  目标值y是回归任务的实数，或用于分类的整数（或其他任何离散值得的集）。对于无监
     督学习任务，无需明确y。
 4.  y通常是一维数组，其中第i项对应于X的第i个样本（行）的目标。
@@ -314,8 +314,8 @@ library(reticulate)
 
 1.  机器学习工作流通常由不同的部分组成。
 2.  一条典型的管线包括一个转换或插补数据的预处理步骤和一个预测目标值的最终预测量。
-3.  在scikit-learn中，预处理器和转换器都遵循与估计器对象相同的API（实际上它们都继
-    承自相同的 `BaseEstimator` 类）。
+3.  在scikit-learn中，预处理器和转换器都遵循与估计器对象相同的API（实际上它们都
+    继承自相同的 `BaseEstimator` 类）。
 4.  转换器对象没有 `predict` 方法，而有一个输出新转换的样本矩阵X的 `transform` 
     方法。
 5.  针对不同特征应用不同转换：`ColumnTransformer` 正是为这些用例设计的。
@@ -392,14 +392,14 @@ result['test_score']  # r_squared score is high because dataset is easy
 
 1.  所有的估计器都有可以调整的参数（文献中常称为超参数）。
 2.  估计器的泛化能力通常取决于几个参数。
-3.  例如，`RandomForestRegressor` 有一个 n~estimators~ 参数，用于确定林中树
-    的数目，以及一个 max~depth~参数，用于确定每棵树的最大深度。
+3.  例如，`RandomForestRegressor` 有一个 `n_estimators` 参数，用于确定林中树
+    的数目，以及一个 `max_depth` 参数，用于确定每棵树的最大深度。
 4.  通常，这些参数的确切值应该是多少是不明确的，因为它们取决于现有的数据。
 5.  Scikit-learn提供了自动找到最佳参数组合的工具（通过交叉验证）。
 
 ### 例子
 
-1.  在下面的例子中，我们使用`RandomizedSearchCV` 对象随机搜索随机森林的参数空间。
+1.  在下面的例子中，我们使用 `RandomizedSearchCV` 对象随机搜索随机森林的参数空间。
 2.  当搜索完成时，`RandomizedSearchCV` 表现得像已经拟合了最佳参数集的
     `RandomForestRegressor`。
 
@@ -437,7 +437,7 @@ search.score(X_test, y_test)
 3.  核岭回归
 4.  支持向量机
 5.  随机梯度下降
-6.  最近的邻居
+6.  最佳近邻
 7.  高斯过程
 8.  交叉分解
 9.  朴素贝叶斯
