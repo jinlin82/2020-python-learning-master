@@ -563,14 +563,14 @@ plt.show()
 ### 方法
 
   -------------------------------- --------------------------------------------------------------------
-  fit(self, X[, y])                计算k-means聚类
-  fit_predict(self, X[, y])        计算每个样本的聚类中心并预测聚类索引
-  fit_transform(self, X[, y])      计算聚类并将X转换为聚类距离空间
-  get_params(self[, deep])         获取这个估计器的参数。
-  predict(self, X)                 预测X中每个样本所属于的最近的聚类
-  score(self, X[, y])              k均值目标上的X的相反值
-  set_params(self, **params)       设置估计器的参数
-  transform(self, X)               将X转换为聚类距离空间
+  `fit(self, X[, y])`                计算k-means聚类
+  `fit_predict(self, X[, y])`        计算每个样本的聚类中心并预测聚类索引
+  `fit_transform(self, X[, y])`      计算聚类并将X转换为聚类距离空间
+  `get_params(self[, deep])`         获取这个估计器的参数。
+  `predict(self, X)`                 预测X中每个样本所属于的最近的聚类
+  `score(self, X[, y])`              k均值目标上的X的相反值
+  `set_params(self, **params)`       设置估计器的参数
+  `transform(self, X)`               将X转换为聚类距离空间
   -------------------------------- --------------------------------------------------------------------
 
 ### 例子1
