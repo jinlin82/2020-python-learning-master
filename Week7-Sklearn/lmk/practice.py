@@ -24,7 +24,7 @@ clf.predict(digits.data[-1:])
 
 # 将 `RandomForestClassifier` 与数据匹配
 from sklearn.ensemble import RandomForestClassifier
-cl=RandomForestClassifier(random_state=0)
+clf=RandomForestClassifier(random_state=0)
 X=[[1,2,3],
    [11,12,13]] # 2 samples, 3 features
 y=[0,1] # classes of each sample
@@ -246,7 +246,7 @@ ss=ShuffleSplit(n_splits=5,test_size=0.25,random_state=0)
 for train_index,test_index in ss.split(X):
     print("%s %s" % (train_index,test_index))
 
-# dummy estimators
+# dummy estimators 虚拟估计量
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 X,y=load_iris(return_X_y=True)
@@ -310,7 +310,7 @@ valid_scores
 # 可视化
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-from sklearn.metrics import plot_roc_curve ### 无法导入
+from sklearn.metrics import plot_roc_curve
 from sklearn.datasets import load_wine
 
 X,y=load_wine(return_X_y=True)
@@ -403,7 +403,7 @@ combined.set_params(kernel_pca='drop')
 # feature extraction
 measurements=[{'city':'Dubai','temperature':33.},
               {'city':'London','temperature':12.},
-              {'city':'San Francisco','temperature':18.},] # “城市”是分类属性，“温度”是传统的数值特征
+              {'city':'San Francisco','temperature':18.}] # “城市”是分类属性，“温度”是传统的数值特征
 from sklearn.feature_extraction import DictVectorizer
 vec=DictVectorizer()
 
@@ -491,7 +491,7 @@ normalizer.transform(X)
 normalizer.transform([[-1.,1.,0.]])
 
 # 分类属性编码
-enc=preprocessing.OrdinalEncoder()
+enc=preprocessing.OrdinalEncoder() # 将分类特征编码为整数组
 X=[['male','from US','uses Safari'],['female','from Europe','uses Firefox']]
 enc.fit(X)
 enc.transform([['female','from US','uses Safari']])
@@ -532,7 +532,7 @@ est=preprocessing.KBinsDiscretizer(n_bins=[3,2,2],encode='ordinal').fit(X)
 
 est.transform(X)
 
-# feature binarization
+# feature binarization 特征二值化
 from sklearn import preprocessing
 import numpy as np
 
@@ -547,7 +547,7 @@ binarizer.transform(X)
 binarizer=preprocessing.Binarizer(threshold=1.1)
 binarizer.transform(X)
 
-# generating polynomial features
+# generating polynomial features 生成多项式特征
 import numpy as np
 from sklearn.preprocessing import PolynomialFeatures
 X=np.arange(6).reshape(3,2)
@@ -562,7 +562,7 @@ X
 poly=PolynomialFeatures(degree=3,interaction_only=True)
 poly.fit_transform(X)
 
-# custom transformers
+# custom transformers 定制变压器
 import numpy as np
 from sklearn.preprocessing import FunctionTransformer
 
@@ -570,7 +570,7 @@ transformer=FunctionTransformer(np.log1p,validate=True)
 X=np.array([[0,1],[2,3]])
 transformer.transform(X)
 
-# 单变量特征差补
+# 单变量特征插补
 ## replace missing values, encoded as np.nan, using the mean
 import numpy as np
 from sklearn.impute import SimpleImputer
@@ -592,14 +592,14 @@ print(imp.fit_transform(df))
 
 # 近邻插补
 import numpy as np
-from sklearn.impute import KNNImputer ### 无法导入
+from sklearn.impute import KNNImputer
 
 nan=np.nan
 X=[[1,2,nan],[3,4,3],[nan,6,5],[8,8,7]]
 imputer=KNNImputer(n_neighbors=2,weights='uniform')
 imputer.fit_transform(X)
 
-# marking imputed values
+# marking imputed values 标记估算值
 from sklearn.impute import MissingIndicator
 X=np.array([[-1, -1, 1, 3],
             [ 4, -1, 0,-1],
