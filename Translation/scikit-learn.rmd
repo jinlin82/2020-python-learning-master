@@ -2083,7 +2083,7 @@ transformer.transform(X)
 1.  `SimpleImputer` 类提供了对缺失值进行插补的基本策略。
 2.  缺失值可以用提供的常量值进行插补，也可以使用缺失值所在列的统计数据（平均数、中位数或众数）进行插补。
 3.  这个类还允许不同的缺失值编码
-4.  当使用 **\'most~frequent~\'** 或 **\'constant\'** 策略时，`SimpleImputer` 类还支持以字符串值或pandas类别表示的分类数据。
+4.  当使用 `most_frequent`或 `constant` 策略时，`SimpleImputer` 类还支持以字符串值或pandas类别表示的分类数据。
 
 ### 例子
 
@@ -2112,7 +2112,7 @@ print(imp.fit_transform(df))
 
 1.  一种更为复杂的方法是使用“iterativeinputter”类，该类将每个特征的缺失值建模为其他特征的函数，并将该估计值用于插补。
 2.  它以循环循环的方式进行：在每一步，一个特征列被指定为输出y，其他特征列被视为输入X。一个回归函数适合于已知y的（X，y）。然后，使用回归器预测y的缺失值。
-3.  这是以迭代方式对每个特征进行的，然后在**max~iter~**插补轮中重复进行。返回最后一轮插补的结果。
+3.  这是以迭代方式对每个特征进行的，然后在`max_iter`插补轮中重复进行。返回最后一轮插补的结果。
 
 ### 迭代输入的灵活性
 
@@ -2131,13 +2131,13 @@ print(imp.fit_transform(df))
 
 1.  我们实现`IterativeImputer`的灵感来自R MICE软件包（通过链式方程进行多元插补）
 2.  但与之不同的是，它返回一个插补而不是多个插补。
-3.  但是，当**sample~posterior~=True**时，`IterativeImputer`也可以用于多个插补，方法是在同一个数据集上重复使用不同的随机种子。
+3.  但是，当`sample_posterior=True`时，`IterativeImputer`也可以用于多个插补，方法是在同一个数据集上重复使用不同的随机种子。
 
 ### 近邻插补
 
 1.  `KNNImputer` 类提供了使用k-最近邻方法填充缺失值的插补。
-2.  默认情况下，使用支持缺失值的欧几里得距离度量**nan~euclideandInstances~**，来查找最邻近的值。
-3.  每个缺失的特征都是使用 **n~neighbors~**个具有该特征值的最邻近的值来估算的。
+2.  默认情况下，使用支持缺失值的欧几里得距离度量`nan_euclideandInstances`，来查找最邻近的值。
+3.  每个缺失的特征都是使用 `n_neighbors`个具有该特征值的最邻近的值来估算的。
 4.  邻域的特征被均匀地平均化或按到每个邻域的距离加权。
 5.  如果一个样本有一个以上的特征缺失，那么该样本的邻域可以根据被插补的特定特征而不同。
 
@@ -2160,13 +2160,13 @@ imputer.fit_transform(X)
 1.  `MissingIndicator` 转换器可用于将数据集转换为相应的二进制矩阵，指示数据集中是否存在缺失值。
 2.  这种转换与插补结合使用是有用的。
 3.  在使用插补时，保留关于哪些值丢失的信息可以提供信息。
-4.  注意 `SimpleImputer` and `IterativeImputer` 都有布尔参数**add~indicator~** （默认为False），当设置为True时，可以方便地将 `MissingIndicator` 转换器的输出与输入器的输出叠加起来。
+4.  注意 `SimpleImputer` and `IterativeImputer` 都有布尔参数`add_indicator`（默认为False），当设置为True时，可以方便地将 `MissingIndicator` 转换器的输出与输入器的输出叠加起来。
 
 ### 标记估算值
 
 1.  `NaN` 通常用作missing的占位符值。但是，它强制数据类型为float。参数
-    **missing~values~** 允许指定其他占位符，如integer。在下面的示例中，我们将使用-1作为缺失值。
-2.  `features` 参数用于选择为其构造掩码的功能。默认情况下，它是 **\'missing-only\'**，它会在拟合时返回包含缺失值的要素的不适当掩码。
+    `missing_values` 允许指定其他占位符，如integer。在下面的示例中，我们将使用-1作为缺失值。
+2.  `features` 参数用于选择为其构造掩码的功能。默认情况下，它是 `missing-only`，它会在拟合时返回包含缺失值的要素的不适当掩码。
 
 ### 例子
 
@@ -2198,7 +2198,7 @@ indicator.features_
 
 2.  随机投影
 
-    -   模块: **random~projection~** 提供了几种通过随机投影进行数据缩减的工具。
+    -   模块: `random_projection` 提供了几种通过随机投影进行数据缩减的工具。
 
 3.  特征聚集
 
@@ -2208,7 +2208,7 @@ indicator.features_
 
 ### 简介
 
-1.  **sklearn.random~projection~** 模块实现了一种简单且计算效率高的方法来降低数据的维数，方法是以可控精度（作为附加方差）换取更快的处理时间和更小的模型大小。
+1.  `sklearn.random_projection` 模块实现了一种简单且计算效率高的方法来降低数据的维数，方法是以可控精度（作为附加方差）换取更快的处理时间和更小的模型大小。
 2.  该模块实现了两类非结构化随机矩阵：高斯随机矩阵和稀疏随机矩阵。
 3.  控制随机投影矩阵的维数和分布，以保持数据集任意两个样本之间的成对距离。因此，随机投影是一种适合于基于距离的方法的近似技术。
 
@@ -2235,12 +2235,11 @@ $$
 $$
     Y = \frac{1}{\sqrt{k}}XR
 $$ 
-这样我们的输出数据集Y有n行k列。
+这样我们的输出数据集Y，有n行k列。
 
-标量scalar $1/\sqrt{k}$ 确保新低维空间中任意两点之间的欧几里德距离非常接近
-原始高维空间中相同点之间的距离，具有很高的概率。
+标量 ${1}/{\sqrt{k}}$ 确保新低维空间中任意两点之间的欧几里德距离非常接近原始高维空间中相同点之间的距离，具有很高的概率。
 
--   **sklearn.random~projection~.GaussianRandomProjection** 通过将原始输入空间投影到一个随机生成的矩阵上，在这个矩阵中，组件是从以下分布 $N(0, \frac{1}{n_{components}})$ 中提取的，从而降低了维数。
+-   `sklearn.random_projection.GaussianRandomProjection` 通过将原始输入空间投影到一个随机生成的矩阵上，在这个矩阵中，组件是从以下分布 $N(0, \frac{1}{n_{components}})$ 中提取的，从而降低了维数。
 
 ### 例子
 
@@ -2280,7 +2279,7 @@ X_new.shape
 
 1.  这些是不打算在功能上使用的转换器，仅在有监督的学习目标上使用。
 2.  `LabelBinarizer` 是一个实用程序类，用于帮助从多类标签列表创建标签指示符矩阵。
-3.  `LabelEncoder` 是一个实用程序类，用于帮助规范化标签，使其仅包含0到n~类~1之间的值。
+3.  `LabelEncoder` 是一个实用程序类，用于帮助规范化标签，使其仅包含0到n_类_1之间的值。
 
 # 数据集导入
 
@@ -2288,7 +2287,7 @@ X_new.shape
 
 1.  sklearn.datasets包中嵌入了一些小的toy数据集。
 2.  这个软件包还提供了帮助程序来获取更大的数据集，这些数据集通常被机器学习社区用来对来自“真实世界”的数据进行算法基准测试。
-3.  为了评估数据集规模 (n~samples~ and n~features~) 的影响，同时控制数据的统计特性（通常是特征的相关性和信息性），还可以生成合成数据。
+3.  为了评估数据集规模 (`n_samples`和`n_features`) 的影响，同时控制数据的统计特性（通常是特征的相关性和信息性），还可以生成合成数据。
 
 ## 通用数据集API
 
@@ -2296,19 +2295,19 @@ X_new.shape
 
 1.  数据集加载器。 它们可用于加载小的标准数据集，如“toy数据集”部分所述。
 2.  数据集获取器。它们可用于下载和加载更大的数据集，如“真实世界”数据集部分所述。
-3.  loader和fetchers函数都返回一个类似字典的对象，其中至少包含两个项：一个shape **n~samples~ \*n~features~** 的数组，键为`data`（20个新闻组除外）。
-4.  以及一个长度为**n~samples~**，包含目标值的numpy数组，键为 `target`。
+3.  loader和fetchers函数都返回一个类似字典的对象，其中至少包含两个项：一个 `n_samples`，`n_features`的数组，键为`data`（20个新闻组除外）。
+4.  以及一个长度为`n_samples`，包含目标值的numpy数组，键为 `target` 。
 
 ### 加载与获取
 
-1.  通过将**return~Xy~**参数设置为True，几乎所有这些函数都可以将输出约束为只包含数据和目标的元组。
-2.  数据集的`DESCR`属性中也包含完整的描述，有些数据集包含 **feature~names~** 和 **target~names~**.
+1.  通过将`return_Xy`参数设置为True，几乎所有这些函数都可以将输出约束为只包含数据和目标的元组。
+2.  数据集的`DESCR`属性中也包含完整的描述，有些数据集包含 `feature_names` 和 `target_names`。
     有关详细信息，请参阅下面的数据集说明。
 
 ### 数据集生成函数
 
 1.  数据集生成函数。它们可用于生成受控合成数据集，如生成数据集部分所述。
-2.  这些函数返回一个`tuple (X, y)` 由一个 **n~samples~\* n~features~** numpy数组X和一个包含目标y的长度为**n~samples~**的数组组成。
+2.  这些函数返回一个`tuple (X, y)` 由一个 `n_samples`，`n_features` numpy数组X和一个包含目标y的长度为`n_samples`的数组组成。
 
 ### Toy数据集
 
@@ -2317,13 +2316,13 @@ X_new.shape
 3.  可以使用以下函数加载它们：
 
   ---------------------- -----------------------------------------------------------------------
-  load~boston~()         加载并返回boston house-prices数据集(回归)
-  load~iris~()           加载并返回iris数据集(分类)
-  load~diabetes~()       加载并返回diabetes数据集(回归)
-  load~digits~()         加载并返回digits数据集(分类)
-  load~linnerud~()       加载并返回linnerud数据集(多元回归)
-  load~wine~()           加载并返回wine数据集(分类)
-  load~breastcancer~()   加载并返回breast cancer wisconsin数据集(分类)
+  `load_boston()`        加载并返回boston house-prices数据集(回归)
+  `load_iris()`          加载并返回iris数据集(分类)
+  `load_diabetes()`      加载并返回diabetes数据集(回归)
+  `load_digits()`        加载并返回digits数据集(分类)
+  `load_linnerud()`      加载并返回linnerud数据集(多元回归)
+  `load_wine()`          加载并返回wine数据集(分类)
+  `load_breastcancer()`  加载并返回breast cancer wisconsin数据集(分类)
   ---------------------- -----------------------------------------------------------------------
 
 ### Real world数据集
@@ -2332,15 +2331,15 @@ X_new.shape
 2.  可以使用以下函数加载它们：
 
   ------------------------------------- -------------------------------------------------------------------------------------
-  fetch~olivettifaces~                  从AT&T加载Olivetti faces数据集 (分类)
-  fetch~20newsgroups~                   从20个新闻组数据集中加载文件名和数据（分类）
-  fetch~20newsgroupsvectorized~         加载20个新闻组数据集并将其矢量化为令牌计数（分类）
-  fetch~lfwpeople~                      在Wild（LFW）people数据集中加载带标签的人脸（分类）
-  fetch~lfwpairs~                       在Wild（LFW）pairs数据集中加载带标签的面（分类）
-  fetch~covtype~(\[data~home~, ...\])   加载covertype数据集（分类）
-  fetch~rcv1~                           加载rcv1多标签数据集（分类）
-  fetch~kddcup99~                       加载kddcup99数据集（分类）
-  fetch~californiahousing~              加载加利福尼亚住房数据集（回归）
+  `fetch_olivettifaces`                 从AT&T加载Olivetti faces数据集 (分类)
+  `fetch_20newsgroups`                  从20个新闻组数据集中加载文件名和数据（分类）
+  `fetch_20newsgroupsvectorized`        加载20个新闻组数据集并将其矢量化为令牌计数（分类）
+  `fetch_lfwpeople`                     在Wild（LFW）people数据集中加载带标签的人脸（分类）
+  `fetch_lfwpairs`                      在Wild（LFW）pairs数据集中加载带标签的面（分类）
+  `fetch_covtype(data_home, ...)`       加载covertype数据集（分类）
+  `fetch_rcv1`                          加载rcv1多标签数据集（分类）
+  `fetch_kddcup99`                      加载kddcup99数据集（分类）
+  `fetch_californiahousing`             加载加利福尼亚住房数据集（回归）
   ------------------------------------- -------------------------------------------------------------------------------------
 
 ## 生成的数据集
@@ -2349,39 +2348,38 @@ X_new.shape
 
 1.  scikit-learn 包括各种随机样本生成器，可用于构建大小和复杂度可控的人工数据集。
 2.  这些生成器生成特征矩阵和相应的离散目标。
-3.  单标签: **make~blobs~**和**make~classification~**通过为每个类分配一个或多个正态分布的点簇来创建多类数据集。
-4.  多标签: **make~multilabelclassification~** 生成带有多个标签的随机样本，反映出从多个主题混合而来的单词。
+3.  单标签: `make_blobs`和`make_classification`通过为每个类分配一个或多个正态分布的点簇来创建多类数据集。
+4.  多标签: `make_multilabelclassification` 生成带有多个标签的随机样本，反映出从多个主题混合而来的单词。
 5.  双聚类:
 
+  
   ------------------------------------------------------ ----------------------------------------------------------------------------
-  make~biclusters~(shape, n~clusters~\[, noise, ...\])   
-  生成一个具有恒定块对角结构的数组以进行双聚类。
-  make~checkerboard~(shape, n~clusters~\[, ...\])        
-  生成一个具有分块棋盘结构的数组用于双聚类。
+  `make_biclusters(shape, n_clusters, noise, ...)`       生成一个具有恒定块对角结构的数组以进行双聚类
+  `make_checkerboard(shape, n_clusters, ...)`            生成一个具有分块棋盘结构的数组用于双聚类
   ------------------------------------------------------ ----------------------------------------------------------------------------
-
 
 ### Generators for regression
 
-1.  **make~regression~** 将生成随机特征的可选稀疏随机线性组合（带有噪声）作为回归目标。
+1.  `make_regression` 将生成随机特征的可选稀疏随机线性组合（带有噪声）作为回归目标。
 2.  它的信息特征可能是不相关的，或者等级较低（很少的特征可以解释大部分的方差）。
 
 ### 多种学习生成器
-
   ------------------------------------------------------- -------------------------------
-  make~scurve~(\[n~samples~, noise, random~state~\])      生成S曲线数据集
-  make~swissroll~(\[n~samples~, noise, random~state~\])   生成swiss滚动数据集
+  `make_scurve(n_samples, noise, random_state)`           生成S曲线数据集
+  `make_swissroll(n_samples, noise, random_state)`        生成swiss滚动数据集
   ------------------------------------------------------- -------------------------------
+  
 
 
 ### 分解生成器
 
   --------------------------------------------------- --------------------------------------------------------------------
-  make~lowrankmatrix~(\[n~samples~, ...\])            生成具有钟形奇异值的低秩矩阵
-  make~sparsecodedsignal~(n~samples~, ...\[, ...\])   生成一个作为字典元素稀疏组合的信号
-  make~spdmatrix~(n~dim~\[, random~state~\])          生成一个随机对称正定矩阵
-  make~sparsespdmatrix~(\[dim, alpha, ...\])          生成稀疏对称正定矩阵
+  `make_lowrankmatrix(n_samples, ...)`                生成具有钟形奇异值的低秩矩阵
+  `make_sparsecodedsignal(n_samples, ...)`            生成一个作为字典元素稀疏组合的信号
+  `make_spdmatrix(n_dim, random_state)`               生成一个随机对称正定矩阵
+  `make_sparsespdmatrix(dim, alpha, ...)`             生成稀疏对称正定矩阵
   --------------------------------------------------- --------------------------------------------------------------------
+
 
 ## 下载其他数据集
 
@@ -2391,8 +2389,8 @@ X_new.shape
 2.  这些图像可以用来测试算法和二维数据的流水线。
 
   -------------------------------- -----------------------------------------------
-  load~sampleimages~()             加载示例图像以进行图像处理
-  load~sampleimage~(image~name~)   加载单个示例图像的numpy数组
+  `load_sampleimages()`            加载示例图像以进行图像处理
+  `load_sampleimage(image_name)`   加载单个示例图像的numpy数组
   -------------------------------- -----------------------------------------------
 
 ### svmlight/libsvm 格式的数据集
@@ -2408,7 +2406,7 @@ X_new.shape
 ### 从openml.org网站存储库下载数据集
 
 1.  [openml.org](https://www.openml.org) 是一个用于机器学习数据和实验的公共存储库，允许每个人上传开放的数据集。
-2.  sklearn.datasets包能够使用函数**sklearn.datasets.fetch~openml~**从存储库下载数据集。
+2.  sklearn.datasets包能够使用函数`sklearn.datasets.fetch_openml`从存储库下载数据集。
 3.  要完全指定数据集，需要提供名称和版本，但版本是可选的。
 4.  通过查看`DESCR` 和 `details` 属性，可以获得有关数据集的更多信息。
 
@@ -2436,13 +2434,13 @@ mice.url
     1.  `pandas.io` 提供从常见格式（包括CSV、Excel、JSON和SQL）读取数据的工具。
     2.  `scipy.io` 专门研究科学计算环境中常用的二进制格式，如.mat和.arff。
     3.  `numpy/routines.io` 用于将列式数据标准加载到numpy数组中。
-    4.  scikit-learn中 **datasets.load~svmlightfile~** 用于svmlight或libSVM稀疏格式
-    5.  scikit-learn中 **datasets.load~files~** 用于文本文件的目录，其中每个目录的名称是每个类别的名称，每个目录中的每个文件对应于该类别中的一个示例。
+    4.  scikit-learn中 `datasets.load_svmlightfile` 用于svmlight或libSVM稀疏格式
+    5.  scikit-learn中 `datasets.load_files` 用于文本文件的目录，其中每个目录的名称是每个类别的名称，每个目录中的每个文件对应于该类别中的一个示例。
 
 ### 图像、视频和音频文件
 
 1.  对于一些其他数据，如图像、视频和音频，您可能希望参考：
-    1.  `skimage.io`或 Imageio 用于将图像和视频加载到numpy数组中。
+    1.  `skimage.io`或 `Imageio` 用于将图像和视频加载到numpy数组中。
     2.  `scipy.io.wavfile.read` 用于将WAV文件读入numpy数组。
 2.  分类（或名义）特征存储为字符串 (常见于pandas DataFrames) 将需要转换为数字特征使用 `sklearn.preprocessing.OneHotEncoder` 或 `sklearn.preprocessing.OrdinalEncoder` 或其他类似的。
 
