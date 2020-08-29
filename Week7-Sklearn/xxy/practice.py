@@ -91,7 +91,7 @@ search.fit(X_train, y_train)
 search.best_params_
 # the search object now acts like a normal random forest estimator
 # with max_depth=9 and n_estimators=4
-search.score(X_test, y_test)
+search.score(X_test, y_test)##评价指标
 
 
 import numpy as np
@@ -376,8 +376,8 @@ rfc_disp = plot_roc_curve(rfc, X_test, y_test, ax=ax, alpha=0.8)##边缘直线(r
 svc_disp.plot(ax=ax, alpha=0.8)##梯形图(svc)
 ##AUC？？
 
-
-##管道
+##dir(a)查看所有属性和方法
+##管道pipeline
 # 管道的估计器以列表的形式存储在steps属性中，但是可以通过索引或通过索引访问管道
 pipe.steps[0]
 pipe[0]
@@ -471,6 +471,9 @@ X_test = [[-1., 1., 0.]]
 scaler.transform(X_test)
 ##按照X_scaled标准化处理
 
+##算法(fit/score/predict)函数 小写(scale)
+#转化器transformer(fit/transform)大写（StandardScaler)
+
 X_std=(X-X.min(axis=0))/(X.max(axis=0)-X.min(axis=0))##行
 X_scaled=X_std*(X.max(axis=0)-X.min(axis=0))+X.min(axis=0)##X
 X_scaled = X_std * (max - min) + min##error??
@@ -486,7 +489,7 @@ X_test = np.array([[-3., -1.,  4.]])
 X_test_minmax = min_max_scaler.transform(X_test)
 X_test_minmax##怎么转化？？
 
-min_max_scaler.scale_
+min_max_scaler.scale_##转化的中间值
 min_max_scaler.min_
 
 from sklearn.datasets import load_iris
@@ -504,7 +507,7 @@ X_lognormal = np.random.RandomState(616).lognormal(size=(3, 3))
 X_lognormal
 pt.fit_transform(X_lognormal)
 
-quantile_transformer = preprocessing.QuantileTransformer(output_distribution='normal'，random_state=0)
+quantile_transformer = preprocessing.QuantileTransformer(output_distribution='normal',random_state=0)
 X_trans = quantile_transformer.fit_transform(X)
 quantile_transformer.quantiles_
 
@@ -526,6 +529,7 @@ normalizer.transform([[-1.,  1., 0.]])
 ##对[-1,1,0]实施l2处理
 
 # 将分类特征转换为整数码
+#虚拟变量
 enc = preprocessing.OrdinalEncoder()
 X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
 enc.fit(X)
@@ -546,7 +550,7 @@ enc = preprocessing.OneHotEncoder(categories=[genders, locations, browsers])
 X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
 enc.fit(X)
 enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
-##与locations对应1(2/4/4)
+##与genders/locations/browsers对应1(2/4/4)
 
 X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
 drop_enc = preprocessing.OneHotEncoder(drop='first').fit(X)
